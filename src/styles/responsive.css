@@ -1,0 +1,292 @@
+/**
+ * ============================================================================
+ * RESPONSIVE.CSS - Media Queries e Responsividade
+ * ============================================================================
+ */
+
+/* ============================================================================
+   Tablet (768px e acima, mas menor que 1024px)
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  /* Navigation */
+  .menu-toggle {
+    display: flex;
+  }
+
+  .nav-menu--desktop {
+    display: none;
+  }
+
+  /* Typography */
+  h1 {
+    font-size: var(--font-size-4xl);
+  }
+
+  h2 {
+    font-size: var(--font-size-3xl);
+  }
+
+  h3 {
+    font-size: var(--font-size-2xl);
+  }
+
+  /* Hero */
+  .hero {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
+    padding: var(--spacing-2xl) 0;
+  }
+
+  .hero-title {
+    font-size: var(--font-size-3xl);
+  }
+
+  .hero-subtitle {
+    font-size: var(--font-size-base);
+  }
+
+  .hero-cta {
+    flex-wrap: wrap;
+  }
+
+  /* Features Grid */
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+
+  /* Project Card */
+  .project-card {
+    grid-template-columns: 1fr;
+  }
+
+  .project-image {
+    height: 300px;
+  }
+
+  .project-content {
+    padding: var(--spacing-lg);
+  }
+
+  /* Contact */
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
+  }
+
+  /* Carousel buttons */
+  .carousel-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .carousel-btn--prev {
+    left: var(--spacing-sm);
+  }
+
+  .carousel-btn--next {
+    right: var(--spacing-sm);
+  }
+
+  /* Sections */
+  .features,
+  .projects,
+  .about,
+  .contact {
+    padding: var(--spacing-2xl) 0;
+  }
+
+  .section-title {
+    margin-bottom: var(--spacing-2xl);
+  }
+}
+
+/* ============================================================================
+   Mobile (menor que 640px)
+   ============================================================================ */
+
+@media (max-width: 640px) {
+  :root {
+    --spacing-md: 0.75rem;
+    --spacing-lg: 1rem;
+    --spacing-xl: 1.5rem;
+    --spacing-2xl: 2rem;
+    --spacing-3xl: 2.5rem;
+  }
+
+  /* Container */
+  .container {
+    padding: 0 var(--spacing-md);
+  }
+
+  /* Typography */
+  body {
+    font-size: var(--font-size-sm);
+  }
+
+  h1 {
+    font-size: var(--font-size-3xl);
+  }
+
+  h2 {
+    font-size: var(--font-size-2xl);
+  }
+
+  h3 {
+    font-size: var(--font-size-xl);
+  }
+
+  /* Header */
+  .navbar {
+    padding: var(--spacing-md) 0;
+  }
+
+  .logo {
+    font-size: var(--font-size-lg);
+  }
+
+  /* Hero */
+  .hero {
+    gap: var(--spacing-lg);
+    padding: var(--spacing-xl) 0;
+  }
+
+  .hero-title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .hero-subtitle {
+    font-size: var(--font-size-sm);
+  }
+
+  .hero-cta {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  /* Features */
+  .features-grid {
+    gap: var(--spacing-md);
+  }
+
+  .feature-card {
+    padding: var(--spacing-lg);
+  }
+
+  /* Contact Form */
+  .contact-form {
+    padding: var(--spacing-lg);
+  }
+
+  input,
+  textarea {
+    padding: var(--spacing-md);
+  }
+
+  /* About stats */
+  .about-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Section */
+  .section-title {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .features,
+  .projects,
+  .about,
+  .contact {
+    padding: var(--spacing-xl) 0;
+  }
+
+  /* Footer */
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+
+  .footer {
+    padding: var(--spacing-xl) 0 var(--spacing-lg);
+  }
+}
+
+/* ============================================================================
+   Print Styles
+   ============================================================================ */
+
+@media print {
+  .header,
+  .footer,
+  .hero-cta,
+  .carousel-btn,
+  .menu-toggle,
+  .contact-form {
+    display: none;
+  }
+
+  body {
+    font-size: 12pt;
+    color: black;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  section {
+    page-break-inside: avoid;
+  }
+}
+
+/* ============================================================================
+   Preferências de Usuário
+   ============================================================================ */
+
+/* Respeita preferência de movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Modo escuro (se preferido) */
+@media (prefers-color-scheme: dark) {
+  /* Você pode adicionar ajustes de tema escuro aqui se desejar */
+}
+
+/* Alta contraste */
+@media (prefers-contrast: more) {
+  .btn-secondary {
+    border-width: 3px;
+  }
+
+  .nav-link {
+    text-decoration: underline;
+  }
+}
+
+/* ============================================================================
+   Grandes telas (1200px+)
+   ============================================================================ */
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1280px;
+  }
+
+  .hero {
+    gap: var(--spacing-3xl);
+  }
+
+  .contact-content {
+    gap: var(--spacing-3xl);
+  }
+}

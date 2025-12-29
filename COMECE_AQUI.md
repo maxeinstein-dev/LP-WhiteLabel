@@ -1,61 +1,52 @@
-# 🎯 COMECE AGORA - 3 Passos Simples
+# 🎯 COMECE AQUI - Vanilla JS Edition 🚀
 
-## Você tem uma solução white label profissional pronta! 🎉
+## ✅ Você tem uma Landing Page Professional!
 
-Esta solução foi especialmente estruturada para centralizar toda a customização em um único arquivo, facilitando a criação de landing pages para múltiplos clientes.
+Migrada de React para **100% Vanilla JS** - Performance máxima, zero dependências!
 
 ---
 
-## ⚡ 3 Passos Para Começar (10 minutos)
+## ⚡ 3 Passos Para Começar (5 minutos)
 
-### PASSO 1️⃣ - Abra o arquivo principal
-
-**Local:** `src/config/index.ts`
-
-Este é o **único arquivo** que você precisa editar para customizar tudo!
-
-### PASSO 2️⃣ - Customize os 5 seções principais
-
-```typescript
-// 1. CORES - Suas cores de marca
-export const COLORS = {
-  primary: "#B38B59", // ← MUDE PARA SUA COR
-  // ... outras cores
-};
-
-// 2. FONTES - Google Fonts
-export const TYPOGRAPHY = {
-  googleFontsUrl: "https://...", // ← URL do Google Fonts
-  // ... outras fontes
-};
-
-// 3. CONTEÚDO - Seus textos
-export const CONTENT = {
-  company: { name: "SUA EMPRESA" }, // ← SEUS TEXTOS
-  // ... mais conteúdo
-};
-
-// 4. IMAGENS - Seus assets
-export const ASSETS = {
-  logo: { light: "..." }, // ← SUAS IMAGENS
-  // ... mais assets
-};
-
-// 5. SEO - Para buscadores
-export const SEO = {
-  title: "...", // ← SEUS METADADOS
-  // ... mais SEO
-};
-```
-
-### PASSO 3️⃣ - Teste localmente
+### 1️⃣ Instale (30 seg)
 
 ```bash
 npm install
+```
+
+### 2️⃣ Desenvolva (30 seg)
+
+```bash
 npm run dev
 ```
 
-Abra o navegador em `http://localhost:5173` e veja as mudanças em tempo real! ✨
+Abre em `http://localhost:3000` 🎉
+
+### 3️⃣ Customize (2 min)
+
+Abra este arquivo:
+
+```
+src/config/config.js  ← ÚNICO arquivo a editar!
+```
+
+Altere cores e textos:
+
+```javascript
+// Cores
+export const COLORS = {
+  primary: "#NOVA_COR", // Cor do cliente
+};
+
+// Textos
+export const CONTENT = {
+  company: { name: "Seu Cliente" },
+  hero: { title: "Novo Título" },
+  // ...
+};
+```
+
+**Pronto! Site customizado! 🚀**
 
 ---
 
