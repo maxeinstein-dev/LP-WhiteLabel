@@ -152,7 +152,7 @@ function renderHeader() {
       </div>
 
       <!-- Mobile Menu -->
-      <div class="hidden md:hidden mobile-menu fixed inset-0 bg-black/40 backdrop-blur-md z-40 pt-20" id="mobile-menu" aria-hidden="true">
+      <div class="hidden md:hidden mobile-menu fixed inset-0 bg-black/40 backdrop-blur-md z-40 pt-20" id="mobile-menu">
         <div class="flex items-center justify-end px-6">
           <button id="mobile-menu-close" class="text-white/90 hover:opacity-100 focus:outline-none" aria-label="Fechar menu">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -261,7 +261,7 @@ function renderHeader() {
     if (!mobileMenu) return;
     mobileMenu.classList.remove("hidden");
     mobileMenu.classList.add("open");
-    mobileMenu.setAttribute("aria-hidden", "false");
+    mobileMenu.removeAttribute("inert");
     document.body.classList.add("menu-open");
     toggleBtn?.setAttribute("aria-expanded", "true");
   }
@@ -270,9 +270,11 @@ function renderHeader() {
     if (!mobileMenu) return;
     mobileMenu.classList.remove("open");
     mobileMenu.classList.add("hidden");
-    mobileMenu.setAttribute("aria-hidden", "true");
+    mobileMenu.setAttribute("inert", "");
     document.body.classList.remove("menu-open");
     toggleBtn?.setAttribute("aria-expanded", "false");
+    // Return focus to toggle to avoid focused element inside hidden region
+    toggleBtn?.focus();
   }
 
   // Toggle on button
