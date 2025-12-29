@@ -523,7 +523,9 @@ function renderProjects() {
             <div class="px-3">
               <div class="bg-white shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden h-full flex flex-col group">
                 <div class="relative overflow-hidden">
-                  <span class="absolute top-4 left-4 z-10 px-4 py-2 text-xs font-bold uppercase tracking-wider text-white" style="background-color: ${COLORS.primary}">
+                  <span class="absolute top-4 left-4 z-10 px-4 py-2 text-xs font-bold uppercase tracking-wider text-white" style="background-color: ${
+                    COLORS.primary
+                  }">
                     ${project.status}
                   </span>
                   <img 
@@ -532,14 +534,37 @@ function renderProjects() {
                     loading="lazy"
                     decoding="async"
                     width="800" height="600"
+                    srcset="${(() => {
+                      const url = project.image;
+                      const baseW = 800,
+                        baseH = 600;
+                      const widths = [480, 640, 800, 1024];
+                      return widths
+                        .map(
+                          (w) =>
+                            url
+                              .replace(/w=\\d+/g, `w=${w}`)
+                              .replace(
+                                /h=\\d+/g,
+                                `h=${Math.round((w * baseH) / baseW)}`
+                              ) + ` ${w}w`
+                        )
+                        .join(", ");
+                    })()}"
                     sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
                     class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                 </div>
                 <div class="p-6 flex-grow flex flex-col">
-                  <h3 class="font-serif text-xl font-bold text-secondary mb-2">${project.title}</h3>
-                  <p class="text-gray-600 mb-4 flex-grow">${project.description}</p>
-                  <button class="self-start px-6 py-2 text-white text-sm font-semibold uppercase tracking-wider transition-all hover:opacity-90" style="background-color: ${COLORS.primary}">
+                  <h3 class="font-serif text-xl font-bold text-secondary mb-2">${
+                    project.title
+                  }</h3>
+                  <p class="text-gray-600 mb-4 flex-grow">${
+                    project.description
+                  }</p>
+                  <button class="self-start px-6 py-2 text-white text-sm font-semibold uppercase tracking-wider transition-all hover:opacity-90" style="background-color: ${
+                    COLORS.primary
+                  }">
                     Ver Detalhes
                   </button>
                 </div>
@@ -723,6 +748,23 @@ function renderAbout() {
                 loading="lazy"
                 decoding="async"
                 width="800" height="1000"
+                srcset="${(() => {
+                  const url = CONTENT.about.image;
+                  const baseW = 800,
+                    baseH = 1000;
+                  const widths = [480, 640, 800, 1024];
+                  return widths
+                    .map(
+                      (w) =>
+                        url
+                          .replace(/w=\\d+/g, `w=${w}`)
+                          .replace(
+                            /h=\\d+/g,
+                            `h=${Math.round((w * baseH) / baseW)}`
+                          ) + ` ${w}w`
+                    )
+                    .join(", ");
+                })()}"
                 sizes="(min-width:1024px) 50vw, 100vw"
                 class="w-full h-full object-cover"
               />
