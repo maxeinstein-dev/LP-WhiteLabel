@@ -151,8 +151,8 @@ src/
 
 ## 🎯 Stack
 
-- **Vanilla JavaScript** - Zero frameworks, zero dependências
-- **Tailwind CSS** - Via CDN (sem build necessário)
+- **Vanilla JavaScript** - Zero frameworks, zero dependências em runtime
+- **Tailwind CSS** - Compilado via CLI (sem CDN em produção)
 - **HTML/CSS/JS Puro** - Deploy direto no GitHub Pages
 
 ## 🧪 Testes
@@ -164,10 +164,34 @@ node src/tests.js
 ```
 
 Valida:
+
 - ✅ Cores hexadecimais
 - ✅ URLs de Google Fonts
 - ✅ Estrutura de config
 - ✅ Arrays obrigatórios
+
+## 🧱 Tailwind (produção)
+
+Para evitar o aviso do CDN e usar Tailwind corretamente em produção, gere um CSS estático:
+
+1. Gere o CSS minificado com o Tailwind CLI (não precisa instalar nada, usa npx):
+
+```bash
+npx tailwindcss -i ./src/styles/tailwind.css -o ./src/styles/tw.css --minify
+```
+
+2. Confirme que o `index.html` importa o arquivo gerado:
+
+```html
+<link rel="stylesheet" href="./src/styles/tw.css" />
+```
+
+3. Sempre que mudar HTML/JS (classes Tailwind), rode o comando de build acima novamente.
+
+Arquivos criados:
+
+- `tailwind.config.js` (content aponta para `index.html` e `src/**/*.js`)
+- `src/styles/tailwind.css` (entrada com `@tailwind base; components; utilities;`)
 
 ## 🚀 Deployment
 
@@ -178,7 +202,7 @@ Configure GitHub Pages nas settings do repositório:
 3. **Folder:** `/` (root)
 4. Clique em **Save**
 
-GitHub Pages servirá `index.html` automaticamente. Sem CI/CD necessário!
+GitHub Pages servirá `index.html` + `src/styles/tw.css` automaticamente.
 
 ## ✅ Checklist de Customização
 
