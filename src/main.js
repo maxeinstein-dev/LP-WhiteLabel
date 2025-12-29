@@ -127,14 +127,14 @@ function renderHeader() {
   const navItems = CONTENT.navigation
     .map(
       (item) =>
-        `<a href="${item.href}" class="text-sm uppercase tracking-widest transition-colors font-medium hover-primary nav-link text-white/90">${item.label}</a>`
+        `<a href="${item.href}" class="text-sm uppercase tracking-widest transition-colors font-medium hover-primary nav-link text-white">${item.label}</a>`
     )
     .join("");
 
   const socialIcons = CONTENT.footer.social
     .map(
       (social, index) =>
-        `<a key="${index}" href="${social.href}" class="transition-colors hover-primary social-link text-white/80" aria-label="${social.label}">
+        `<a key="${index}" href="${social.href}" class="transition-colors hover-primary social-link text-white" aria-label="${social.label}" title="${social.label}">
           ${social.icon}
         </a>`
     )
@@ -175,7 +175,7 @@ function renderHeader() {
         COLORS.overlay
       };backdrop-filter:blur(${SETTINGS.ui?.overlayBlurPx ?? 12}px)">
         <div class="flex items-center justify-end px-6">
-          <button id="mobile-menu-close" class="text-white/90 hover:opacity-100 focus:outline-none" aria-label="Fechar menu">
+          <button id="mobile-menu-close" class="text-white hover:opacity-100 focus:outline-none" aria-label="Fechar menu">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>
@@ -185,7 +185,7 @@ function renderHeader() {
           ${CONTENT.navigation
             .map(
               (item) =>
-                `<a href="${item.href}" class="text-lg font-medium text-white/90 hover-primary py-2 border-b border-white/20">${item.label}</a>`
+                `<a href="${item.href}" class="text-lg font-medium text-white hover-primary py-2 border-b border-white/20">${item.label}</a>`
             )
             .join("")}
         </nav>
@@ -217,7 +217,7 @@ function renderHeader() {
           el.classList.add("text-secondary");
         });
         document.querySelectorAll(".nav-link").forEach((el) => {
-          el.classList.remove("text-white/90");
+          el.classList.remove("text-white");
           el.classList.add("text-gray-600");
         });
         document.querySelectorAll(".social-link").forEach((el) => {
@@ -250,7 +250,7 @@ function renderHeader() {
           el.classList.add("text-white");
         });
         document.querySelectorAll(".nav-link").forEach((el) => {
-          el.classList.add("text-white/90");
+          el.classList.add("text-white");
           el.classList.remove("text-gray-600");
         });
         document.querySelectorAll(".social-link").forEach((el) => {
@@ -951,15 +951,15 @@ function renderFooter() {
               ${CONTENT.footer.description}
             </p>
             <div class="flex space-x-4">
-              ${CONTENT.footer.social
-                .map(
-                  (social, index) => `
-                <a key="${index}" href="${social.href}" aria-label="${social.label}" class="w-8 h-8 rounded-full flex items-center justify-center transition-all" style="background-color: ${COLORS.footerIconBg}; color: ${COLORS.gray400}" onmouseover="this.style.backgroundColor='${COLORS.primary}'; this.style.color='${COLORS.white}'" onmouseout="this.style.backgroundColor='${COLORS.footerIconBg}'; this.style.color='${COLORS.gray400}'">
-                  ${social.icon}
-                </a>
-              `
-                )
-                .join("")}
+                ${CONTENT.footer.social
+                  .map(
+                    (social, index) => `
+                    <a key="${index}" href="${social.href}" target="_blank" rel="noopener noreferrer" aria-label="${social.label}" title="${social.label}" class="w-8 h-8 rounded-full flex items-center justify-center transition-all" style="background-color: ${COLORS.gray800}; color: ${COLORS.whiteOpacity90}" onmouseover="this.style.backgroundColor='${COLORS.primary}'; this.style.color='${COLORS.white}'" onmouseout="this.style.backgroundColor='${COLORS.gray800}'; this.style.color='${COLORS.whiteOpacity90}'">
+                      ${social.icon}
+                    </a>
+                  `
+                  )
+                  .join("")}
             </div>
           </div>
 
@@ -1014,7 +1014,7 @@ function renderFooter() {
   }">
                 <img src="${CONTENT.footer.developer.logo}" alt="Logo da ${
     CONTENT.footer.developer.name
-  }" width="48" height="24" class="h-6 w-auto opacity-70 hover:opacity-100 transition-opacity" />
+  }" width="48" height="24" loading="lazy" decoding="async" class="h-6 w-auto opacity-70 hover:opacity-100 transition-opacity" />
               </a>
             </div>
           </div>
@@ -1060,7 +1060,7 @@ function initializeApp() {
     // 4️⃣ INTERATIVIDADE - Ativa scroll suave
     smoothScroll();
 
-    console.log("✅ [App] Inicializado com sucesso!");
+    // App inicializado
   } catch (error) {
     console.error("❌ [App] Erro crítico na inicialização:", error);
 
