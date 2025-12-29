@@ -305,8 +305,8 @@ function renderFeatures() {
             }s">
               <div class="flex flex-col items-center pt-10 pb-4">
                 <div class="w-20 h-20 rounded-full mb-6 flex items-center justify-center group-hover:scale-110 transition-transform" style="background-color: ${
-                  COLORS.primary
-                }22">
+                  COLORS.primaryOpacity22
+                }">
                   <div style="color: ${COLORS.primary}">
                     ${getFeatureIcon(item.icon)}
                   </div>
@@ -397,7 +397,7 @@ function renderProjects() {
       
       #projects .slick-dots li button:before {
         font-size: 12px;
-        color: #CBD5E0;
+        color: ${COLORS.carouselDotDefault};
         opacity: 1;
       }
       
@@ -412,9 +412,9 @@ function renderProjects() {
         width: 50px;
         height: 50px;
         z-index: 10;
-        background-color: white;
+        background-color: ${COLORS.carouselArrowBg};
         border-radius: 50%;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 6px -1px ${COLORS.carouselArrowShadow};
         transition: all 0.3s ease;
       }
       
@@ -434,7 +434,7 @@ function renderProjects() {
       
       #projects .slick-prev:hover:before,
       #projects .slick-next:hover:before {
-        color: white;
+        color: ${COLORS.white};
       }
       
       #projects .slick-prev {
@@ -679,7 +679,9 @@ function renderFooter() {
   const currentYear = new Date().getFullYear();
 
   const footerHTML = `
-    <footer class="text-white pt-16 pb-8 border-t border-gray-800" style="background-color: #2D2D2D">
+    <footer class="text-white pt-16 pb-8 border-t" style="background-color: ${
+      COLORS.footerBackground
+    }; border-color: ${COLORS.borderGray800}">
       <div class="max-w-7xl mx-auto px-6">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
           <!-- Brand -->
@@ -696,7 +698,7 @@ function renderFooter() {
               ${CONTENT.footer.social
                 .map(
                   (social, index) => `
-                <a key="${index}" href="${social.href}" class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white transition-all" style="hover:background-color: ${COLORS.primary}">
+                <a key="${index}" href="${social.href}" class="w-8 h-8 rounded-full flex items-center justify-center transition-all" style="background-color: ${COLORS.footerIconBg}; color: ${COLORS.gray400}" onmouseover="this.style.backgroundColor='${COLORS.primary}'; this.style.color='${COLORS.white}'" onmouseout="this.style.backgroundColor='${COLORS.footerIconBg}'; this.style.color='${COLORS.gray400}'">
                   ${social.icon}
                 </a>
               `

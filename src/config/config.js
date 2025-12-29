@@ -20,14 +20,20 @@ export const COLORS = {
   primary: "#B38B59", // Cor principal (botões, links, destaques)
   primaryDark: "#9A764A", // Cor principal no hover/dark mode
   primaryLight: "#D4A574", // Cor principal clara (backgrounds)
+  primaryOpacity22: "#B38B5938", // Cor principal com 22% de opacidade (para fundos de ícones)
 
   // Cores Secundárias
   secondary: "#1A1A1A", // Cor secundária (textos importantes)
   secondaryLight: "#4B5563", // Cinza médio (textos secundários)
 
+  // Footer e Componentes Escuros
+  footerBackground: "#2D2D2D", // Fundo do footer (cinza escuro)
+  footerIconBg: "#374151", // Fundo dos ícones no footer (gray-800)
+
   // Backgrounds e Superfícies
   background: "#F5F5F5", // Background principal (cinza claro)
   backgroundDark: "#EEEEEE", // Background secundário
+  backgroundLight: "#F9FAFB", // Background muito claro (gray-50)
   surface: "#FFFFFF", // Cards, componentes (branco)
   surfaceDark: "#F9F9F9", // Cards/componentes com fundo alternado
 
@@ -36,6 +42,12 @@ export const COLORS = {
   textLight: "#4B5563", // Texto secundário (cinza)
   textLighter: "#8A92A2", // Texto terciário (cinza claro)
   textInverse: "#FFFFFF", // Texto sobre backgrounds escuros
+
+  // Textos específicos
+  gray400: "#9CA3AF", // Cinza 400 (textos footer)
+  gray500: "#6B7280", // Cinza 500 (textos footer copyright)
+  gray600: "#4B5563", // Cinza 600 (textos nav)
+  gray800: "#1F2937", // Cinza 800 (fundo elementos)
 
   // Estados e Feedback
   success: "#10B981", // Verde (sucesso, confirmação)
@@ -46,6 +58,20 @@ export const COLORS = {
   // Bordas e Divisões
   border: "#E5E7EB", // Cor de borda padrão
   borderLight: "#F3F4F6", // Borda clara
+  borderGray200: "#E5E7EB", // Borda cinza 200
+  borderGray800: "#1F2937", // Borda cinza 800 (footer)
+
+  // Carrossel
+  carouselDotDefault: "#CBD5E0", // Cor padrão dos dots do carrossel
+  carouselArrowBg: "#FFFFFF", // Fundo das setas do carrossel
+  carouselArrowShadow: "rgba(0, 0, 0, 0.1)", // Sombra das setas
+
+  // Whites e transparências
+  white: "#FFFFFF",
+  whiteOpacity30: "rgba(255, 255, 255, 0.3)", // Header scrolled
+  whiteOpacity20: "rgba(255, 255, 255, 0.2)", // Bordas transparentes
+  whiteOpacity80: "rgba(255, 255, 255, 0.8)", // Ícones semi-transparentes
+  whiteOpacity90: "rgba(255, 255, 255, 0.9)", // Links semi-transparentes
 };
 
 // ============================================================================
