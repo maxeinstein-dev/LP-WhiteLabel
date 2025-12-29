@@ -20,7 +20,9 @@ export default defineConfig({
 
   build: {
     target: "esnext",
-    minify: "terser",
+    // ✅ Usa esbuild nativo do Vite (já incluído, sem dependências extras)
+    // esbuild é 10-100x mais rápido que terser e produz código igualmente otimizado
+    minify: true,
 
     // Otimizações de bundle
     rollupOptions: {
