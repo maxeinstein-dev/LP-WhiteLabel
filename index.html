@@ -14,8 +14,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Tailwind CSS via CDN -->
+    <!-- Tailwind CSS via CDN (Development) - Será removido em produção -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- CSS de Produção comentado para dev, será descomentado em build -->
 
     <style>
       .skip-to-main {
@@ -49,7 +51,7 @@
   <body class="bg-white">
     <a href="#main" class="skip-to-main">Ir para conteúdo principal</a>
 
-    <!-- Header/Navegação será renderizado aqui -->
+    <!-- Header e Navegação será renderizado aqui -->
     <header id="header" role="banner"></header>
 
     <!-- Conteúdo Principal será renderizado aqui -->

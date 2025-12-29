@@ -101,20 +101,21 @@ export const CONTENT = {
     description: "Inovação e sustentabilidade em cada projeto",
   },
 
+  // NAVEGAÇÃO
+  navigation: [
+    { id: "features", label: "Diferenciais" },
+    { id: "projects", label: "Projetos" },
+    { id: "about", label: "Sobre" },
+    { id: "contact", label: "Contato" },
+  ],
+
   // SEÇÃO HERO (Capa)
   hero: {
     title: "Soluções Inteligentes para Cidades",
-    titleHighlight: "Modernas",
+    highlight: "Modernas",
     subtitle: "Criamos espaços que conectam pessoas e inovação",
-    ctaPrimary: {
-      label: "Começar Agora",
-      link: "#contact",
-    },
-    ctaSecondary: {
-      label: "Saiba Mais",
-      link: "#features",
-    },
-    backgroundImage:
+    cta: "Começar Agora",
+    image:
       "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&h=600&fit=crop",
     imageAlt: "Arquitetura urbana moderna",
   },
@@ -185,16 +186,11 @@ export const CONTENT = {
   contact: {
     title: "Entre em Contato",
     subtitle: "Estamos prontos para transformar sua visão em realidade",
-    address: "São Paulo, SP - Brasil",
-    phone: "+55 (11) 99999-9999",
-    email: "contato@urbanismo.com",
-    formTitle: "Envie Uma Mensagem",
-    formPlaceholder: {
-      name: "Seu Nome",
-      email: "seu@email.com",
-      phone: "Seu Telefone",
-      message: "Sua Mensagem",
-    },
+    info: [
+      { label: "Localização", value: "São Paulo, SP - Brasil" },
+      { label: "Telefone", value: "(11) 99999-9999" },
+      { label: "E-mail", value: "contato@urbanismo.com" },
+    ],
     submitButton: "Enviar Mensagem",
     successMessage:
       "Mensagem enviada com sucesso! Entraremos em contato em breve.",
@@ -203,11 +199,27 @@ export const CONTENT = {
 
   // SEÇÃO FOOTER
   footer: {
-    copyrightText: "© 2024 URBANISMO. Todos os direitos reservados.",
     links: [
       { label: "Política de Privacidade", href: "/privacy" },
       { label: "Termos de Uso", href: "/terms" },
       { label: "Contato", href: "#contact" },
+    ],
+    social: [
+      {
+        name: "Instagram",
+        url: "https://instagram.com",
+        icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37Z" fill="none" stroke="currentColor" stroke-width="2" /><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" /></svg>',
+      },
+      {
+        name: "Facebook",
+        url: "https://facebook.com",
+        icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a6 6 0 0 0-6 6v3H7v4h2v8h4v-8h3l1-4h-4V8a2 2 0 0 1 2-2h3z" /></svg>',
+      },
+      {
+        name: "LinkedIn",
+        url: "https://linkedin.com",
+        icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z" /><circle cx="4" cy="4" r="2" /></svg>',
+      },
     ],
   },
 };
