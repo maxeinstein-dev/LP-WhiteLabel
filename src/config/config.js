@@ -103,10 +103,10 @@ export const CONTENT = {
 
   // NAVEGAÇÃO
   navigation: [
-    { id: "features", label: "Diferenciais" },
-    { id: "projects", label: "Projetos" },
-    { id: "about", label: "Sobre" },
-    { id: "contact", label: "Contato" },
+    { id: "features", label: "Diferenciais", href: "#features" },
+    { id: "projects", label: "Projetos", href: "#projects" },
+    { id: "about", label: "Sobre", href: "#about" },
+    { id: "contact", label: "Contato", href: "#contact" },
   ],
 
   // SEÇÃO HERO (Capa)
@@ -114,7 +114,14 @@ export const CONTENT = {
     title: "Soluções Inteligentes para Cidades",
     highlight: "Modernas",
     subtitle: "Criamos espaços que conectam pessoas e inovação",
-    cta: "Começar Agora",
+    cta: {
+      label: "Explorar Projetos",
+      link: "#projects",
+    },
+    ctaSecondary: {
+      label: "Falar com Especialista",
+      link: "#contact",
+    },
     image:
       "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&h=600&fit=crop",
     imageAlt: "Arquitetura urbana moderna",
@@ -145,51 +152,101 @@ export const CONTENT = {
   // SEÇÃO DE PROJETOS (Carrossel)
   projects: {
     title: "Nossos Projetos",
+    subtitle: "Cada projeto é único e conta uma história de transformação",
     items: [
       {
-        title: "Projeto Alpha",
-        description: "Complexo residencial premium com 150 unidades",
+        id: 1,
+        title: "Reserva Imperial",
+        description:
+          "Residencial de alto padrão com 120 unidades exclusivas e infraestrutura completa",
+        status: "Em Construção",
+        badge: "Lançamento",
         image:
-          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=400&fit=crop",
-        link: "#",
+          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop",
+        location: "Jardim Europa, São Paulo",
+        size: "180m² a 350m²",
+        year: "2024",
       },
       {
-        title: "Projeto Beta",
-        description: "Centro comercial integrado com espaços verdes",
+        id: 2,
+        title: "Urban Heights",
+        description:
+          "Complexo comercial integrado com conceito de cidade vertical e áreas de convivência",
+        status: "Concluído",
+        badge: "Premiado",
         image:
-          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop",
-        link: "#",
+          "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop",
+        location: "Avenida Paulista, São Paulo",
+        size: "45.000m² de área construída",
+        year: "2023",
       },
       {
-        title: "Projeto Gamma",
-        description: "Parque urbano com infraestrutura inteligente",
+        id: 3,
+        title: "Skyline Penthouse",
+        description:
+          "Coberturas de luxo com vista panorâmica e acabamento premium",
+        status: "Pronto para Morar",
+        badge: "Últimas Unidades",
         image:
-          "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=400&fit=crop",
-        link: "#",
+          "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop",
+        location: "Vila Olímpia, São Paulo",
+        size: "450m² a 800m²",
+        year: "2023",
+      },
+      {
+        id: 4,
+        title: "Eco Village",
+        description:
+          "Condomínio sustentável com energia solar e sistemas de reuso de água",
+        status: "Planejamento",
+        badge: "Sustentável",
+        image:
+          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop",
+        location: "Alphaville, Barueri",
+        size: "200 unidades",
+        year: "2025",
       },
     ],
   },
 
   // SEÇÃO SOBRE
   about: {
-    title: "Sobre Nós",
+    tagline: "NOSSA HISTÓRIA",
+    title: "Mais de 15 Anos Transformando Espaços",
     description:
-      "Com mais de 20 anos de experiência, transformamos cidades através de projetos sustentáveis e inovadores. Nossa equipe multidisciplinar trabalha para criar espaços que melhoram a qualidade de vida das pessoas.",
+      "Somos especialistas em criar projetos que unem design sofisticado, funcionalidade e sustentabilidade. Nossa equipe multidisciplinar trabalha para transformar cada visão em realidade, entregando espaços que inspiram e valorizam.",
     highlights: [
-      { label: "Projetos Realizados", value: "150+" },
-      { label: "Clientes Satisfeitos", value: "500+" },
-      { label: "Anos de Experiência", value: "20+" },
+      "Mais de 15 anos de experiência",
+      "Projetos premiados internacionalmente",
+      "Equipe multidisciplinar especializada",
+      "Compromisso com sustentabilidade",
     ],
+    image:
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=1000&fit=crop",
+    imageAlt: "Projeto arquitetônico moderno",
   },
 
   // SEÇÃO CONTATO
   contact: {
+    tagline: "VAMOS CONVERSAR",
     title: "Entre em Contato",
     subtitle: "Estamos prontos para transformar sua visão em realidade",
     info: [
-      { label: "Localização", value: "São Paulo, SP - Brasil" },
-      { label: "Telefone", value: "(11) 99999-9999" },
-      { label: "E-mail", value: "contato@urbanismo.com" },
+      {
+        label: "Localização",
+        value: "Av. Paulista, 1000 - São Paulo, SP",
+        icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="10" r="3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      },
+      {
+        label: "Telefone",
+        value: "(11) 99999-9999",
+        icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      },
+      {
+        label: "E-mail",
+        value: "contato@urbanismo.com",
+        icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="22,6 12,13 2,6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      },
     ],
     submitButton: "Enviar Mensagem",
     successMessage:
@@ -199,6 +256,9 @@ export const CONTENT = {
 
   // SEÇÃO FOOTER
   footer: {
+    description:
+      "Transformando espaços em experiências únicas através de design inovador e sustentável.",
+    copyright: "URBANISMO. Todos os direitos reservados.",
     links: [
       { label: "Política de Privacidade", href: "/privacy" },
       { label: "Termos de Uso", href: "/terms" },
@@ -207,20 +267,28 @@ export const CONTENT = {
     social: [
       {
         name: "Instagram",
-        url: "https://instagram.com",
+        href: "https://instagram.com",
+        label: "Instagram",
         icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37Z" fill="none" stroke="currentColor" stroke-width="2" /><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" /></svg>',
       },
       {
         name: "Facebook",
-        url: "https://facebook.com",
+        href: "https://facebook.com",
+        label: "Facebook",
         icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a6 6 0 0 0-6 6v3H7v4h2v8h4v-8h3l1-4h-4V8a2 2 0 0 1 2-2h3z" /></svg>',
       },
       {
         name: "LinkedIn",
-        url: "https://linkedin.com",
+        href: "https://linkedin.com",
+        label: "LinkedIn",
         icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z" /><circle cx="4" cy="4" r="2" /></svg>',
       },
     ],
+    developer: {
+      name: "AlfamaWeb",
+      url: "https://alfamaweb.com.br",
+      logo: "https://alfamaweb.com.br/logo.png",
+    },
   },
 };
 

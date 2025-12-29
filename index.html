@@ -20,34 +20,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
+    <!-- Animations CSS -->
+    <link rel="stylesheet" href="./src/styles/animations.css" />
+
     <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <style>
-      .skip-to-main {
-        position: absolute;
-        top: -40px;
-        left: 0;
-        padding: 8px;
-        z-index: 100;
-      }
-      .skip-to-main:focus {
-        top: 0;
-      }
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      .fade-in {
-        animation: fadeIn 0.6s ease-out forwards;
-      }
-    </style>
   </head>
   <body class="bg-white">
     <a href="#main" class="skip-to-main">Ir para conteúdo principal</a>
@@ -56,6 +33,18 @@
     <main id="main" role="main"></main>
     <footer id="footer" role="contentinfo"></footer>
 
-    <script type="module" src="/src/main.js"></script>
+    <!-- jQuery (necessário para Slick Carousel) -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Slick Carousel -->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
+    ></script>
+
+    <script type="module" src="./src/main.js"></script>
   </body>
 </html>

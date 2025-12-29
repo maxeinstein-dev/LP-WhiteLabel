@@ -1,0 +1,64 @@
+/* ============================================================================
+   ANIMATIONS.CSS - Animações para simular Framer Motion
+   ============================================================================ */
+
+/* Skip to main content (acessibilidade) */
+.skip-to-main {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  padding: 8px;
+  z-index: 100;
+  background: #000;
+  color: #fff;
+}
+
+.skip-to-main:focus {
+  top: 0;
+}
+
+/* Fade In (padrão) */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+  animation-delay: 0.2s;
+  opacity: 0;
+}
+
+/* Hover Primary Color */
+.hover-primary:hover {
+  color: var(--primary) !important;
+}
+
+/* Smooth transitions */
+* {
+  transition-property: color, background-color, border-color, opacity;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
+}
+
+/* Header transition override */
+#main-header {
+  transition: all 500ms ease-in-out !important;
+}
+
+/* Card hover effects */
+.group:hover .group-hover\:scale-110 {
+  transform: scale(1.1);
+}
+
+/* Button hover effects */
+button,
+a[class*="px-"] {
+  transition: all 300ms ease;
+}
