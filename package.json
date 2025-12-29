@@ -1,7 +1,7 @@
 {
-  "name": "Urbanismo",
+  "name": "landing-page-white-label",
   "version": "1.0.0",
-  "description": "Fábrica de Landing Pages - Vanilla JS, sem dependências desnecessárias",
+  "description": "Fábrica de Landing Pages White Label - Vanilla JS + Tailwind CSS",
   "private": true,
   "type": "module",
   "dependencies": {},
