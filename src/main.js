@@ -890,9 +890,9 @@ function renderContact() {
                   <input type="tel" name="phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none" placeholder="(00) 00000-0000" />
                 </div>
                 <div>
-                  <label class="block text-sm font-medium text-secondary mb-2">Projeto de Interesse</label>
-                  <select name="project" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none">
-                    <option value="">Selecione</option>
+                  <label for="project-select" class="block text-sm font-medium text-secondary mb-2">Projeto de Interesse</label>
+                  <select id="project-select" name="project" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none">
+                    <option value="">Selecione um projeto</option>
                     ${CONTENT.projects.items
                       .map(
                         (p) => `<option value="${p.title}">${p.title}</option>`

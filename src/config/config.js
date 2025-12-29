@@ -301,26 +301,26 @@ export const CONTENT = {
       {
         name: "Instagram",
         href: "https://instagram.com",
-        label: "Instagram",
+        label: "Siga-nos no Instagram",
         icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37Z" fill="none" stroke="currentColor" stroke-width="2" /><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" /></svg>',
       },
       {
         name: "Facebook",
         href: "https://facebook.com",
-        label: "Facebook",
+        label: "Siga-nos no Facebook",
         icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a6 6 0 0 0-6 6v3H7v4h2v8h4v-8h3l1-4h-4V8a2 2 0 0 1 2-2h3z" /></svg>',
       },
       {
         name: "LinkedIn",
         href: "https://linkedin.com",
-        label: "LinkedIn",
+        label: "Conecte-se no LinkedIn",
         icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z" /><circle cx="4" cy="4" r="2" /></svg>',
       },
     ],
     developer: {
       name: "AlfamaWeb",
       url: "https://alfamaweb.com.br",
-      logo: "https://alfamaweb.com.br/logo.png",
+      logo: "/public/images/logo.png",
     },
   },
 };
