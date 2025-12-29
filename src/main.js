@@ -113,10 +113,15 @@ function injectSEO() {
 // ============================================================================
 
 function injectGoogleFonts() {
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = TYPOGRAPHY.googleFontsUrl;
-  document.head.appendChild(link);
+  // Preload para evitar bloqueio e aplicar stylesheet ao carregar
+  const preload = document.createElement("link");
+  preload.rel = "preload";
+  preload.as = "style";
+  preload.href = TYPOGRAPHY.googleFontsUrl;
+  preload.onload = () => {
+    preload.rel = "stylesheet";
+  };
+  document.head.appendChild(preload);
 
   document.body.style.fontFamily = TYPOGRAPHY.sans;
 }
@@ -146,10 +151,10 @@ function renderHeader() {
     .join("");
 
   header.innerHTML = `
-    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b border-transparent py-6">
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b border-transparent py-6" style="position:fixed;top:0;left:0;right:0;z-index:50;border-bottom:1px solid transparent;padding-top:1.5rem;padding-bottom:1.5rem;background:transparent">
       <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <!-- Logo -->
-        <a href="#hero" class="text-2xl font-serif font-bold tracking-tight transition-colors logo-text text-white">
+        <a href="#hero" class="text-2xl font-serif font-bold tracking-tight transition-colors logo-text text-white" style="color:#ffffff">
           ${CONTENT.company.name}<span style="color: ${COLORS.primary}">${
     CONTENT.company.nameHighlight
   }</span>
@@ -176,7 +181,7 @@ function renderHeader() {
       </div>
 
       <!-- Mobile Menu -->
-      <div class="hidden md:hidden mobile-menu fixed inset-0 bg-black/50 backdrop-blur-lg z-40 pt-20" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu de navegação">
+      <div class="hidden md:hidden mobile-menu fixed inset-0 bg-black/50 backdrop-blur-lg z-40 pt-20" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu de navegação" style="background-color:rgba(0,0,0,.5);backdrop-filter:blur(12px)">
         <div class="flex items-center justify-end px-6">
           <button id="mobile-menu-close" class="text-white/90 hover:opacity-100 focus:outline-none" aria-label="Fechar menu">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -392,19 +397,19 @@ function renderHero() {
           class="w-full h-full object-cover"
         />
         <!-- Overlay -->
-        <div class="absolute inset-0 bg-black/50"></div>
+        <div class="absolute inset-0 bg-black/50" style="background-color:rgba(0,0,0,.5)"></div>
       </div>
 
       <!-- Content -->
       <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
-        <h1 class="text-white font-serif text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-tight drop-shadow-lg fade-in">
+        <h1 class="text-white font-serif text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-tight drop-shadow-lg fade-in" style="color:#ffffff">
           ${CONTENT.hero.title} <br />
           <span class="italic font-light" style="color: ${COLORS.primary}">
             ${CONTENT.hero.highlight}
           </span>
         </h1>
 
-        <p class="text-gray-100 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light tracking-wide drop-shadow-md fade-in">
+        <p class="text-gray-100 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light tracking-wide drop-shadow-md fade-in" style="color:#f3f4f6">
           ${CONTENT.hero.subtitle}
         </p>
 
@@ -484,9 +489,11 @@ function renderProjects() {
   const main = document.getElementById("main");
 
   const projectsHTML = `
-    <!-- Slick Carousel CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+    <!-- Slick Carousel CSS (preload non-blocking pattern) -->
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" onload="this.rel='stylesheet'"/>
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" onload="this.rel='stylesheet'"/>
+    <noscript><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/></noscript>
+    <noscript><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/></noscript>
 
     <section id="projects" class="py-20 bg-gray-100 overflow-hidden">
       <div class="max-w-7xl mx-auto px-6">
