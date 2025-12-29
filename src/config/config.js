@@ -9,8 +9,13 @@
  * FILOSOFIA: Código fixo, Configuração dinâmica
  * Apenas ESTE arquivo precisa ser alterado para criar novos sites.
  *
+ * Nota: adicionamos um shim de process para evitar ReferenceError em browsers.
+ *
  * ============================================================================
  */
+
+// Shim seguro para process em ambiente browser (evita ReferenceError)
+const SAFE_PROCESS = typeof process !== "undefined" ? process : { env: {} };
 
 // ============================================================================
 // SEÇÃO 1: CORES - Personalizar Paleta de Cores
@@ -353,9 +358,10 @@ export const SETTINGS = {
   // Modo produção
   // Sem bundler no browser: detecta produção via hostname (não localhost)
   production:
-    typeof window !== "undefined" &&
-    typeof location !== "undefined" &&
-    !/^(localhost|127\.0\.0\.1)$/.test(location.hostname),
+    (typeof window !== "undefined" &&
+      typeof location !== "undefined" &&
+      !/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) ||
+    (SAFE_PROCESS.env && SAFE_PROCESS.env.NODE_ENV === "production"),
 
   // Configurações de performance
   performance: {
