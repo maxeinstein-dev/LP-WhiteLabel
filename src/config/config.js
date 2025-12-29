@@ -77,6 +77,8 @@ export const COLORS = {
   whiteOpacity20: "rgba(255, 255, 255, 0.2)", // Bordas transparentes
   whiteOpacity80: "rgba(255, 255, 255, 0.8)", // Ícones semi-transparentes
   whiteOpacity90: "rgba(255, 255, 255, 0.9)", // Links semi-transparentes
+  // Overlay acima da dobra (hero/menu)
+  overlay: "rgba(0, 0, 0, 0.5)",
 };
 
 // ============================================================================
@@ -375,6 +377,11 @@ export const SETTINGS = {
     enableSkipLinks: true,
     enableKeyboardNavigation: true,
     enableAriaLabels: true,
+  },
+
+  // Configurações de UI gerais
+  ui: {
+    overlayBlurPx: 12,
   },
 };
 

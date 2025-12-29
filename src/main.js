@@ -181,7 +181,7 @@ function renderHeader() {
       </div>
 
       <!-- Mobile Menu -->
-      <div class="hidden md:hidden mobile-menu fixed inset-0 bg-black/50 backdrop-blur-lg z-40 pt-20" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu de navegação" style="background-color:rgba(0,0,0,.5);backdrop-filter:blur(12px)">
+      <div class="hidden md:hidden mobile-menu fixed inset-0 bg-black/50 backdrop-blur-lg z-40 pt-20" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu de navegação" style="background-color:${COLORS.overlay};backdrop-filter:blur(${SETTINGS.ui?.overlayBlurPx ?? 12}px)">
         <div class="flex items-center justify-end px-6">
           <button id="mobile-menu-close" class="text-white/90 hover:opacity-100 focus:outline-none" aria-label="Fechar menu">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -397,7 +397,7 @@ function renderHero() {
           class="w-full h-full object-cover"
         />
         <!-- Overlay -->
-        <div class="absolute inset-0 bg-black/50" style="background-color:rgba(0,0,0,.5)"></div>
+        <div class="absolute inset-0 bg-black/50" style="background-color:${COLORS.overlay}"></div>
       </div>
 
       <!-- Content -->
