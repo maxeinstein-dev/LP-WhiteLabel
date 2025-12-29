@@ -7,18 +7,23 @@ Este projeto é uma **fábrica de Landing Pages** em Vanilla JavaScript com Tail
 ## 🚀 Quick Start
 
 ### Instalação
+
 ```bash
 npm install
 ```
 
 ### Desenvolvimento Local
+
 ```bash
 npm run dev
 ```
+
 O navegador abrirá automaticamente em http://localhost:3000
 
 ### Deployment
+
 O build é **automático** via GitHub Actions:
+
 - Push para `main` → Build automático → Deploy no GitHub Pages
 - Visualize em: https://maxeinstein-dev.github.io/LP-WhiteLabel/
 
@@ -28,6 +33,7 @@ Toda customização acontece em um único arquivo:
 👉 **`src/config/config.js`**
 
 ### A. Cores e Tipografia
+
 ```javascript
 export const COLORS = {
   primary: "#0055FF",
@@ -44,6 +50,7 @@ export const TYPOGRAPHY = {
 ```
 
 ### B. Conteúdo
+
 ```javascript
 export const CONTENT = {
   companyName: "Sua Empresa",
@@ -59,6 +66,7 @@ export const CONTENT = {
 ```
 
 ### C. Formulário
+
 ```javascript
 export const FORMS = {
   contact: {
@@ -84,6 +92,7 @@ src/
 ## 📦 Build & Deploy
 
 **Local:**
+
 ```bash
 npm run dev        # Desenvolvimento
 npm run build      # Build local (opcional)
@@ -91,6 +100,7 @@ npm run preview    # Preview do build
 ```
 
 **Produção:**
+
 - Build automático via GitHub Actions (`.github/workflows/deploy.yml`)
 - Deploy automático no GitHub Pages
 

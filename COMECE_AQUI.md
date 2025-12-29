@@ -1,34 +1,155 @@
-# 🎯 COMECE AQUI - Vanilla JS Edition 🚀
+# 🚀 Guia Rápido - Landing Page White Label
 
-## ✅ Você tem uma Landing Page Professional!
+## ⚡ Setup Rápido (2 minutos)
 
-Migrada de React para **100% Vanilla JS** - Performance máxima, zero dependências!
-
----
-
-## ⚡ 3 Passos Para Começar (5 minutos)
-
-### 1️⃣ Instale (30 seg)
+### 1. Instale dependências
 
 ```bash
 npm install
 ```
 
-### 2️⃣ Desenvolva (30 seg)
+### 2. Inicie o servidor de desenvolvimento
 
 ```bash
 npm run dev
 ```
 
-Abre em `http://localhost:3000` 🎉
+Abre automaticamente em `http://localhost:3000` 🎉
 
-### 3️⃣ Customize (2 min)
+### 3. Customize sua página
 
-Abra este arquivo:
+Edite apenas este arquivo:
 
 ```
-src/config/config.js  ← ÚNICO arquivo a editar!
+src/config/config.js  ← Toda customização aqui!
 ```
+
+## 📝 O que você pode customizar
+
+### Cores e Fontes
+
+```javascript
+export const COLORS = {
+  primary: "#0055FF", // Cor principal
+  primaryDark: "#003399", // Hover/destaque
+  secondary: "#111111", // Texto secundário
+  background: "#FFFFFF", // Fundo
+};
+
+export const TYPOGRAPHY = {
+  serif: "'Playfair Display', serif",
+  sans: "'Inter', sans-serif",
+  googleFontsUrl: "https://fonts.googleapis.com/css2?family=...",
+};
+```
+
+### Conteúdo da Página
+
+```javascript
+export const CONTENT = {
+  companyName: "Nome da Empresa",
+  companySlogan: "Seu slogan aqui",
+
+  hero: {
+    title: "Título Principal",
+    highlight: "palavra destacada",
+    subtitle: "Subtítulo explicativo",
+    cta: "Botão de Ação",
+  },
+
+  features: [
+    {
+      icon: "Trophy",
+      title: "Benefício 1",
+      description: "Descrição do benefício",
+    },
+    // ... mais features
+  ],
+
+  // ... projects, about, contact, footer
+};
+```
+
+## 🎯 Fluxo de Trabalho
+
+1. **Edite** `src/config/config.js`
+2. **Salve** - navegador recarrega automaticamente
+3. **Veja** as mudanças em tempo real
+4. **Commit** e **push** para `main`
+5. **GitHub Actions** faz deploy automático
+
+## 📦 Deploy
+
+### Automático (Recomendado)
+
+Push para branch `main` → GitHub Actions → GitHub Pages
+
+### Manual
+
+```bash
+npm run build   # Gera pasta dist/
+npm run preview # Testa build localmente
+```
+
+## 📚 Documentação Completa
+
+- [README.md](README.md) - Documentação principal
+- [WHITE_LABEL_GUIDE.md](WHITE_LABEL_GUIDE.md) - Guia avançado
+- [GUIA_VISUAL.md](GUIA_VISUAL.md) - Design e layout
+
+## ✅ Checklist de Customização
+
+- [ ] Atualizar COLORS com paleta do cliente
+- [ ] Atualizar TYPOGRAPHY com fontes do cliente
+- [ ] Alterar CONTENT.companyName e companySlogan
+- [ ] Personalizar CONTENT.hero (título, subtítulo, CTA)
+- [ ] Configurar CONTENT.features (mínimo 3)
+- [ ] Adicionar CONTENT.projects (portfólio)
+- [ ] Preencher CONTENT.contact (endereço, telefone, email)
+- [ ] Configurar CONTENT.footer.social (redes sociais)
+- [ ] Atualizar SEO (title, description, keywords)
+- [ ] Testar em dispositivos móveis
+- [ ] Fazer deploy
+
+## 🆘 Ajuda Rápida
+
+**Problema:** Página não carrega
+
+- Verifique console do navegador (F12)
+- Confirme que `npm run dev` está rodando
+- Limpe cache do navegador
+
+**Problema:** Mudanças não aparecem
+
+- Salve o arquivo `config.js`
+- Recarregue página (Ctrl+R ou Cmd+R)
+- Verifique se há erros no console
+
+**Problema:** Build falha
+
+- Rode `npm install` novamente
+- Verifique sintaxe em `config.js`
+- Veja logs do GitHub Actions
+
+## 🎨 Dicas de Design
+
+- Use paleta de **2-3 cores** principais
+- Escolha fontes que combinem (serif + sans-serif)
+- Otimize imagens (máx 500KB cada)
+- Teste em mobile first
+- Mantenha hierarquia visual clara
+
+## 🚀 Próximos Passos
+
+1. Explore `src/config/USAGE_EXAMPLES.md` para exemplos práticos
+2. Veja `src/config/MULTI_BRAND_EXAMPLE.md` para múltiplas marcas
+3. Leia `WHITE_LABEL_GUIDE.md` para customizações avançadas
+
+---
+
+**Dúvidas?** Consulte o [README.md](README.md) principal
+
+````
 
 Altere cores e textos:
 
@@ -44,7 +165,7 @@ export const CONTENT = {
   hero: { title: "Novo Título" },
   // ...
 };
-```
+````
 
 **Pronto! Site customizado! 🚀**
 
