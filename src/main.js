@@ -153,10 +153,17 @@ function renderHeader() {
 
       <!-- Mobile Menu -->
       <div class="hidden md:hidden mobile-menu fixed inset-0 bg-black/40 backdrop-blur-md z-40 pt-20" id="mobile-menu" aria-hidden="true">
+        <div class="flex items-center justify-end px-6">
+          <button id="mobile-menu-close" class="text-white/90 hover:opacity-100 focus:outline-none" aria-label="Fechar menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
         <nav class="flex flex-col gap-4 p-6">
           ${CONTENT.navigation
             .map(
-                (item) =>
+              (item) =>
                 `<a href="${item.href}" class="text-lg font-medium text-white/90 hover-primary py-2 border-b border-white/20">${item.label}</a>`
             )
             .join("")}
@@ -248,6 +255,7 @@ function renderHeader() {
   // Mobile Menu behavior
   const mobileMenu = document.getElementById("mobile-menu");
   const toggleBtn = document.getElementById("mobile-menu-toggle");
+  const closeBtn = document.getElementById("mobile-menu-close");
 
   function openMobileMenu() {
     if (!mobileMenu) return;
@@ -272,6 +280,15 @@ function renderHeader() {
     const isOpen = mobileMenu?.classList.contains("open");
     if (isOpen) closeMobileMenu();
     else openMobileMenu();
+  });
+
+  // Close on close button
+  closeBtn?.addEventListener("click", () => closeMobileMenu());
+
+  // Close when clicking backdrop (outside nav)
+  mobileMenu?.addEventListener("click", (e) => {
+    if (!(e.target instanceof Element)) return;
+    if (!e.target.closest("nav")) closeMobileMenu();
   });
 
   // Close on ESC
