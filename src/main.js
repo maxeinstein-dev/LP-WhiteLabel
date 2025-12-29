@@ -29,31 +29,18 @@ import {
 } from "./utils/vanilla-utils.js";
 
 // ============================================================================
-// 1. CONFIGURAR TAILWIND COM CORES DINÂMICAS
+// 1. CONFIGURAR TAILWIND COM CORES DINÂMICAS (inline)
 // ============================================================================
 
 function configureTailwind() {
-  const script = document.createElement("script");
-  script.innerHTML = `
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'primary': '${COLORS.primary}',
-            'primary-dark': '${COLORS.primaryDark}',
-            'secondary': '${COLORS.secondary}',
-            'accent': '${COLORS.primary}',
-            'neutral': '${COLORS.background}',
-          },
-          fontFamily: {
-            'display': ['${TYPOGRAPHY.serif}'],
-            'body': ['${TYPOGRAPHY.sans}'],
-          },
-        }
-      }
-    }
-  `;
-  document.head.appendChild(script);
+  // As cores serão aplicadas via inline styles e CSS variables
+  // Tailwind CDN já está carregado no index.html
+  const root = document.documentElement;
+
+  root.style.setProperty("--color-primary", COLORS.primary);
+  root.style.setProperty("--color-primary-dark", COLORS.primaryDark);
+  root.style.setProperty("--color-secondary", COLORS.secondary);
+  root.style.setProperty("--color-background", COLORS.background);
 }
 
 // ============================================================================
