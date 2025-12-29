@@ -212,16 +212,11 @@ async function runAllTests() {
   }
 }
 
-// Executa se for rodado via Node.js CLI
-if (typeof require !== "undefined" && require.main === module) {
-  runAllTests();
-}
-
-// Exports para uso em browser
-if (typeof window !== "undefined") {
-  window.TestRunner = TestRunner;
-  window.runAllTests = runAllTests;
-}
+// Executa diretamente quando rodado via Node.js
+runAllTests().catch((error) => {
+  console.error("❌ Erro ao executar testes:", error);
+  process.exit(1);
+});
 
 export {
   TestRunner,
