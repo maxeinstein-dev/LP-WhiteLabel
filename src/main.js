@@ -222,7 +222,7 @@ function renderHeader() {
         });
         document.querySelectorAll(".social-link").forEach((el) => {
           el.classList.remove("text-white");
-          el.classList.add("text-gray-400");
+          el.classList.add("text-gray-300");
         });
         document.querySelectorAll(".social-border").forEach((el) => {
           el.classList.remove("border-white/20");
@@ -255,7 +255,7 @@ function renderHeader() {
         });
         document.querySelectorAll(".social-link").forEach((el) => {
           el.classList.add("text-white");
-          el.classList.remove("text-gray-400");
+          el.classList.remove("text-gray-300");
         });
         document.querySelectorAll(".social-border").forEach((el) => {
           el.classList.add("border-white/20");
@@ -949,7 +949,7 @@ function renderFooter() {
     CONTENT.company.nameHighlight
   }</span>
             </a>
-            <p class="text-gray-300 text-sm leading-relaxed mb-6">
+            <p class="text-gray-200 text-sm leading-relaxed mb-6">
               ${CONTENT.footer.description}
             </p>
             <div class="flex space-x-4">
@@ -974,7 +974,7 @@ function renderFooter() {
               ${CONTENT.navigation
                 .map(
                   (item, index) => `
-                <li key="${index}"><a href="${item.href}" class="text-gray-300 hover:text-sm transition-colors" style="hover:color: ${COLORS.primary}">${item.label}</a></li>
+                <li key="${index}"><a href="${item.href}" class="text-gray-200 hover:text-sm transition-colors" style="hover:color: ${COLORS.primary}">${item.label}</a></li>
               `
                 )
                 .join("")}
@@ -986,7 +986,7 @@ function renderFooter() {
             <h4 class="text-lg font-semibold mb-6 text-white border-l-2 pl-3" style="border-color: ${
               COLORS.primary
             }">Contato</h4>
-            <ul class="space-y-3 text-sm text-gray-300">
+            <ul class="space-y-3 text-sm text-gray-200">
               ${CONTENT.contact.info
                 .map(
                   (item) => `

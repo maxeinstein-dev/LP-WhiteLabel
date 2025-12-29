@@ -156,7 +156,7 @@ export const CONTENT = {
       link: "#contact",
     },
     image:
-      "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1024&h=512&fit=crop&auto=format&fm=webp&q=60",
+      "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1024&h=512&fit=crop&auto=format&fm=webp&q=55",
     imageAlt: "Arquitetura urbana moderna",
   },
 
