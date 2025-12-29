@@ -13,17 +13,8 @@
     <title>Loading...</title>
 
     <!-- Meta description personalizada via config.js -->
-    <meta name="description" content="" id="meta-description" />
+    <meta name="description" content="Criamos espaços inovadores e sustentáveis que transformam cidades. Projetos residenciais, comerciais e de infraestrutura." id="meta-description" />
     <meta name="twitter:card" content="summary_large_image" />
-
-    <!-- Injeta meta description do config.js no head (detectável pelo Lighthouse) -->
-    <script type="module">
-      import { SEO } from "./src/config/config.js";
-      const metaDesc = document.getElementById("meta-description");
-      if (metaDesc && SEO.description) {
-        metaDesc.setAttribute("content", SEO.description);
-      }
-    </script>
 
     <!-- Google Fonts será injetado dinamicamente -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
