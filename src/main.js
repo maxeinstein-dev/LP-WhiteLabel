@@ -153,56 +153,55 @@ function renderMainContent() {
   const main = document.getElementById("main");
 
   main.innerHTML = `
-    <!-- Hero Section -->
-    <section id="hero" class="py-20 lg:py-32" aria-label="Seção principal" style="background: linear-gradient(to right, ${
-      COLORS.background
-    }, white)">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h1 class="font-display text-5xl lg:text-6xl font-bold text-secondary mb-6">
-              ${CONTENT.hero.title}
-              <span class="highlight" style="color: ${COLORS.primary}">${
-    CONTENT.hero.highlight
-  }</span>
-            </h1>
-            <p class="text-xl text-gray-600 mb-8">
-              ${CONTENT.hero.subtitle}
-            </p>
+    <!-- Hero Section - Full Screen com Imagem de Fundo -->
+    <section id="hero" class="relative w-full min-h-screen flex items-center justify-center overflow-hidden" aria-label="Seção principal">
+      <!-- Imagem de Fundo -->
+      <div class="absolute inset-0 z-0">
+        <img
+          src="${CONTENT.hero.image}"
+          alt="${CONTENT.hero.imageAlt}"
+          loading="eager"
+          class="w-full h-full object-cover"
+        />
+        <!-- Overlay escuro -->
+        <div class="absolute inset-0 bg-black/50"></div>
+      </div>
 
-            <div class="flex flex-col sm:flex-row gap-4">
-              <a href="#contact" class="px-8 py-3 text-white rounded-lg hover:opacity-90 transition font-semibold text-center" style="background-color: ${
-                COLORS.primary
-              }">
-                ${CONTENT.hero.cta}
-              </a>
-              <a href="#features" class="px-8 py-3 border-2 rounded-lg hover:text-white transition font-semibold text-center" style="border-color: ${
-                COLORS.primary
-              }; color: ${COLORS.primary}">
-                Saiba Mais
-              </a>
-            </div>
-          </div>
+      <!-- Conteúdo sobre a imagem -->
+      <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
+        <h1 class="text-white font-display text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-tight drop-shadow-lg fade-in">
+          ${CONTENT.hero.title}<br>
+          <span class="italic font-light drop-shadow-md" style="color: ${
+            COLORS.primary
+          }">${CONTENT.hero.highlight}</span>
+        </h1>
+        
+        <p class="text-gray-100 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light tracking-wide drop-shadow-md fade-in">
+          ${CONTENT.hero.subtitle}
+        </p>
 
-          <div>
-            <img
-              src="${CONTENT.hero.image}"
-              alt="${CONTENT.hero.imageAlt}"
-              loading="lazy"
-              decoding="async"
-              class="rounded-lg shadow-lg"
-            />
-          </div>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 fade-in">
+          <a href="#contact" class="px-8 py-6 text-white text-sm uppercase tracking-widest min-w-[200px] shadow-lg transition hover:opacity-90 font-semibold" style="background-color: ${
+            COLORS.primary
+          }">
+            ${CONTENT.hero.cta}
+          </a>
+          <a href="#features" class="px-8 py-6 border-2 border-white text-white hover:bg-white hover:text-black text-sm uppercase tracking-widest min-w-[200px] bg-white/10 backdrop-blur-sm transition font-semibold">
+            Saiba Mais
+          </a>
         </div>
       </div>
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="py-20 lg:py-32 bg-white" aria-label="Diferenciais">
+    <section id="features" class="py-20 bg-gray-50" aria-label="Diferenciais">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="font-display text-4xl lg:text-5xl font-bold text-center text-secondary mb-16">
-          ${CONTENT.features.title}
-        </h2>
+        <div class="text-center mb-16">
+          <h2 class="font-display text-3xl md:text-4xl font-bold text-secondary mb-4">
+            ${CONTENT.features.title}
+          </h2>
+          <div class="w-24 h-1 mx-auto" style="background-color: ${COLORS.primary}"></div>
+        </div>
 
         <div
           class="grid grid-cols-1 md:grid-cols-3 gap-8"
@@ -467,16 +466,16 @@ function renderFeatures() {
   const featuresHTML = CONTENT.features.items
     .map(
       (item) => `
-      <div class="p-6 border-2 rounded-lg hover:shadow-lg transition" style="border-color: ${
-        COLORS.border
-      }">
-        <div class="mb-4" style="color: ${COLORS.primary}">
-          ${renderIcon(item.icon, "w-10 h-10")}
+      <div class="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border-none group h-full">
+        <div class="flex flex-col items-center pt-10 pb-4">
+          <div class="p-4 bg-gray-50 rounded-full mb-4 group-hover:bg-primary/10 transition-colors" style="color: ${COLORS.primary}">
+            ${renderIcon(item.icon, "w-10 h-10")}
+          </div>
+          <h3 class="text-xl font-display font-semibold text-secondary text-center px-8">${item.title}</h3>
         </div>
-        <h3 class="font-display text-xl font-bold text-secondary mb-2">${
-          item.title
-        }</h3>
-        <p class="text-gray-600">${item.description}</p>
+        <div class="text-center pb-10 px-8">
+          <p class="text-gray-600 leading-relaxed">${item.description}</p>
+        </div>
       </div>
     `
     )
