@@ -152,12 +152,12 @@ function renderHeader() {
       </div>
 
       <!-- Mobile Menu -->
-      <div class="hidden md:hidden mobile-menu fixed inset-0 bg-gray-900/95 z-40 pt-20" id="mobile-menu" aria-hidden="true">
+      <div class="hidden md:hidden mobile-menu fixed inset-0 bg-black/40 backdrop-blur-md z-40 pt-20" id="mobile-menu" aria-hidden="true">
         <nav class="flex flex-col gap-4 p-6">
           ${CONTENT.navigation
             .map(
-              (item) =>
-                `<a href="${item.href}" class="text-lg font-medium text-white hover-primary py-2 border-b border-white/10">${item.label}</a>`
+                (item) =>
+                `<a href="${item.href}" class="text-lg font-medium text-white/90 hover-primary py-2 border-b border-white/20">${item.label}</a>`
             )
             .join("")}
         </nav>
