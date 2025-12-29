@@ -152,12 +152,12 @@ function renderHeader() {
       </div>
 
       <!-- Mobile Menu -->
-      <div class="hidden md:hidden mobile-menu fixed inset-0 bg-white z-40 pt-20" id="mobile-menu" aria-hidden="true">
+      <div class="hidden md:hidden mobile-menu fixed inset-0 bg-gray-900/95 z-40 pt-20" id="mobile-menu" aria-hidden="true">
         <nav class="flex flex-col gap-4 p-6">
           ${CONTENT.navigation
             .map(
               (item) =>
-                `<a href="${item.href}" class="text-lg font-medium text-secondary hover-primary py-2 border-b border-gray-100">${item.label}</a>`
+                `<a href="${item.href}" class="text-lg font-medium text-white hover-primary py-2 border-b border-white/10">${item.label}</a>`
             )
             .join("")}
         </nav>
@@ -280,9 +280,9 @@ function renderHeader() {
   });
 
   // Close when clicking a link
-  mobileMenu?.querySelectorAll("a").forEach((a) =>
-    a.addEventListener("click", () => closeMobileMenu())
-  );
+  mobileMenu
+    ?.querySelectorAll("a")
+    .forEach((a) => a.addEventListener("click", () => closeMobileMenu()));
 
   // Prevent flicker on scroll when menu open
   const originalHandleScroll = handleScroll;
