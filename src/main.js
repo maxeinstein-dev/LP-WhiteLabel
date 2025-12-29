@@ -153,46 +153,42 @@ function renderMainContent() {
   const main = document.getElementById("main");
 
   main.innerHTML = `
-    <!-- Hero Section -->
-    <section id="hero" class="py-20 lg:py-32" aria-label="Seção principal" style="background: linear-gradient(to right, ${
-      COLORS.background
-    }, white)">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h1 class="font-display text-5xl lg:text-6xl font-bold text-secondary mb-6">
-              ${CONTENT.hero.title}
-              <span class="highlight" style="color: ${COLORS.primary}">${
-    CONTENT.hero.highlight
-  }</span>
-            </h1>
-            <p class="text-xl text-gray-600 mb-8">
-              ${CONTENT.hero.subtitle}
-            </p>
+    <!-- Hero Section - Full Screen com Imagem de Fundo -->
+    <section id="hero" class="relative w-full min-h-screen flex items-center justify-center overflow-hidden" aria-label="Seção principal">
+      <!-- Imagem de Fundo -->
+      <div class="absolute inset-0 z-0">
+        <img
+          src="${CONTENT.hero.image}"
+          alt="${CONTENT.hero.imageAlt}"
+          loading="eager"
+          class="w-full h-full object-cover"
+        />
+        <!-- Overlay escuro -->
+        <div class="absolute inset-0 bg-black/50"></div>
+      </div>
 
-            <div class="flex flex-col sm:flex-row gap-4">
-              <a href="#contact" class="px-8 py-3 text-white rounded-lg hover:opacity-90 transition font-semibold text-center" style="background-color: ${
-                COLORS.primary
-              }">
-                ${CONTENT.hero.cta}
-              </a>
-              <a href="#features" class="px-8 py-3 border-2 rounded-lg hover:text-white transition font-semibold text-center" style="border-color: ${
-                COLORS.primary
-              }; color: ${COLORS.primary}">
-                Saiba Mais
-              </a>
-            </div>
-          </div>
+      <!-- Conteúdo sobre a imagem -->
+      <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
+        <h1 class="text-white font-display text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-tight drop-shadow-lg fade-in">
+          ${CONTENT.hero.title}<br>
+          <span class="italic font-light drop-shadow-md" style="color: ${
+            COLORS.primary
+          }">${CONTENT.hero.highlight}</span>
+        </h1>
+        
+        <p class="text-gray-100 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light tracking-wide drop-shadow-md fade-in">
+          ${CONTENT.hero.subtitle}
+        </p>
 
-          <div>
-            <img
-              src="${CONTENT.hero.image}"
-              alt="${CONTENT.hero.imageAlt}"
-              loading="lazy"
-              decoding="async"
-              class="rounded-lg shadow-lg"
-            />
-          </div>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 fade-in">
+          <a href="#contact" class="px-8 py-6 text-white text-sm uppercase tracking-widest min-w-[200px] shadow-lg transition hover:opacity-90 font-semibold" style="background-color: ${
+            COLORS.primary
+          }">
+            ${CONTENT.hero.cta}
+          </a>
+          <a href="#features" class="px-8 py-6 border-2 border-white text-white hover:bg-white hover:text-black text-sm uppercase tracking-widest min-w-[200px] bg-white/10 backdrop-blur-sm transition font-semibold">
+            Saiba Mais
+          </a>
         </div>
       </div>
     </section>
