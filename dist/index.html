@@ -1,16 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Urbanismo</title>
-      <script type="module" crossorigin src="/LP-WhiteLabel/assets/index-DT5GKp1L.js"></script>
-      <link rel="stylesheet" crossorigin href="/LP-WhiteLabel/assets/index-BY9gLy_D.css">
-    </head>
+    <!-- SEO será injetado dinamicamente -->
+    <meta name="twitter:card" content="summary_large_image" />
 
-    <body>
-      <div id="root"></div>
-    </body>
-  </html>
-  
+    <!-- Título será injetado dinamicamente -->
+    <title>Loading...</title>
+
+    <!-- Google Fonts será injetado dinamicamente -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      .skip-to-main {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        padding: 8px;
+        z-index: 100;
+      }
+      .skip-to-main:focus {
+        top: 0;
+      }
+      .highlight {
+        /* Cor será injetada dinamicamente */
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .fade-in {
+        animation: fadeIn 0.6s ease-out forwards;
+      }
+    </style>
+    <script type="module" crossorigin src="/LP-WhiteLabel/index-DSk3IC2K.js"></script>
+  </head>
+  <body class="bg-white">
+    <a href="#main" class="skip-to-main">Ir para conteúdo principal</a>
+
+    <!-- Header/Navegação será renderizado aqui -->
+    <header id="header" role="banner"></header>
+
+    <!-- Conteúdo Principal será renderizado aqui -->
+    <main id="main" role="main"></main>
+
+    <!-- Footer será renderizado aqui -->
+    <footer id="footer" role="contentinfo"></footer>
+
+    <!-- Scripts -->
+  </body>
+</html>
