@@ -667,6 +667,8 @@ function renderProjects() {
   }
 
   let assetsLoaded = false;
+  let carouselInitialized = false;
+
   async function ensureCarouselAssets() {
     if (assetsLoaded) return;
     try {
@@ -683,6 +685,7 @@ function renderProjects() {
   }
 
   function initCarousel() {
+    if (carouselInitialized) return;
     const sliderEl = document.getElementById("projects-slider");
     if (!sliderEl) return;
     if (window.jQuery && window.jQuery.fn.slick) {
@@ -706,7 +709,13 @@ function renderProjects() {
           },
         ],
       });
+      carouselInitialized = true;
     }
+  }
+
+  async function ensureAndInitCarousel() {
+    await ensureCarouselAssets();
+    initCarousel();
   }
 
   const projectsSection = document.getElementById("projects");
@@ -716,8 +725,7 @@ function renderProjects() {
         entries.forEach(async (entry) => {
           if (entry.isIntersecting) {
             observer.disconnect();
-            await ensureCarouselAssets();
-            initCarousel();
+            await ensureAndInitCarousel();
           }
         });
       },
@@ -726,22 +734,14 @@ function renderProjects() {
     io.observe(projectsSection);
   } else {
     // Fallback: carrega imediatamente
-    ensureCarouselAssets().then(initCarousel);
+    ensureAndInitCarousel();
   }
 
-  // Fallback adicional em ambiente de desenvolvimento: força inicialização se IO não disparar
-  if (!SETTINGS.production) {
-    setTimeout(async () => {
-      try {
-        if (!(window.jQuery && window.jQuery.fn.slick)) {
-          await ensureCarouselAssets();
-          initCarousel();
-        }
-      } catch (e) {
-        console.warn("[dev] Fallback do carrossel falhou:", e);
-      }
-    }, 1500);
-  }
+  // Fallback adicional: força inicialização se IO não disparar (produção e dev)
+  setTimeout(() => {
+    if (carouselInitialized) return;
+    ensureAndInitCarousel();
+  }, SETTINGS.production ? 2200 : 1500);
 }
 
 // ============================================================================
