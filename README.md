@@ -4,6 +4,75 @@ Este projeto é uma **fábrica de Landing Pages** em Vanilla JavaScript puro com
 
 **Filosofia:** Código fixo, Configuração dinâmica. Sem build tools, sem dependencies, apenas HTML + CSS + JS puro.
 
+## 🎯 Princípios de Código Limpo Implementados
+
+Este projeto aplica boas práticas de engenharia de software:
+
+### ✅ **1. Validação de Configuração** (`src/validator.js`)
+
+**Por quê:** Erros em config são detectados **imediatamente na inicialização**, com mensagens claras.
+**Benefício:** Economia de tempo em debugging. Falha rápido, falha cedo.
+
+```javascript
+// Na inicialização, config.js é validada automaticamente
+validateConfig({ COLORS, TYPOGRAPHY, CONTENT, SEO });
+// ❌ Erro → Mensagem clara apontando o problema
+```
+
+### ✅ **2. Constantes Nomeadas** (`src/constants.js`)
+
+**Por quê:** Evita "magic numbers" espalhados no código. `TIMING.CAROUSEL_AUTOPLAY_INTERVAL` é mais legível que `4000`.
+**Benefício:** Alterações centralizadas - mude uma vez, afeta tudo.
+
+```javascript
+// ❌ Antes (magic number)
+setTimeout(() => carousel.next(), 4000);
+
+// ✅ Depois (constante nomeada)
+setTimeout(() => carousel.next(), TIMING.CAROUSEL_AUTOPLAY_INTERVAL);
+```
+
+### ✅ **3. Tratamento de Erros** (`src/main.js`)
+
+**Por quê:** Sem try-catch, um erro crash a página inteira.
+**Benefício:** Usuário vê mensagem amigável, não branco em branco.
+
+```javascript
+try {
+  validateConfig({ COLORS, TYPOGRAPHY, CONTENT, SEO });
+  renderHeader();
+  // ... resto da app
+} catch (error) {
+  // Mostra erro amigável em vez de crash silencioso
+  console.error("❌ [App] Erro crítico:", error);
+}
+```
+
+### ✅ **4. JSDoc Completo** (`src/main.js`)
+
+**Por quê:** IDE autocomplete, type hints sem TypeScript, documentação automática.
+**Benefício:** Melhor DX (Developer Experience).
+
+```javascript
+/**
+ * Renderiza seção de hero
+ * @returns {void}
+ * @example
+ * renderHero(); // Renderiza na div#main
+ */
+function renderHero() { ... }
+```
+
+### ✅ **5. Testes Unitários** (`src/tests.js`)
+
+**Por quê:** Detecta regressões antes de deploy.
+**Benefício:** Refatorações seguras, menos bugs em produção.
+
+```bash
+# Execute testes (sem dependências!)
+node src/tests.js
+```
+
 ## 🚀 Quick Start
 
 ### Desenvolvimento Local
