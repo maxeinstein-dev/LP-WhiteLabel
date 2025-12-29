@@ -184,9 +184,10 @@ function renderHeader() {
         headerEl.classList.remove("bg-transparent", "py-6");
 
         // Text colors
-        document
-          .querySelectorAll(".logo-text")
-          .forEach((el) => el.classList.add("text-secondary"));
+        document.querySelectorAll(".logo-text").forEach((el) => {
+          el.classList.remove("text-white");
+          el.classList.add("text-secondary");
+        });
         document.querySelectorAll(".nav-link").forEach((el) => {
           el.classList.remove("text-white/90");
           el.classList.add("text-gray-600");
@@ -216,9 +217,10 @@ function renderHeader() {
         headerEl.classList.add("bg-transparent", "py-6");
 
         // Text colors
-        document
-          .querySelectorAll(".logo-text")
-          .forEach((el) => el.classList.remove("text-secondary"));
+        document.querySelectorAll(".logo-text").forEach((el) => {
+          el.classList.remove("text-secondary");
+          el.classList.add("text-white");
+        });
         document.querySelectorAll(".nav-link").forEach((el) => {
           el.classList.add("text-white/90");
           el.classList.remove("text-gray-600");
