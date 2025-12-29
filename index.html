@@ -21,10 +21,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <!-- Animations CSS -->
+    <!-- Preload animations to speed first paint -->
+    <link rel="preload" as="style" href="./src/styles/animations.css" />
     <link rel="stylesheet" href="./src/styles/animations.css" />
 
     <!-- Tailwind CSS (buildado via CLI) -->
+    <!-- Preload Tailwind to reduce render delay -->
+    <link rel="preload" as="style" href="./src/styles/tw.css?v=20251229" />
     <link rel="stylesheet" href="./src/styles/tw.css?v=20251229" />
+
+    <!-- Resource hints for external CDNs -->
+    <link rel="preconnect" href="https://code.jquery.com" crossorigin />
+    <link rel="dns-prefetch" href="https://code.jquery.com" />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
   </head>
   <body class="bg-white">
     <a href="#main" class="skip-to-main">Ir para conteúdo principal</a>
@@ -37,12 +49,14 @@
     <script
       src="https://code.jquery.com/jquery-3.7.1.min.js"
       crossorigin="anonymous"
+      defer
     ></script>
 
     <!-- Slick Carousel -->
     <script
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
+      defer
     ></script>
 
     <script type="module" src="./src/main.js"></script>
