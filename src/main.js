@@ -66,7 +66,6 @@ function injectSEO() {
     document.title = SEO.title;
 
     const metaTags = [
-      { name: "description", content: SEO.description },
       { name: "keywords", content: SEO.keywords },
       { property: "og:title", content: SEO.title },
       { property: "og:description", content: SEO.description },
