@@ -25,7 +25,7 @@ export const COLORS = {
   primary: "#B38B59", // Cor principal (botões, links, destaques)
   primaryDark: "#9A764A", // Cor principal no hover/dark mode
   primaryLight: "#D4A574", // Cor principal clara (backgrounds)
-  primaryOpacity22: "#B38B5938", // Cor principal com 22% de opacidade (para fundos de ícones)
+  primaryOpacity22: "rgba(179, 139, 89, 0.22)", // Cor principal com 22% de opacidade (para fundos de ícones)
 
   // Cores Secundárias
   secondary: "#1A1A1A", // Cor secundária (textos importantes)
