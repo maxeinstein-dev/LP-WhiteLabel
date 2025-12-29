@@ -37,12 +37,12 @@
 
 /* Hover Primary Color */
 .hover-primary:hover {
-  color: var(--primary) !important;
+  color: var(--color-primary) !important;
 }
 
 /* Text Secondary Color - para logo ao scroll */
 .text-secondary {
-  color: var(--text) !important;
+  color: var(--color-text) !important;
 }
 
 /* Smooth transitions */
