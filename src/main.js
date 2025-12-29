@@ -70,7 +70,11 @@ function injectSEO() {
       { name: "keywords", content: SEO.keywords },
       { property: "og:title", content: SEO.title },
       { property: "og:description", content: SEO.description },
-      { property: "og:image", content: SEO.image },
+      { property: "og:image", content: SEO.ogImage || SEO.image },
+      {
+        property: "og:url",
+        content: typeof location !== "undefined" ? location.href : SEO.ogUrl,
+      },
       { name: "theme-color", content: COLORS.primary },
     ];
 
@@ -79,6 +83,13 @@ function injectSEO() {
       Object.assign(meta, tag);
       document.head.appendChild(meta);
     });
+
+    // Canonical link
+    const canonical = document.createElement("link");
+    canonical.rel = "canonical";
+    canonical.href =
+      typeof location !== "undefined" ? location.href : SEO.ogUrl;
+    document.head.appendChild(canonical);
   } catch (error) {
     console.error("❌ [SEO] Erro ao injetar meta tags:", error);
   }
@@ -125,7 +136,7 @@ function renderHeader() {
     <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b border-transparent py-6">
       <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <!-- Logo -->
-        <a href="/" class="text-2xl font-serif font-bold tracking-tight transition-colors logo-text text-white">
+        <a href="#hero" class="text-2xl font-serif font-bold tracking-tight transition-colors logo-text text-white">
           ${CONTENT.company.name}<span style="color: ${COLORS.primary}">${
     CONTENT.company.nameHighlight
   }</span>
@@ -144,7 +155,7 @@ function renderHeader() {
         </div>
 
         <!-- Mobile Menu Toggle -->
-        <button class="md:hidden mobile-menu-btn text-white" id="mobile-menu-toggle" aria-label="Menu">
+        <button class="md:hidden mobile-menu-btn text-white" id="mobile-menu-toggle" aria-label="Menu" aria-controls="mobile-menu" aria-expanded="false">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
@@ -152,7 +163,7 @@ function renderHeader() {
       </div>
 
       <!-- Mobile Menu -->
-      <div class="hidden md:hidden mobile-menu fixed inset-0 bg-black/40 backdrop-blur-md z-40 pt-20" id="mobile-menu">
+      <div class="hidden md:hidden mobile-menu fixed inset-0 bg-black/40 backdrop-blur-md z-40 pt-20" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu de navegação">
         <div class="flex items-center justify-end px-6">
           <button id="mobile-menu-close" class="text-white/90 hover:opacity-100 focus:outline-none" aria-label="Fechar menu">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -264,6 +275,9 @@ function renderHeader() {
     mobileMenu.removeAttribute("inert");
     document.body.classList.add("menu-open");
     toggleBtn?.setAttribute("aria-expanded", "true");
+    // Focus first menu link for better a11y
+    const firstLink = mobileMenu.querySelector("nav a");
+    firstLink?.focus();
   }
 
   function closeMobileMenu() {
@@ -329,6 +343,10 @@ function renderHero() {
           src="${CONTENT.hero.image}"
           alt="${CONTENT.hero.imageAlt}"
           loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          width="1200"
+          height="600"
           class="w-full h-full object-cover"
         />
         <!-- Overlay -->
