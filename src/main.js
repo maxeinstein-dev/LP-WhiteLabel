@@ -12,7 +12,7 @@
  * - JSDoc completo para todas as funções
  */
 
-import { COLORS, TYPOGRAPHY, CONTENT, SEO } from "./config/config.js";
+import { COLORS, TYPOGRAPHY, CONTENT, SEO, SETTINGS } from "./config/config.js";
 import { smoothScroll } from "./utils/vanilla-utils.js";
 import { TIMING, SELECTORS, LIMITS } from "./constants.js";
 import { validateConfig } from "./validator.js";
@@ -97,12 +97,7 @@ function injectSEO() {
     preconnectImg.setAttribute("crossorigin", "");
     document.head.appendChild(preconnectImg);
 
-    // Preload hero image
-    const preloadHero = document.createElement("link");
-    preloadHero.rel = "preload";
-    preloadHero.as = "image";
-    preloadHero.href = CONTENT.hero.image;
-    document.head.appendChild(preloadHero);
+    // Removido preload da imagem do herói para evitar aviso de preload não usado.
   } catch (error) {
     console.error("❌ [SEO] Erro ao injetar meta tags:", error);
   }
@@ -113,15 +108,11 @@ function injectSEO() {
 // ============================================================================
 
 function injectGoogleFonts() {
-  // Preload para evitar bloqueio e aplicar stylesheet ao carregar
-  const preload = document.createElement("link");
-  preload.rel = "preload";
-  preload.as = "style";
-  preload.href = TYPOGRAPHY.googleFontsUrl;
-  preload.onload = () => {
-    preload.rel = "stylesheet";
-  };
-  document.head.appendChild(preload);
+  // Injeta como stylesheet com display=swap já no URL
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = TYPOGRAPHY.googleFontsUrl;
+  document.head.appendChild(link);
 
   document.body.style.fontFamily = TYPOGRAPHY.sans;
 }
