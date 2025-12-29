@@ -5,9 +5,9 @@
  * Mantém 100% de fidelidade visual e funcional ao projeto React original
  */
 
-import { COLORS, TYPOGRAPHY, CONTENT, ASSETS, SEO } from "./config/config.js";
+import { COLORS, TYPOGRAPHY, CONTENT, SEO } from "./config/config.js";
 
-import { renderIcon, smoothScroll } from "./utils/vanilla-utils.js";
+import { smoothScroll } from "./utils/vanilla-utils.js";
 
 // ============================================================================
 // FUNÇÃO AUXILIAR: ÍCONES SVG PARA FEATURES

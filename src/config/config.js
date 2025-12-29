@@ -319,26 +319,13 @@ export const CONTENT = {
 };
 
 // ============================================================================
-// SEÇÃO 4: ASSETS - Imagens, Ícones e Mídia
+// SEÇÃO 4: ASSETS - Imagens e Mídia
 // ============================================================================
 export const ASSETS = {
   logo: {
     light: "/logo-light.png",
     dark: "/logo-dark.png",
     text: "URBANISMO",
-  },
-
-  social: {
-    instagram: "https://instagram.com",
-    facebook: "https://facebook.com",
-    linkedin: "https://linkedin.com",
-    twitter: "https://twitter.com",
-  },
-
-  icons: {
-    leaf: "leaf",
-    map: "map-pin",
-    sun: "sun",
   },
 };
 
