@@ -194,7 +194,7 @@ integrationTests.test("Deve validar array de navigation", (t) => {
 async function runAllTests() {
   console.log("\n");
   console.log("╔════════════════════════════════════════════════════════╗");
-  console.log("║          TESTES UNITÁRIOS - Landing Page              ║");
+  console.log("║          TESTES UNITÁRIOS - Landing Page               ║");
   console.log("╚════════════════════════════════════════════════════════╝");
 
   const results = [];
