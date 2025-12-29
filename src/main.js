@@ -676,7 +676,9 @@ function renderProjects() {
       await loadScript(SETTINGS.cdn.slickJs);
       assetsLoaded = true;
     } catch (e) {
-      console.warn("Falha ao carregar assets do carrossel:", e);
+      if (!SETTINGS.production) {
+        console.warn("Falha ao carregar assets do carrossel:", e);
+      }
     }
   }
 
