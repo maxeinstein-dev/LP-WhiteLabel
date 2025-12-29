@@ -156,7 +156,7 @@ export const CONTENT = {
       link: "#contact",
     },
     image:
-      "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&h=600&fit=crop&auto=format&fm=webp&q=70",
+      "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1024&h=512&fit=crop&auto=format&fm=webp&q=60",
     imageAlt: "Arquitetura urbana moderna",
   },
 
@@ -195,7 +195,7 @@ export const CONTENT = {
         status: "Em Construção",
         badge: "Lançamento",
         image:
-          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop&auto=format&fm=webp&q=70",
+          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop&auto=format&fm=webp&q=60",
         location: "Jardim Europa, São Paulo",
         size: "180m² a 350m²",
         year: "2024",
@@ -208,7 +208,7 @@ export const CONTENT = {
         status: "Concluído",
         badge: "Premiado",
         image:
-          "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop&auto=format&fm=webp&q=70",
+          "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop&auto=format&fm=webp&q=60",
         location: "Avenida Paulista, São Paulo",
         size: "45.000m² de área construída",
         year: "2023",
@@ -221,7 +221,7 @@ export const CONTENT = {
         status: "Pronto para Morar",
         badge: "Últimas Unidades",
         image:
-          "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop&auto=format&fm=webp&q=70",
+          "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop&auto=format&fm=webp&q=60",
         location: "Vila Olímpia, São Paulo",
         size: "450m² a 800m²",
         year: "2023",
@@ -234,7 +234,7 @@ export const CONTENT = {
         status: "Planejamento",
         badge: "Sustentável",
         image:
-          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop&auto=format&fm=webp&q=70",
+          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop&auto=format&fm=webp&q=60",
         location: "Alphaville, Barueri",
         size: "200 unidades",
         year: "2025",
@@ -255,7 +255,7 @@ export const CONTENT = {
       "Compromisso com sustentabilidade",
     ],
     image:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=1000&fit=crop&auto=format&fm=webp&q=70",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=1000&fit=crop&auto=format&fm=webp&q=60",
     imageAlt: "Projeto arquitetônico moderno",
   },
 

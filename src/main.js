@@ -379,7 +379,6 @@ function renderHero() {
       { w: 640, h: 320 },
       { w: 768, h: 384 },
       { w: 1024, h: 512 },
-      { w: 1200, h: 600 },
     ];
     return variants
       .map(
@@ -401,8 +400,8 @@ function renderHero() {
           loading="eager"
           fetchpriority="high"
           decoding="async"
-          width="1200"
-          height="600"
+          width="1024"
+          height="512"
           srcset="${heroSrcSet}"
           sizes="(min-width:1024px) 100vw, 100vw"
           class="w-full h-full object-cover"
@@ -948,7 +947,7 @@ function renderFooter() {
     CONTENT.company.nameHighlight
   }</span>
             </a>
-            <p class="text-gray-400 text-sm leading-relaxed mb-6">
+            <p class="text-gray-300 text-sm leading-relaxed mb-6">
               ${CONTENT.footer.description}
             </p>
             <div class="flex space-x-4">
@@ -973,7 +972,7 @@ function renderFooter() {
               ${CONTENT.navigation
                 .map(
                   (item, index) => `
-                <li key="${index}"><a href="${item.href}" class="text-gray-400 hover:text-sm transition-colors" style="hover:color: ${COLORS.primary}">${item.label}</a></li>
+                <li key="${index}"><a href="${item.href}" class="text-gray-300 hover:text-sm transition-colors" style="hover:color: ${COLORS.primary}">${item.label}</a></li>
               `
                 )
                 .join("")}
@@ -985,7 +984,7 @@ function renderFooter() {
             <h4 class="text-lg font-semibold mb-6 text-white border-l-2 pl-3" style="border-color: ${
               COLORS.primary
             }">Contato</h4>
-            <ul class="space-y-3 text-sm text-gray-400">
+            <ul class="space-y-3 text-sm text-gray-300">
               ${CONTENT.contact.info
                 .map(
                   (item) => `
