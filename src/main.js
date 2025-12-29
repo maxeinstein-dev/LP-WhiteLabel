@@ -90,6 +90,19 @@ function injectSEO() {
     canonical.href =
       typeof location !== "undefined" ? location.href : SEO.ogUrl;
     document.head.appendChild(canonical);
+    // Preconnect for image CDN
+    const preconnectImg = document.createElement("link");
+    preconnectImg.rel = "preconnect";
+    preconnectImg.href = "https://images.unsplash.com";
+    preconnectImg.setAttribute("crossorigin", "");
+    document.head.appendChild(preconnectImg);
+
+    // Preload hero image
+    const preloadHero = document.createElement("link");
+    preloadHero.rel = "preload";
+    preloadHero.as = "image";
+    preloadHero.href = CONTENT.hero.image;
+    document.head.appendChild(preloadHero);
   } catch (error) {
     console.error("❌ [SEO] Erro ao injetar meta tags:", error);
   }
@@ -163,7 +176,7 @@ function renderHeader() {
       </div>
 
       <!-- Mobile Menu -->
-      <div class="hidden md:hidden mobile-menu fixed inset-0 bg-black/40 backdrop-blur-md z-40 pt-20" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu de navegação">
+      <div class="hidden md:hidden mobile-menu fixed inset-0 bg-black/50 backdrop-blur-lg z-40 pt-20" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu de navegação">
         <div class="flex items-center justify-end px-6">
           <button id="mobile-menu-close" class="text-white/90 hover:opacity-100 focus:outline-none" aria-label="Fechar menu">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -278,6 +291,31 @@ function renderHeader() {
     // Focus first menu link for better a11y
     const firstLink = mobileMenu.querySelector("nav a");
     firstLink?.focus();
+
+    // Focus trap inside mobile menu
+    const focusables = mobileMenu.querySelectorAll(
+      'button, a, [tabindex]:not([tabindex="-1"])'
+    );
+    const firstFocusable = focusables[0];
+    const lastFocusable = focusables[focusables.length - 1];
+    function handleKeydown(e) {
+      if (e.key !== "Tab") return;
+      if (focusables.length === 0) return;
+      if (e.shiftKey) {
+        if (document.activeElement === firstFocusable) {
+          e.preventDefault();
+          lastFocusable.focus();
+        }
+      } else {
+        if (document.activeElement === lastFocusable) {
+          e.preventDefault();
+          firstFocusable.focus();
+        }
+      }
+    }
+    mobileMenu.addEventListener("keydown", handleKeydown);
+    // Save remover to cleanup on close
+    mobileMenu._trapHandler = handleKeydown;
   }
 
   function closeMobileMenu() {
@@ -285,6 +323,10 @@ function renderHeader() {
     mobileMenu.classList.remove("open");
     mobileMenu.classList.add("hidden");
     mobileMenu.setAttribute("inert", "");
+    if (mobileMenu._trapHandler) {
+      mobileMenu.removeEventListener("keydown", mobileMenu._trapHandler);
+      delete mobileMenu._trapHandler;
+    }
     document.body.classList.remove("menu-open");
     toggleBtn?.setAttribute("aria-expanded", "false");
     // Return focus to toggle to avoid focused element inside hidden region
@@ -474,6 +516,9 @@ function renderProjects() {
                     src="${project.image}" 
                     alt="${project.title}"
                     loading="lazy"
+                    decoding="async"
+                    width="800" height="600"
+                    sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
                     class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                 </div>
@@ -612,6 +657,9 @@ function renderAbout() {
                 src="${CONTENT.about.image}"
                 alt="${CONTENT.about.imageAlt}"
                 loading="lazy"
+                decoding="async"
+                width="800" height="1000"
+                sizes="(min-width:1024px) 50vw, 100vw"
                 class="w-full h-full object-cover"
               />
             </div>
