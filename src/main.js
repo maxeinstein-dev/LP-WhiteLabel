@@ -683,8 +683,10 @@ function renderProjects() {
   }
 
   function initCarousel() {
+    const sliderEl = document.getElementById("projects-slider");
+    if (!sliderEl) return;
     if (window.jQuery && window.jQuery.fn.slick) {
-      window.jQuery("#projects-slider").slick({
+      window.jQuery(sliderEl).slick({
         dots: true,
         infinite: true,
         speed: 500,
@@ -725,6 +727,20 @@ function renderProjects() {
   } else {
     // Fallback: carrega imediatamente
     ensureCarouselAssets().then(initCarousel);
+  }
+
+  // Fallback adicional em ambiente de desenvolvimento: força inicialização se IO não disparar
+  if (!SETTINGS.production) {
+    setTimeout(async () => {
+      try {
+        if (!(window.jQuery && window.jQuery.fn.slick)) {
+          await ensureCarouselAssets();
+          initCarousel();
+        }
+      } catch (e) {
+        console.warn("[dev] Fallback do carrossel falhou:", e);
+      }
+    }, 1500);
   }
 }
 
