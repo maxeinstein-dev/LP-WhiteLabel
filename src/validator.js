@@ -1,3 +1,4 @@
+import { SETTINGS } from "./config/config.js";
 /**
  * ============================================================================
  * VALIDADOR - Validação de Configuração
@@ -158,9 +159,11 @@ export function validateSEO(seo) {
 
   // Meta description não deve exceder 160 caracteres
   if (seo.description.length > 160) {
-    console.warn(
-      `[Config Warning] SEO.description tem ${seo.description.length} caracteres (máximo recomendado: 160)`
-    );
+    if (!SETTINGS.production) {
+      console.warn(
+        `[Config Warning] SEO.description tem ${seo.description.length} caracteres (máximo recomendado: 160)`
+      );
+    }
   }
 }
 
@@ -191,7 +194,9 @@ export function validateConfig(config) {
     validateContent(config.CONTENT);
     validateSEO(config.SEO);
 
-    console.log("✅ [Config] Configuração validada com sucesso!");
+    if (!SETTINGS.production) {
+      console.log("✅ [Config] Configuração validada com sucesso!");
+    }
     return true;
   } catch (error) {
     console.error("❌", error.message);

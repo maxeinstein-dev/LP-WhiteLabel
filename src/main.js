@@ -134,7 +134,7 @@ function renderHeader() {
   const socialIcons = CONTENT.footer.social
     .map(
       (social, index) =>
-        `<a key="${index}" href="${social.href}" class="transition-colors hover-primary social-link text-white" aria-label="${social.label}" title="${social.label}">
+        `<a key="${index}" href="${social.href}" target="_blank" rel="noopener noreferrer" class="transition-colors hover-primary social-link text-white" aria-label="${social.label}" title="${social.label}">
           ${social.icon}
         </a>`
     )
@@ -221,7 +221,7 @@ function renderHeader() {
           el.classList.add("text-gray-600");
         });
         document.querySelectorAll(".social-link").forEach((el) => {
-          el.classList.remove("text-white/80");
+          el.classList.remove("text-white");
           el.classList.add("text-gray-400");
         });
         document.querySelectorAll(".social-border").forEach((el) => {
@@ -254,7 +254,7 @@ function renderHeader() {
           el.classList.remove("text-gray-600");
         });
         document.querySelectorAll(".social-link").forEach((el) => {
-          el.classList.add("text-white/80");
+          el.classList.add("text-white");
           el.classList.remove("text-gray-400");
         });
         document.querySelectorAll(".social-border").forEach((el) => {
