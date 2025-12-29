@@ -10,6 +10,35 @@ import { COLORS, TYPOGRAPHY, CONTENT, ASSETS, SEO } from "./config/config.js";
 import { renderIcon, smoothScroll } from "./utils/vanilla-utils.js";
 
 // ============================================================================
+// FUNÇÃO AUXILIAR: ÍCONES SVG PARA FEATURES
+// ============================================================================
+
+function getFeatureIcon(iconName) {
+  const icons = {
+    leaf: `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+      <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+    </svg>`,
+    map: `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+      <circle cx="12" cy="10" r="3"/>
+    </svg>`,
+    sun: `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="4"/>
+      <path d="M12 2v2"/>
+      <path d="M12 20v2"/>
+      <path d="m4.93 4.93 1.41 1.41"/>
+      <path d="m17.66 17.66 1.41 1.41"/>
+      <path d="M2 12h2"/>
+      <path d="M20 12h2"/>
+      <path d="m6.34 17.66-1.41 1.41"/>
+      <path d="m19.07 4.93-1.41 1.41"/>
+    </svg>`,
+  };
+  return icons[iconName] || icons.leaf;
+}
+
+// ============================================================================
 // 1. INJETAR SEO E META TAGS
 // ============================================================================
 
@@ -56,14 +85,14 @@ function renderHeader() {
   const navItems = CONTENT.navigation
     .map(
       (item) =>
-        `<a href="${item.href}" class="text-sm uppercase tracking-widest transition-colors font-medium hover-primary nav-link">${item.label}</a>`
+        `<a href="${item.href}" class="text-sm uppercase tracking-widest transition-colors font-medium hover-primary nav-link text-white/90">${item.label}</a>`
     )
     .join("");
 
   const socialIcons = CONTENT.footer.social
     .map(
       (social, index) =>
-        `<a key="${index}" href="${social.href}" class="transition-colors hover-primary social-link" aria-label="${social.label}">
+        `<a key="${index}" href="${social.href}" class="transition-colors hover-primary social-link text-white/80" aria-label="${social.label}">
           ${social.icon}
         </a>`
     )
@@ -73,7 +102,7 @@ function renderHeader() {
     <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b border-transparent py-6">
       <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <!-- Logo -->
-        <a href="/" class="text-2xl font-serif font-bold tracking-tight transition-colors logo-text">
+        <a href="/" class="text-2xl font-serif font-bold tracking-tight transition-colors logo-text text-white">
           ${CONTENT.company.name}<span style="color: ${COLORS.primary}">${
     CONTENT.company.nameHighlight
   }</span>
@@ -86,13 +115,13 @@ function renderHeader() {
           </nav>
 
           <!-- Social Icons -->
-          <div class="flex items-center space-x-3 pl-6 border-l social-border">
+          <div class="flex items-center space-x-3 pl-6 border-l border-white/20 social-border">
             ${socialIcons}
           </div>
         </div>
 
         <!-- Mobile Menu Toggle -->
-        <button class="md:hidden mobile-menu-btn" id="mobile-menu-toggle" aria-label="Menu">
+        <button class="md:hidden mobile-menu-btn text-white" id="mobile-menu-toggle" aria-label="Menu">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
@@ -275,10 +304,12 @@ function renderFeatures() {
               index * 0.2
             }s">
               <div class="flex flex-col items-center pt-10 pb-4">
-                <div class="p-4 bg-gray-50 rounded-full mb-4 group-hover:bg-opacity-10 transition-colors" style="color: ${
+                <div class="w-20 h-20 rounded-full mb-6 flex items-center justify-center group-hover:scale-110 transition-transform" style="background-color: ${
                   COLORS.primary
-                }">
-                  ${item.icon}
+                }22">
+                  <div style="color: ${COLORS.primary}">
+                    ${getFeatureIcon(item.icon)}
+                  </div>
                 </div>
                 <h3 class="text-xl font-serif font-semibold text-secondary text-center px-8">${
                   item.title
@@ -359,22 +390,66 @@ function renderProjects() {
     </section>
 
     <style>
-      .slick-dots li.slick-active button:before {
+      /* Carrossel - Dots customizados */
+      #projects .slick-dots {
+        bottom: -50px;
+      }
+      
+      #projects .slick-dots li button:before {
+        font-size: 12px;
+        color: #CBD5E0;
+        opacity: 1;
+      }
+      
+      #projects .slick-dots li.slick-active button:before {
         color: ${COLORS.primary} !important;
+        opacity: 1;
       }
-      .slick-prev:before, .slick-next:before {
-        color: ${COLORS.primary};
-      }
-      .slick-prev, .slick-next {
-        width: 40px;
-        height: 40px;
+      
+      /* Carrossel - Setas customizadas */
+      #projects .slick-prev,
+      #projects .slick-next {
+        width: 50px;
+        height: 50px;
         z-index: 10;
+        background-color: white;
+        border-radius: 50%;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
       }
-      .slick-prev {
-        left: -50px;
+      
+      #projects .slick-prev:hover,
+      #projects .slick-next:hover {
+        background-color: ${COLORS.primary};
+        transform: scale(1.1);
       }
-      .slick-next {
-        right: -50px;
+      
+      #projects .slick-prev:before,
+      #projects .slick-next:before {
+        color: ${COLORS.primary};
+        font-size: 24px;
+        line-height: 1;
+        opacity: 1;
+      }
+      
+      #projects .slick-prev:hover:before,
+      #projects .slick-next:hover:before {
+        color: white;
+      }
+      
+      #projects .slick-prev {
+        left: -25px;
+      }
+      
+      #projects .slick-next {
+        right: -25px;
+      }
+      
+      @media (max-width: 640px) {
+        #projects .slick-prev,
+        #projects .slick-next {
+          display: none !important;
+        }
       }
     </style>
   `;
@@ -604,7 +679,7 @@ function renderFooter() {
   const currentYear = new Date().getFullYear();
 
   const footerHTML = `
-    <footer class="bg-secondary text-white pt-16 pb-8 border-t border-gray-800">
+    <footer class="text-white pt-16 pb-8 border-t border-gray-800" style="background-color: #2D2D2D">
       <div class="max-w-7xl mx-auto px-6">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
           <!-- Brand -->
