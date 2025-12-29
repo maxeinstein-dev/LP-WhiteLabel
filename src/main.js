@@ -374,6 +374,23 @@ function renderHeader() {
 
 function renderHero() {
   const main = document.getElementById("main");
+  // Construir srcset responsivo para a imagem do herói (mantendo razão 2:1)
+  function buildHeroSrcSet(url) {
+    const variants = [
+      { w: 640, h: 320 },
+      { w: 768, h: 384 },
+      { w: 1024, h: 512 },
+      { w: 1200, h: 600 },
+    ];
+    return variants
+      .map(
+        (v) =>
+          url.replace(/w=\d+/g, `w=${v.w}`).replace(/h=\d+/g, `h=${v.h}`) +
+          ` ${v.w}w`
+      )
+      .join(", ");
+  }
+  const heroSrcSet = buildHeroSrcSet(CONTENT.hero.image);
 
   const heroHTML = `
     <section id="hero" class="relative w-full h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
@@ -387,6 +404,8 @@ function renderHero() {
           decoding="async"
           width="1200"
           height="600"
+          srcset="${heroSrcSet}"
+          sizes="(min-width:1024px) 100vw, 100vw"
           class="w-full h-full object-cover"
         />
         <!-- Overlay -->

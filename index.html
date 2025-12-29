@@ -76,6 +76,16 @@
         z-index: 50;
       }
     </style>
+    <!-- SEO: injeta descrição cedo via config -->
+    <script type="module">
+      import { SEO } from "./src/config/config.js";
+      const metaDesc =
+        document.querySelector("meta[name=description]") ||
+        document.createElement("meta");
+      metaDesc.setAttribute("name", "description");
+      metaDesc.setAttribute("content", SEO.description);
+      document.head.appendChild(metaDesc);
+    </script>
   </head>
   <body class="bg-white">
     <a href="#main" class="skip-to-main">Ir para conteúdo principal</a>
