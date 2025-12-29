@@ -1,65 +1,21 @@
 /**
  * ============================================================================
- * MAIN.JS - Renderização Dinâmica da Página
+ * MAIN.JS - Conversão fiel do React para Vanilla JS
  * ============================================================================
- *
- * Este arquivo renderiza toda a página dinamicamente a partir de config.js
- * Filosofia: Código fixo, Configuração dinâmica (White Label)
- *
- * IMPORTANTE: O build é executado automaticamente pelo GitHub Actions
- * Não é necessário rodar `npm run build` localmente
- *
- * Para desenvolvimento local:
- * - npm run dev (inicia servidor de desenvolvimento)
- * - Edite config.js para customizar a página
- * - O navegador recarrega automaticamente
- *
+ * Mantém 100% de fidelidade visual e funcional ao projeto React original
  */
 
-import {
-  COLORS,
-  TYPOGRAPHY,
-  CONTENT,
-  ASSETS,
-  SEO,
-  injectCSSVariables,
-} from "./config/config.js";
+import { COLORS, TYPOGRAPHY, CONTENT, ASSETS, SEO } from "./config/config.js";
 
-import {
-  renderIcon,
-  Carousel,
-  MobileMenu,
-  lazyLoadImages,
-  validateEmail,
-  validatePhone,
-  formatPhone,
-  smoothScroll,
-} from "./utils/vanilla-utils.js";
+import { renderIcon, smoothScroll } from "./utils/vanilla-utils.js";
 
 // ============================================================================
-// 1. CONFIGURAR TAILWIND COM CORES DINÂMICAS (inline)
-// ============================================================================
-
-function configureTailwind() {
-  // As cores serão aplicadas via inline styles e CSS variables
-  // Tailwind CDN já está carregado no index.html
-  const root = document.documentElement;
-
-  root.style.setProperty("--color-primary", COLORS.primary);
-  root.style.setProperty("--color-primary-dark", COLORS.primaryDark);
-  root.style.setProperty("--color-secondary", COLORS.secondary);
-  root.style.setProperty("--color-background", COLORS.background);
-}
-
-// ============================================================================
-// 2. INJETAR SEO E META TAGS
+// 1. INJETAR SEO E META TAGS
 // ============================================================================
 
 function injectSEO() {
-  // Title
-  document.title = `${SEO.title}`;
+  document.title = SEO.title;
 
-  // Meta tags
   const metaTags = [
     { name: "description", content: SEO.description },
     { name: "keywords", content: SEO.keywords },
@@ -77,7 +33,7 @@ function injectSEO() {
 }
 
 // ============================================================================
-// 3. INJETAR GOOGLE FONTS
+// 2. INJETAR GOOGLE FONTS
 // ============================================================================
 
 function injectGoogleFonts() {
@@ -86,76 +42,173 @@ function injectGoogleFonts() {
   link.href = TYPOGRAPHY.googleFontsUrl;
   document.head.appendChild(link);
 
-  // Aplicar fontes ao body
   document.body.style.fontFamily = TYPOGRAPHY.sans;
-  document.documentElement.style.setProperty(
-    "--font-display",
-    TYPOGRAPHY.serif
-  );
 }
 
 // ============================================================================
-// 4. RENDERIZAR HEADER COM NAVEGAÇÃO
+// 3. RENDERIZAR HEADER (TRANSPARENTE E FIXO)
 // ============================================================================
 
 function renderHeader() {
   const header = document.getElementById("header");
+  let isScrolled = false;
 
   const navItems = CONTENT.navigation
     .map(
       (item) =>
-        `<li><a href="#${item.id}" class="text-secondary hover:text-primary transition">${item.label}</a></li>`
+        `<a href="${item.href}" class="text-sm uppercase tracking-widest transition-colors font-medium hover-primary nav-link">${item.label}</a>`
     )
     .join("");
 
-  const headerHTML = `
-    <nav class="bg-white shadow-sm sticky top-0 z-50" role="navigation" aria-label="Navegação principal">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-16">
-          <a href="#" class="font-display text-2xl font-bold text-secondary" aria-label="${CONTENT.company.name} - Página inicial">
-            ${CONTENT.company.name}
-          </a>
+  const socialIcons = CONTENT.footer.social
+    .map(
+      (social, index) =>
+        `<a key="${index}" href="${social.href}" class="transition-colors hover-primary social-link" aria-label="${social.label}">
+          ${social.icon}
+        </a>`
+    )
+    .join("");
 
-          <!-- Menu Desktop -->
-          <ul class="hidden md:flex space-x-8" id="nav-menu">
+  header.innerHTML = `
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b border-transparent py-6">
+      <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <!-- Logo -->
+        <a href="/" class="text-2xl font-serif font-bold tracking-tight transition-colors logo-text">
+          ${CONTENT.company.name}<span style="color: ${COLORS.primary}">${
+    CONTENT.company.nameHighlight
+  }</span>
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center space-x-8">
+          <nav class="flex items-center space-x-6">
             ${navItems}
-          </ul>
+          </nav>
 
-          <!-- Menu Mobile Toggle -->
-          <button
-            class="md:hidden flex flex-col space-y-1"
-            id="menu-toggle"
-            aria-label="Abrir menu"
-            aria-expanded="false"
-          >
-            <span class="block w-6 h-0.5 transition" style="background-color: ${COLORS.secondary}"></span>
-            <span class="block w-6 h-0.5 transition" style="background-color: ${COLORS.secondary}"></span>
-            <span class="block w-6 h-0.5 transition" style="background-color: ${COLORS.secondary}"></span>
-          </button>
+          <!-- Social Icons -->
+          <div class="flex items-center space-x-3 pl-6 border-l social-border">
+            ${socialIcons}
+          </div>
         </div>
 
-        <!-- Menu Mobile -->
-        <ul class="hidden md:hidden space-y-2 pb-4" id="nav-menu-mobile">
-          ${navItems}
-        </ul>
+        <!-- Mobile Menu Toggle -->
+        <button class="md:hidden mobile-menu-btn" id="mobile-menu-toggle" aria-label="Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
       </div>
-    </nav>
+
+      <!-- Mobile Menu -->
+      <div class="hidden md:hidden mobile-menu" id="mobile-menu">
+        <nav class="flex flex-col gap-4 p-6">
+          ${CONTENT.navigation
+            .map(
+              (item) =>
+                `<a href="${item.href}" class="text-lg font-medium text-secondary hover-primary py-2 border-b border-gray-100">${item.label}</a>`
+            )
+            .join("")}
+        </nav>
+      </div>
+    </header>
   `;
 
-  header.innerHTML = headerHTML;
+  // Scroll handler
+  function handleScroll() {
+    const headerEl = document.getElementById("main-header");
+    const scrolled = window.scrollY > 10;
+
+    if (scrolled !== isScrolled) {
+      isScrolled = scrolled;
+
+      if (isScrolled) {
+        headerEl.classList.add(
+          "bg-white/30",
+          "backdrop-blur-md",
+          "shadow-sm",
+          "border-white/20",
+          "py-3"
+        );
+        headerEl.classList.remove("bg-transparent", "py-6");
+
+        // Text colors
+        document
+          .querySelectorAll(".logo-text")
+          .forEach((el) => el.classList.add("text-secondary"));
+        document.querySelectorAll(".nav-link").forEach((el) => {
+          el.classList.remove("text-white/90");
+          el.classList.add("text-gray-600");
+        });
+        document.querySelectorAll(".social-link").forEach((el) => {
+          el.classList.remove("text-white/80");
+          el.classList.add("text-gray-400");
+        });
+        document.querySelectorAll(".social-border").forEach((el) => {
+          el.classList.remove("border-white/20");
+          el.classList.add("border-gray-200");
+        });
+        document
+          .querySelector(".mobile-menu-btn")
+          ?.classList.remove("text-white");
+        document
+          .querySelector(".mobile-menu-btn")
+          ?.classList.add("text-gray-900");
+      } else {
+        headerEl.classList.remove(
+          "bg-white/30",
+          "backdrop-blur-md",
+          "shadow-sm",
+          "border-white/20",
+          "py-3"
+        );
+        headerEl.classList.add("bg-transparent", "py-6");
+
+        // Text colors
+        document
+          .querySelectorAll(".logo-text")
+          .forEach((el) => el.classList.remove("text-secondary"));
+        document.querySelectorAll(".nav-link").forEach((el) => {
+          el.classList.add("text-white/90");
+          el.classList.remove("text-gray-600");
+        });
+        document.querySelectorAll(".social-link").forEach((el) => {
+          el.classList.add("text-white/80");
+          el.classList.remove("text-gray-400");
+        });
+        document.querySelectorAll(".social-border").forEach((el) => {
+          el.classList.add("border-white/20");
+          el.classList.remove("border-gray-200");
+        });
+        document.querySelector(".mobile-menu-btn")?.classList.add("text-white");
+        document
+          .querySelector(".mobile-menu-btn")
+          ?.classList.remove("text-gray-900");
+      }
+    }
+  }
+
+  // Initialize
+  window.addEventListener("scroll", handleScroll);
+  handleScroll(); // Initial state
+
+  // Mobile menu toggle
+  document
+    .getElementById("mobile-menu-toggle")
+    ?.addEventListener("click", () => {
+      document.getElementById("mobile-menu")?.classList.toggle("hidden");
+    });
 }
 
 // ============================================================================
-// 5. RENDERIZAR MAIN CONTENT
+// 4. RENDERIZAR HERO
 // ============================================================================
 
-function renderMainContent() {
+function renderHero() {
   const main = document.getElementById("main");
 
-  main.innerHTML = `
-    <!-- Hero Section - Full Screen com Imagem de Fundo -->
-    <section id="hero" class="relative w-full h-screen flex items-center justify-center overflow-hidden" aria-label="Seção principal">
-      <!-- Imagem de Fundo -->
+  const heroHTML = `
+    <section id="hero" class="relative w-full h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
+      <!-- Background Image -->
       <div class="absolute inset-0 z-0">
         <img
           src="${CONTENT.hero.image}"
@@ -163,67 +216,50 @@ function renderMainContent() {
           loading="eager"
           class="w-full h-full object-cover"
         />
-        <!-- Overlay escuro -->
+        <!-- Overlay -->
         <div class="absolute inset-0 bg-black/50"></div>
       </div>
 
-      <!-- Logo no topo -->
-      <div class="absolute top-8 left-1/2 transform -translate-x-1/2 z-20">
-        <div class="text-white text-2xl font-serif font-bold tracking-wider">
-          ${CONTENT.company.name}<span style="color: ${COLORS.primary}">.</span>
-        </div>
-      </div>
-
-      <!-- Conteúdo centralizado -->
-      <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
-        <h1 class="text-white font-serif text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8 leading-tight uppercase fade-in" style="letter-spacing: 0.02em;">
-          ${CONTENT.hero.title}<br>
-          <span class="italic font-normal" style="color: ${COLORS.primary}">${
-    CONTENT.hero.highlight
-  }</span>
+      <!-- Content -->
+      <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
+        <h1 class="text-white font-serif text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-tight drop-shadow-lg fade-in">
+          ${CONTENT.hero.title} <br />
+          <span class="italic font-light" style="color: ${COLORS.primary}">
+            ${CONTENT.hero.highlight}
+          </span>
         </h1>
-        
-        <p class="text-gray-100 text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto mb-12 font-light leading-relaxed fade-in">
+
+        <p class="text-gray-100 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light tracking-wide drop-shadow-md fade-in">
           ${CONTENT.hero.subtitle}
         </p>
 
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-6 fade-in">
-          <a href="#projects" class="group relative px-10 py-4 text-white text-sm font-semibold uppercase tracking-widest overflow-hidden transition-all duration-300 hover:scale-105" style="background-color: ${
-            COLORS.primary
-          }">
-            <span class="relative z-10">${CONTENT.hero.cta}</span>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 fade-in">
+          <a href="${CONTENT.hero.cta.link}" class="px-8 py-6 text-white text-sm uppercase tracking-widest min-w-[200px] shadow-lg transition-all hover:opacity-90" style="background-color: ${COLORS.primary}">
+            ${CONTENT.hero.cta.label}
           </a>
-          <a href="#contact" class="group relative px-10 py-4 border-2 border-white text-white text-sm font-semibold uppercase tracking-widest bg-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-black">
-            FALE COM A GENTE
+          <a href="${CONTENT.hero.ctaSecondary.link}" class="px-8 py-6 border-2 border-white text-white hover:bg-white hover:text-black text-sm uppercase tracking-widest min-w-[200px] bg-white/10 backdrop-blur-sm transition-all">
+            ${CONTENT.hero.ctaSecondary.label}
           </a>
         </div>
       </div>
-
-      <!-- Scroll indicator -->
-      <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
-        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-        </svg>
-      </div>
     </section>
+  `;
 
-    <!-- Features Section -->
-    <section id="features" class="py-24 lg:py-32 bg-white" aria-label="Diferenciais">
-      <div class="max-w-7xl mx-auto px-6 lg:px-8">
-        <div class="text-center mb-20">
-          <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-secondary mb-6 tracking-tight">
-            Nossos Diferenciais
-          </h2>
-          <div class="w-24 h-1 mx-auto" style="background-color: ${
-            COLORS.primary
-          }"></div>
-        </div>
+  main.innerHTML = heroHTML;
+}
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12" id="features-grid" role="region" aria-label="Lista de diferenciais">
-          <!-- Itens serão renderizados dinamicamente -->
-        </div>
-      </div>
-    </section>
+// ============================================================================
+// 5. RENDERIZAR FEATURES
+// ============================================================================
+
+function renderFeatures() {
+  const main = document.getElementById("main");
+
+  const featuresHTML = `
+    <section id="features" class="py-20 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16 fade-in">
+          <h2 class="text-3xl md:text-4xl font-serif font-bold text-secondary mb-4">
             ${CONTENT.features.title}
           </h2>
           <div class="w-24 h-1 mx-auto" style="background-color: ${
@@ -231,71 +267,214 @@ function renderMainContent() {
           }"></div>
         </div>
 
-        <div
-          class="grid grid-cols-1 md:grid-cols-3 gap-8"
-          id="features-grid"
-          role="region"
-          aria-label="Lista de diferenciais"
-        >
-          <!-- Itens serão renderizados dinamicamente -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          ${CONTENT.features.items
+            .map(
+              (item, index) => `
+            <div class="border-none shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white rounded-lg overflow-hidden group h-full fade-in" style="animation-delay: ${
+              index * 0.2
+            }s">
+              <div class="flex flex-col items-center pt-10 pb-4">
+                <div class="p-4 bg-gray-50 rounded-full mb-4 group-hover:bg-opacity-10 transition-colors" style="color: ${
+                  COLORS.primary
+                }">
+                  ${item.icon}
+                </div>
+                <h3 class="text-xl font-serif font-semibold text-secondary text-center px-8">${
+                  item.title
+                }</h3>
+              </div>
+              <div class="text-center pb-10 px-8">
+                <p class="text-gray-600 leading-relaxed">${item.description}</p>
+              </div>
+            </div>
+          `
+            )
+            .join("")}
         </div>
       </div>
     </section>
+  `;
 
-    <!-- Projects Section -->
-    <section id="projects" class="py-24 lg:py-32 bg-gray-50" aria-label="Projetos">
-      <div class="max-w-7xl mx-auto px-6 lg:px-8">
-        <div class="text-center mb-20">
-          <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-secondary mb-6 tracking-tight">
-            Projetos
+  main.innerHTML += featuresHTML;
+}
+
+// ============================================================================
+// 6. RENDERIZAR PROJECTS COM CARROSSEL
+// ============================================================================
+
+function renderProjects() {
+  const main = document.getElementById("main");
+
+  const projectsHTML = `
+    <!-- Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+
+    <section id="projects" class="py-20 bg-gray-100 overflow-hidden">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16 fade-in">
+          <h2 class="text-3xl md:text-4xl font-serif font-bold text-secondary mb-4">
+            ${CONTENT.projects.title}
           </h2>
-          <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-            Conheça nossos empreendimentos que estão redefinindo o conceito de morar bem.
+          <div class="w-24 h-1 mx-auto mb-4" style="background-color: ${
+            COLORS.primary
+          }"></div>
+          <p class="text-gray-600 max-w-xl mx-auto text-[15px]">
+            ${CONTENT.projects.subtitle}
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid" role="region" aria-label="Lista de projetos">
-          <!-- Itens serão renderizados dinamicamente -->
+        <div class="projects-carousel px-4 -mx-4" id="projects-slider">
+          ${CONTENT.projects.items
+            .map(
+              (project) => `
+            <div class="px-3">
+              <div class="bg-white shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden h-full flex flex-col group">
+                <div class="relative overflow-hidden">
+                  <span class="absolute top-4 left-4 z-10 px-4 py-2 text-xs font-bold uppercase tracking-wider text-white" style="background-color: ${COLORS.primary}">
+                    ${project.status}
+                  </span>
+                  <img 
+                    src="${project.image}" 
+                    alt="${project.title}"
+                    loading="lazy"
+                    class="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                </div>
+                <div class="p-6 flex-grow flex flex-col">
+                  <h3 class="font-serif text-xl font-bold text-secondary mb-2">${project.title}</h3>
+                  <p class="text-gray-600 mb-4 flex-grow">${project.description}</p>
+                  <button class="self-start px-6 py-2 text-white text-sm font-semibold uppercase tracking-wider transition-all hover:opacity-90" style="background-color: ${COLORS.primary}">
+                    Ver Detalhes
+                  </button>
+                </div>
+              </div>
+            </div>
+          `
+            )
+            .join("")}
         </div>
       </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-24 lg:py-32 bg-white" aria-label="Sobre nós">
-      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <style>
+      .slick-dots li.slick-active button:before {
+        color: ${COLORS.primary} !important;
+      }
+      .slick-prev:before, .slick-next:before {
+        color: ${COLORS.primary};
+      }
+      .slick-prev, .slick-next {
+        width: 40px;
+        height: 40px;
+        z-index: 10;
+      }
+      .slick-prev {
+        left: -50px;
+      }
+      .slick-next {
+        right: -50px;
+      }
+    </style>
+  `;
+
+  main.innerHTML += projectsHTML;
+
+  // Initialize Slick Carousel
+  if (window.jQuery && window.jQuery.fn.slick) {
+    setTimeout(() => {
+      window.jQuery("#projects-slider").slick({
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 4000,
+        pauseOnHover: true,
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 1,
+            },
+          },
+          {
+            breakpoint: 640,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              arrows: false,
+            },
+          },
+        ],
+      });
+    }, 100);
+  }
+}
+
+// ============================================================================
+// 7. RENDERIZAR ABOUT
+// ============================================================================
+
+function renderAbout() {
+  const main = document.getElementById("main");
+
+  const aboutHTML = `
+    <section id="about" class="py-20 md:py-32 bg-white overflow-hidden">
+      <div class="max-w-7xl mx-auto px-6">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div class="order-2 lg:order-1">
-            <img
-              src="${
-                CONTENT.about.image ||
-                "https://images.unsplash.com/photo-1760450913032-8462c3e7b3e1?w=800"
-              }"
-              alt="Sobre ${CONTENT.company.name}"
-              loading="lazy"
-              class="w-full h-full object-cover shadow-2xl"
-            />
+          <!-- Image Column -->
+          <div class="relative fade-in">
+            <div class="relative h-[500px] md:h-[600px] w-full overflow-hidden shadow-2xl">
+              <img
+                src="${CONTENT.about.image}"
+                alt="${CONTENT.about.imageAlt}"
+                loading="lazy"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <!-- Decorative Boxes -->
+            <div class="absolute -bottom-8 -right-8 w-48 h-48 bg-gray-100 -z-10 hidden md:block"></div>
+            <div class="absolute -top-8 -left-8 w-48 h-48 border-2 -z-10 hidden md:block" style="border-color: ${
+              COLORS.primary
+            }33"></div>
           </div>
-          
-          <div class="order-1 lg:order-2">
-            <div class="inline-block px-4 py-2 text-xs font-semibold uppercase tracking-widest mb-6 text-white" style="background-color: ${
+
+          <!-- Text Column -->
+          <div class="flex flex-col justify-center fade-in">
+            <span class="font-bold text-sm tracking-widest uppercase mb-4" style="color: ${
               COLORS.primary
             }">
-              ${CONTENT.about.badge || "NOSSA HISTÓRIA"}
-            </div>
-            
-            <h2 class="font-serif text-4xl md:text-5xl font-bold text-secondary mb-6 leading-tight">
+              ${CONTENT.about.tagline}
+            </span>
+            <h2 class="text-3xl md:text-5xl font-serif font-bold text-secondary mb-8 leading-tight">
               ${CONTENT.about.title}
             </h2>
-            
-            <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+            <p class="text-gray-600 text-lg mb-6 leading-relaxed">
               ${CONTENT.about.description}
             </p>
 
-            <div class="grid grid-cols-2 gap-6 mb-10" id="about-stats" role="region" aria-label="Estatísticas">
-              <!-- Estatísticas serão renderizadas dinamicamente -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+              ${CONTENT.about.highlights
+                .map(
+                  (item) => `
+                <div class="flex items-center space-x-3">
+                  <div class="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center" style="background-color: ${COLORS.primary}33">
+                    <svg class="w-3 h-3" style="color: ${COLORS.primary}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                  </div>
+                  <span class="text-gray-700 text-sm">${item}</span>
+                </div>
+              `
+                )
+                .join("")}
             </div>
 
-            <a href="#contact" class="inline-block px-8 py-4 text-white text-sm font-semibold uppercase tracking-widest transition-all duration-300 hover:opacity-90" style="background-color: ${
+            <a href="#contact" class="inline-block px-8 py-4 text-white text-sm font-semibold uppercase tracking-widest transition-all hover:opacity-90" style="background-color: ${
               COLORS.primary
             }">
               ENTRE EM CONTATO
@@ -304,159 +483,145 @@ function renderMainContent() {
         </div>
       </div>
     </section>
+  `;
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 lg:py-32" style="background-color: ${
-      COLORS.background
-    }" aria-label="Contato">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="font-display text-4xl lg:text-5xl font-bold text-center text-secondary mb-4">
-          ${CONTENT.contact.title}
-        </h2>
-        <p class="text-lg text-gray-600 text-center mb-16">
-          ${CONTENT.contact.subtitle}
-        </p>
+  main.innerHTML += aboutHTML;
+}
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+// ============================================================================
+// 8. RENDERIZAR CONTACT
+// ============================================================================
+
+function renderContact() {
+  const main = document.getElementById("main");
+
+  const contactHTML = `
+    <section id="contact" class="py-20 bg-white relative">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16 fade-in">
+          <span class="font-bold text-sm tracking-widest uppercase mb-2 block" style="color: ${
+            COLORS.primary
+          }">
+            ${CONTENT.contact.tagline}
+          </span>
+          <h2 class="text-3xl md:text-4xl font-serif font-bold text-secondary mb-4">
+            ${CONTENT.contact.title}
+          </h2>
+          <p class="text-gray-600 max-w-xl mx-auto">
+            ${CONTENT.contact.subtitle}
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <!-- Contact Info -->
-          <div role="region" aria-label="Informações de contato">
+          <div class="lg:col-span-1 space-y-8 bg-gray-50 p-10 rounded-lg h-fit fade-in">
+            <h3 class="text-xl font-serif font-bold text-secondary mb-6">
+              Informações
+            </h3>
+
             ${CONTENT.contact.info
               .map(
                 (item) => `
-              <div class="mb-8">
-                <h3 class="font-display text-xl font-bold text-secondary mb-2">${item.label}</h3>
-                <p class="text-gray-600">${item.value}</p>
+              <div class="flex items-start space-x-4">
+                <div class="p-3 bg-white rounded-full shadow-sm" style="color: ${COLORS.primary}">
+                  ${item.icon}
+                </div>
+                <div>
+                  <p class="font-medium text-secondary">${item.label}</p>
+                  <p class="text-gray-600 text-sm leading-relaxed">${item.value}</p>
+                </div>
               </div>
             `
               )
               .join("")}
           </div>
 
-          <!-- Contact Form -->
-          <form
-            id="contact-form"
-            class="space-y-6"
-            novalidate
-            aria-label="Formulário de contato"
-          >
-            <div>
-              <label for="form-name" class="block text-secondary font-semibold mb-2">Nome *</label>
-              <input
-                type="text"
-                id="form-name"
-                name="name"
-                required
-                placeholder="Seu Nome"
-                aria-required="true"
-                class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg transition"
-              />
-              <span class="error-message text-red-500 text-sm mt-1 hidden" role="alert"></span>
-            </div>
-
-            <div>
-              <label for="form-email" class="block text-secondary font-semibold mb-2">E-mail *</label>
-              <input
-                type="email"
-                id="form-email"
-                name="email"
-                required
-                placeholder="seu@email.com"
-                aria-required="true"
-                class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg transition"
-              />
-              <span class="error-message text-red-500 text-sm mt-1 hidden" role="alert"></span>
-            </div>
-
-            <div>
-              <label for="form-phone" class="block text-secondary font-semibold mb-2">Telefone</label>
-              <input
-                type="tel"
-                id="form-phone"
-                name="phone"
-                placeholder="(11) 99999-9999"
-                class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg transition"
-              />
-              <span class="error-message text-red-500 text-sm mt-1 hidden" role="alert"></span>
-            </div>
-
-            <div>
-              <label for="form-message" class="block text-secondary font-semibold mb-2">Mensagem *</label>
-              <textarea
-                id="form-message"
-                name="message"
-                rows="5"
-                required
-                placeholder="Sua Mensagem"
-                aria-required="true"
-                class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg transition"
-              ></textarea>
-              <span class="error-message text-red-500 text-sm mt-1 hidden" role="alert"></span>
-            </div>
-
-            <button type="submit" class="w-full px-8 py-3 text-white rounded-lg hover:opacity-90 transition font-semibold" style="background-color: ${
-              COLORS.primary
-            }">
-              ${CONTENT.contact.submitButton}
-            </button>
-            <div class="form-message text-center" role="status" aria-live="polite"></div>
-          </form>
+          <!-- Form -->
+          <div class="lg:col-span-2 fade-in">
+            <form id="contact-form" class="space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-sm font-medium text-secondary mb-2">Nome *</label>
+                  <input type="text" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-${
+                    COLORS.primary
+                  }" placeholder="Seu nome completo" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-secondary mb-2">E-mail *</label>
+                  <input type="email" name="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none" placeholder="seu@email.com" />
+                </div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-sm font-medium text-secondary mb-2">Telefone</label>
+                  <input type="tel" name="phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none" placeholder="(00) 00000-0000" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-secondary mb-2">Projeto de Interesse</label>
+                  <select name="project" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none">
+                    <option value="">Selecione</option>
+                    ${CONTENT.projects.items
+                      .map(
+                        (p) => `<option value="${p.title}">${p.title}</option>`
+                      )
+                      .join("")}
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-secondary mb-2">Mensagem *</label>
+                <textarea name="message" required rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none" placeholder="Como podemos ajudar?"></textarea>
+              </div>
+              <button type="submit" class="w-full px-8 py-4 text-white text-sm font-semibold uppercase tracking-widest transition-all hover:opacity-90" style="background-color: ${
+                COLORS.primary
+              }">
+                ENVIAR MENSAGEM
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </section>
   `;
 
-  // Renderizar componentes dinâmicos
-  renderFeatures();
-  renderProjects();
-  renderAboutStats();
+  main.innerHTML += contactHTML;
+
+  // Form handler
+  document.getElementById("contact-form")?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    alert(
+      "Formulário enviado! (Integração com RD Station deve ser configurada)"
+    );
+  });
 }
 
 // ============================================================================
-// 6. RENDERIZAR FOOTER
+// 9. RENDERIZAR FOOTER
 // ============================================================================
 
 function renderFooter() {
   const footer = document.getElementById("footer");
+  const currentYear = new Date().getFullYear();
 
   const footerHTML = `
-    <div style="background-color: ${
-      COLORS.secondary
-    }; color: white" class="py-12">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-          <div>
-            <h3 class="font-display text-xl font-bold mb-2">${
-              CONTENT.company.name
-            }</h3>
-            <p class="text-gray-400">${CONTENT.company.tagline}</p>
-          </div>
-
-          <div>
-            <h3 class="font-display text-xl font-bold mb-4">Links Rápidos</h3>
-            <ul class="space-y-2">
-              ${CONTENT.footer.links
-                .map(
-                  (link) => `
-                <li><a href="${link.href}" class="text-gray-400 hover:text-white transition">${link.label}</a></li>
-              `
-                )
-                .join("")}
-            </ul>
-          </div>
-
-          <div>
-            <h3 class="font-display text-xl font-bold mb-4">Redes Sociais</h3>
-            <div class="flex space-x-4" role="region" aria-label="Links de redes sociais">
+    <footer class="bg-secondary text-white pt-16 pb-8 border-t border-gray-800">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+          <!-- Brand -->
+          <div class="col-span-1 md:col-span-1">
+            <a href="#" class="text-2xl font-serif font-bold tracking-tight text-white mb-6 block">
+              ${CONTENT.company.name}<span style="color: ${COLORS.primary}">${
+    CONTENT.company.nameHighlight
+  }</span>
+            </a>
+            <p class="text-gray-400 text-sm leading-relaxed mb-6">
+              ${CONTENT.footer.description}
+            </p>
+            <div class="flex space-x-4">
               ${CONTENT.footer.social
                 .map(
-                  (social) => `
-                <a
-                  href="${social.url}"
-                  target="_blank"
-                  rel="noopener"
-                  aria-label="${social.name}"
-                  class="text-gray-400 hover:text-white transition"
-                >
+                  (social, index) => `
+                <a key="${index}" href="${social.href}" class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white transition-all" style="hover:background-color: ${COLORS.primary}">
                   ${social.icon}
                 </a>
               `
@@ -464,336 +629,94 @@ function renderFooter() {
                 .join("")}
             </div>
           </div>
+
+          <!-- Links -->
+          <div class="col-span-1">
+            <h4 class="text-lg font-semibold mb-6 text-white border-l-2 pl-3" style="border-color: ${
+              COLORS.primary
+            }">Menu</h4>
+            <ul class="space-y-3">
+              ${CONTENT.navigation
+                .map(
+                  (item, index) => `
+                <li key="${index}"><a href="${item.href}" class="text-gray-400 hover:text-sm transition-colors" style="hover:color: ${COLORS.primary}">${item.label}</a></li>
+              `
+                )
+                .join("")}
+            </ul>
+          </div>
+
+          <!-- Contact -->
+          <div class="col-span-1">
+            <h4 class="text-lg font-semibold mb-6 text-white border-l-2 pl-3" style="border-color: ${
+              COLORS.primary
+            }">Contato</h4>
+            <ul class="space-y-3 text-sm text-gray-400">
+              ${CONTENT.contact.info
+                .map(
+                  (item) => `
+                <li class="flex items-start gap-3">
+                  <span style="color: ${COLORS.primary}" class="shrink-0 mt-0.5">${item.icon}</span>
+                  <span>${item.value}</span>
+                </li>
+              `
+                )
+                .join("")}
+            </ul>
+          </div>
         </div>
 
-        <div class="border-t border-gray-700 pt-8 text-center text-gray-400">
-          <p>&copy; ${new Date().getFullYear()} ${
-    CONTENT.company.name
-  }. Todos os direitos reservados.</p>
+        <!-- Copyright -->
+        <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p class="text-gray-500 text-xs text-center md:text-left">
+            © ${currentYear} ${CONTENT.footer.copyright}
+          </p>
+          <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
+            <div class="flex items-center gap-2">
+              <span class="text-gray-600 text-xs">Desenvolvido por:</span>
+              <a href="${
+                CONTENT.footer.developer.url
+              }" target="_blank" rel="noopener noreferrer" aria-label="Visitar site da ${
+    CONTENT.footer.developer.name
+  }">
+                <img src="${CONTENT.footer.developer.logo}" alt="Logo da ${
+    CONTENT.footer.developer.name
+  }" class="h-6 w-auto opacity-70 hover:opacity-100 transition-opacity" />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </footer>
   `;
 
   footer.innerHTML = footerHTML;
 }
 
 // ============================================================================
-// 7. RENDERIZAR FEATURES
-// ============================================================================
-
-function renderFeatures() {
-  const container = document.getElementById("features-grid");
-  if (!container) return;
-
-  const featuresHTML = CONTENT.features.items
-    .map(
-      (item) => `
-      <div class="text-center group">
-        <div class="mb-6 inline-flex items-center justify-center w-16 h-16 rounded-full transition-all duration-300" style="background-color: ${
-          COLORS.primary
-        }20; color: ${COLORS.primary}">
-          ${renderIcon(item.icon, "w-8 h-8")}
-        </div>
-        <h3 class="font-serif text-2xl font-semibold text-secondary mb-4">${
-          item.title
-        }</h3>
-        <p class="text-gray-600 leading-relaxed">${item.description}</p>
-      </div>
-    `
-    )
-    .join("");
-
-  container.innerHTML = featuresHTML;
-}
-
-// ============================================================================
-// 8. RENDERIZAR PROJECTS (CAROUSEL)
-// ============================================================================
-
-function renderProjects() {
-  const container = document.getElementById("projects-grid");
-  if (!container) return;
-
-  const projectsHTML = CONTENT.projects.items
-    .map(
-      (project) => `
-      <div class="group relative overflow-hidden bg-white shadow-lg transition-all duration-300 hover:shadow-2xl">
-        <div class="relative overflow-hidden">
-          <span class="absolute top-4 left-4 z-10 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white" style="background-color: ${
-            COLORS.primary
-          }">
-            ${project.status || "Disponível"}
-          </span>
-          <img 
-            src="${project.image}" 
-            alt="${project.title}"
-            loading="lazy"
-            decoding="async"
-            class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
-          />
-          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300"></div>
-        </div>
-        <div class="p-8">
-          <h3 class="font-serif text-2xl font-bold text-secondary mb-3">${
-            project.title
-          }</h3>
-          <p class="text-gray-600 mb-6 leading-relaxed">${
-            project.description
-          }</p>
-          <a href="${
-            project.link || "#contact"
-          }" class="inline-flex items-center text-sm font-semibold uppercase tracking-widest transition-colors" style="color: ${
-        COLORS.primary
-      }">
-            Ver Detalhes
-            <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
-          </a>
-        </div>
-      </div>
-    `
-    )
-    .join("");
-
-  container.innerHTML = projectsHTML;
-}
-
-// ============================================================================
-// 9. RENDERIZAR ABOUT STATS
-// ============================================================================
-
-function renderAboutStats() {
-  const container = document.getElementById("about-stats");
-  if (!container) return;
-
-  const statsHTML = CONTENT.about.highlights
-    .map(
-      (stat) => `
-      <div class="border-l-4 pl-4" style="border-color: ${COLORS.primary}">
-        <div class="text-sm font-semibold text-gray-600 mb-2 uppercase tracking-wide">${stat.label}</div>
-        <div class="font-serif text-xl font-bold text-secondary">${stat.value}</div>
-      </div>
-    `
-    )
-    .join("");
-
-  container.innerHTML = statsHTML;
-}
-
-// ============================================================================
-// 10. INICIALIZAÇÃO PRINCIPAL
+// 10. INICIALIZAÇÃO
 // ============================================================================
 
 function initializeApp() {
-  console.log("🚀 Inicializando aplicação...");
-
-  // Configurar Tailwind
-  configureTailwind();
-
-  // Injetar SEO
   injectSEO();
-
-  // Injetar Google Fonts
   injectGoogleFonts();
-
-  // Injetar CSS Variables
-  injectCSSVariables();
-
-  // Renderizar componentes
   renderHeader();
-  renderMainContent();
+  renderHero();
+  renderFeatures();
+  renderProjects();
+  renderAbout();
+  renderContact();
   renderFooter();
 
-  // Inicializar interações
-  initializeCarousel();
-  initializeMobileMenu();
-  initializeContactForm();
-  initializeSmoothScroll();
-  initializeScrollAnimations();
+  // Smooth scroll
+  smoothScroll();
 
-  // Lazy load de imagens
-  lazyLoadImages();
-
-  console.log("✅ Aplicação inicializada com sucesso!");
+  console.log("✅ App inicializado com sucesso!");
 }
 
-// ============================================================================
-// 11. HELPER FUNCTIONS - Interações
-// ============================================================================
-
-function initializeCarousel() {
-  const carousel = document.getElementById("projects-carousel");
-  if (!carousel) return;
-
-  const carouselInstance = new Carousel(carousel, {
-    autoplay: true,
-    interval: 6000,
-  });
-
-  window.projectsCarousel = carouselInstance;
-}
-
-function initializeMobileMenu() {
-  const toggleBtn = document.getElementById("menu-toggle");
-  const menuMobile = document.getElementById("nav-menu-mobile");
-
-  if (!toggleBtn || !menuMobile) return;
-
-  const mobileMenu = new MobileMenu(toggleBtn, menuMobile);
-  window.mobileMenuInstance = mobileMenu;
-}
-
-function initializeContactForm() {
-  const form = document.getElementById("contact-form");
-  if (!form) return;
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    if (!validateForm(form)) return;
-
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
-
-    await handleFormSubmit(data, form);
-  });
-
-  form.querySelectorAll("input, textarea").forEach((field) => {
-    field.addEventListener("blur", () => validateField(field));
-  });
-}
-
-function validateForm(form) {
-  const fields = form.querySelectorAll("[required]");
-  let isValid = true;
-
-  fields.forEach((field) => {
-    if (!validateField(field)) {
-      isValid = false;
-    }
-  });
-
-  return isValid;
-}
-
-function validateField(field) {
-  const errorSpan = field.parentElement.querySelector(".error-message");
-  let isValid = true;
-  let errorMessage = "";
-
-  if (!field.value.trim()) {
-    isValid = false;
-    errorMessage = "Este campo é obrigatório";
-  } else if (field.type === "email" && !validateEmail(field.value)) {
-    isValid = false;
-    errorMessage = "Email inválido";
-  } else if (
-    field.type === "tel" &&
-    field.value &&
-    !validatePhone(field.value)
-  ) {
-    isValid = false;
-    errorMessage = "Telefone inválido";
-  }
-
-  field.classList.toggle("error", !isValid);
-  if (errorSpan) {
-    errorSpan.textContent = errorMessage;
-    errorSpan.classList.toggle("hidden", isValid);
-  }
-
-  return isValid;
-}
-
-async function handleFormSubmit(data, form) {
-  const submitBtn = form.querySelector('button[type="submit"]');
-  const messageDiv = form.querySelector(".form-message");
-
-  submitBtn.disabled = true;
-  submitBtn.textContent = "Enviando...";
-
-  try {
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    messageDiv.textContent = CONTENT.contact.successMessage;
-    messageDiv.style.color = COLORS.success;
-
-    form.reset();
-
-    setTimeout(() => {
-      smoothScroll(messageDiv);
-    }, 300);
-
-    setTimeout(() => {
-      messageDiv.textContent = "";
-    }, 5000);
-  } catch (error) {
-    console.error("Erro ao enviar formulário:", error);
-    messageDiv.textContent = CONTENT.contact.errorMessage;
-    messageDiv.style.color = COLORS.error;
-  } finally {
-    submitBtn.disabled = false;
-    submitBtn.textContent = CONTENT.contact.submitButton;
-  }
-}
-
-function initializeSmoothScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach((link) => {
-    link.addEventListener("click", (e) => {
-      const href = link.getAttribute("href");
-      if (href === "#") return;
-
-      e.preventDefault();
-      smoothScroll(href);
-    });
-  });
-}
-
-function initializeScrollAnimations() {
-  const elements = document.querySelectorAll(
-    "[data-carousel-item], #features-grid > div, #about-stats > div"
-  );
-
-  if (!elements.length) return;
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("fade-in");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.1 }
-  );
-
-  elements.forEach((el) => observer.observe(el));
-}
-
-// ============================================================================
-// 12. EXECUTAR
-// ============================================================================
-
+// Initialize when DOM is ready
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", initializeApp);
 } else {
   initializeApp();
 }
-
-// ============================================================================
-// 13. CLEANUP
-// ============================================================================
-
-window.addEventListener("beforeunload", () => {
-  if (window.projectsCarousel) {
-    window.projectsCarousel.destroy();
-  }
-  if (window.mobileMenuInstance) {
-    window.mobileMenuInstance.destroy();
-  }
-});
-
-export { initializeApp };
