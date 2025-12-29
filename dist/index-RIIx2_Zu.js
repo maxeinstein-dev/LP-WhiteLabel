@@ -68,11 +68,14 @@
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="py-20 lg:py-32 bg-white" aria-label="Diferenciais">
+    <section id="features" class="py-20 bg-gray-50" aria-label="Diferenciais">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="font-display text-4xl lg:text-5xl font-bold text-center text-secondary mb-16">
-          ${r.features.title}
-        </h2>
+        <div class="text-center mb-16">
+          <h2 class="font-display text-3xl md:text-4xl font-bold text-secondary mb-4">
+            ${r.features.title}
+          </h2>
+          <div class="w-24 h-1 mx-auto" style="background-color: ${i.primary}"></div>
+        </div>
 
         <div
           class="grid grid-cols-1 md:grid-cols-3 gap-8"
@@ -283,12 +286,16 @@
       </div>
     </div>
   `;o.innerHTML=e}function M(){const o=document.getElementById("features-grid");if(!o)return;const e=r.features.items.map(t=>`
-      <div class="p-6 border-2 rounded-lg hover:shadow-lg transition" style="border-color: ${i.border}">
-        <div class="mb-4" style="color: ${i.primary}">
-          ${g(t.icon,"w-10 h-10")}
+      <div class="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border-none group h-full">
+        <div class="flex flex-col items-center pt-10 pb-4">
+          <div class="p-4 bg-gray-50 rounded-full mb-4 group-hover:bg-primary/10 transition-colors" style="color: ${i.primary}">
+            ${g(t.icon,"w-10 h-10")}
+          </div>
+          <h3 class="text-xl font-display font-semibold text-secondary text-center px-8">${t.title}</h3>
         </div>
-        <h3 class="font-display text-xl font-bold text-secondary mb-2">${t.title}</h3>
-        <p class="text-gray-600">${t.description}</p>
+        <div class="text-center pb-10 px-8">
+          <p class="text-gray-600 leading-relaxed">${t.description}</p>
+        </div>
       </div>
     `).join("");o.innerHTML=e}function j(){const o=document.getElementById("carousel-inner");if(!o)return;const e=r.projects.items.map(t=>`
       <div class="flex-shrink-0 w-full" data-carousel-item>
