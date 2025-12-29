@@ -320,7 +320,7 @@ export const CONTENT = {
     developer: {
       name: "AlfamaWeb",
       url: "https://alfamaweb.com.br",
-      logo: "./public/images/logo.png",
+      logo: "./src/images/alfama-logo.png",
     },
   },
 };

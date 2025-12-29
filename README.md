@@ -83,13 +83,11 @@ node src/tests.js
 python -m http.server 8000
 ```
 
-**Opção 2: Node.js**
-
-```bash
-npx http-server
-```
-
 Abra: http://localhost:8000
+
+**Opção 2: VS Code Live Server (extensão)**
+
+- Instale a extensão "Live Server" no VS Code e clique em "Go Live" para servir o `index.html`.
 
 ### Deployment
 
@@ -174,10 +172,10 @@ Valida:
 
 Para evitar o aviso do CDN e usar Tailwind corretamente em produção, gere um CSS estático:
 
-1. Gere o CSS minificado com o Tailwind CLI (não precisa instalar nada, usa npx):
+1. Gere o CSS minificado com o Tailwind CLI:
 
 ```bash
-npx tailwindcss -i ./src/styles/tailwind.css -o ./src/styles/tw.css --minify
+npm run build:css
 ```
 
 2. Confirme que o `index.html` importa o arquivo gerado:
@@ -214,4 +212,4 @@ GitHub Pages servirá `index.html` + `src/styles/tw.css` automaticamente.
 
 ## 📖 Licença
 
-MIT
+Maxsuel Einstein
