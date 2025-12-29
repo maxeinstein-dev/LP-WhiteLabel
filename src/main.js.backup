@@ -154,7 +154,7 @@ function renderMainContent() {
 
   main.innerHTML = `
     <!-- Hero Section - Full Screen com Imagem de Fundo -->
-    <section id="hero" class="relative w-full h-screen flex items-center justify-center overflow-hidden" aria-label="Seção principal">
+    <section id="hero" class="relative w-full min-h-screen flex items-center justify-center overflow-hidden" aria-label="Seção principal">
       <!-- Imagem de Fundo -->
       <div class="absolute inset-0 z-0">
         <img
@@ -167,63 +167,37 @@ function renderMainContent() {
         <div class="absolute inset-0 bg-black/50"></div>
       </div>
 
-      <!-- Logo no topo -->
-      <div class="absolute top-8 left-1/2 transform -translate-x-1/2 z-20">
-        <div class="text-white text-2xl font-serif font-bold tracking-wider">
-          ${CONTENT.company.name}<span style="color: ${COLORS.primary}">.</span>
-        </div>
-      </div>
-
-      <!-- Conteúdo centralizado -->
-      <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
-        <h1 class="text-white font-serif text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8 leading-tight uppercase fade-in" style="letter-spacing: 0.02em;">
+      <!-- Conteúdo sobre a imagem -->
+      <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
+        <h1 class="text-white font-display text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-tight drop-shadow-lg fade-in">
           ${CONTENT.hero.title}<br>
-          <span class="italic font-normal" style="color: ${COLORS.primary}">${
-    CONTENT.hero.highlight
-  }</span>
+          <span class="italic font-light drop-shadow-md" style="color: ${
+            COLORS.primary
+          }">${CONTENT.hero.highlight}</span>
         </h1>
         
-        <p class="text-gray-100 text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto mb-12 font-light leading-relaxed fade-in">
+        <p class="text-gray-100 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light tracking-wide drop-shadow-md fade-in">
           ${CONTENT.hero.subtitle}
         </p>
 
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-6 fade-in">
-          <a href="#projects" class="group relative px-10 py-4 text-white text-sm font-semibold uppercase tracking-widest overflow-hidden transition-all duration-300 hover:scale-105" style="background-color: ${
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 fade-in">
+          <a href="#contact" class="px-8 py-6 text-white text-sm uppercase tracking-widest min-w-[200px] shadow-lg transition hover:opacity-90 font-semibold" style="background-color: ${
             COLORS.primary
           }">
-            <span class="relative z-10">${CONTENT.hero.cta}</span>
+            ${CONTENT.hero.cta}
           </a>
-          <a href="#contact" class="group relative px-10 py-4 border-2 border-white text-white text-sm font-semibold uppercase tracking-widest bg-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-black">
-            FALE COM A GENTE
+          <a href="#features" class="px-8 py-6 border-2 border-white text-white hover:bg-white hover:text-black text-sm uppercase tracking-widest min-w-[200px] bg-white/10 backdrop-blur-sm transition font-semibold">
+            Saiba Mais
           </a>
         </div>
-      </div>
-
-      <!-- Scroll indicator -->
-      <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
-        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-        </svg>
       </div>
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="py-24 lg:py-32 bg-white" aria-label="Diferenciais">
-      <div class="max-w-7xl mx-auto px-6 lg:px-8">
-        <div class="text-center mb-20">
-          <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-secondary mb-6 tracking-tight">
-            Nossos Diferenciais
-          </h2>
-          <div class="w-24 h-1 mx-auto" style="background-color: ${
-            COLORS.primary
-          }"></div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12" id="features-grid" role="region" aria-label="Lista de diferenciais">
-          <!-- Itens serão renderizados dinamicamente -->
-        </div>
-      </div>
-    </section>
+    <section id="features" class="py-20 bg-gray-50" aria-label="Diferenciais">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="font-display text-3xl md:text-4xl font-bold text-secondary mb-4">
             ${CONTENT.features.title}
           </h2>
           <div class="w-24 h-1 mx-auto" style="background-color: ${
@@ -242,65 +216,70 @@ function renderMainContent() {
       </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="py-24 lg:py-32 bg-gray-50" aria-label="Projetos">
-      <div class="max-w-7xl mx-auto px-6 lg:px-8">
-        <div class="text-center mb-20">
-          <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-secondary mb-6 tracking-tight">
-            Projetos
-          </h2>
-          <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-            Conheça nossos empreendimentos que estão redefinindo o conceito de morar bem.
-          </p>
-        </div>
+    <!-- Projects Section (Carrossel) -->
+    <section id="projects" class="py-20 lg:py-32" style="background-color: ${
+      COLORS.background
+    }" aria-label="Projetos">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="font-display text-4xl lg:text-5xl font-bold text-center text-secondary mb-16">
+          ${CONTENT.projects.title}
+        </h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid" role="region" aria-label="Lista de projetos">
-          <!-- Itens serão renderizados dinamicamente -->
+        <div class="relative">
+          <div
+            class="overflow-hidden rounded-lg"
+            id="projects-carousel"
+            role="region"
+            aria-label="Carrossel de projetos"
+          >
+            <div class="flex transition-transform duration-500" id="carousel-inner">
+              <!-- Itens serão renderizados dinamicamente -->
+            </div>
+          </div>
+
+          <button
+            class="absolute left-0 top-1/2 -translate-y-1/2 -ml-6 text-white p-3 rounded-full hover:opacity-90 transition"
+            id="carousel-prev"
+            aria-label="Projeto anterior"
+            style="background-color: ${COLORS.primary}"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+
+          <button
+            class="absolute right-0 top-1/2 -translate-y-1/2 -mr-6 text-white p-3 rounded-full hover:opacity-90 transition"
+            id="carousel-next"
+            aria-label="Próximo projeto"
+            style="background-color: ${COLORS.primary}"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
         </div>
       </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-24 lg:py-32 bg-white" aria-label="Sobre nós">
-      <div class="max-w-7xl mx-auto px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div class="order-2 lg:order-1">
-            <img
-              src="${
-                CONTENT.about.image ||
-                "https://images.unsplash.com/photo-1760450913032-8462c3e7b3e1?w=800"
-              }"
-              alt="Sobre ${CONTENT.company.name}"
-              loading="lazy"
-              class="w-full h-full object-cover shadow-2xl"
-            />
-          </div>
-          
-          <div class="order-1 lg:order-2">
-            <div class="inline-block px-4 py-2 text-xs font-semibold uppercase tracking-widest mb-6 text-white" style="background-color: ${
-              COLORS.primary
-            }">
-              ${CONTENT.about.badge || "NOSSA HISTÓRIA"}
-            </div>
-            
-            <h2 class="font-serif text-4xl md:text-5xl font-bold text-secondary mb-6 leading-tight">
-              ${CONTENT.about.title}
-            </h2>
-            
-            <p class="text-lg text-gray-600 mb-8 leading-relaxed">
-              ${CONTENT.about.description}
-            </p>
+    <section id="about" class="py-20 lg:py-32 bg-white" aria-label="Sobre nós">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="font-display text-4xl lg:text-5xl font-bold text-center text-secondary mb-8">
+          ${CONTENT.about.title}
+        </h2>
 
-            <div class="grid grid-cols-2 gap-6 mb-10" id="about-stats" role="region" aria-label="Estatísticas">
-              <!-- Estatísticas serão renderizadas dinamicamente -->
-            </div>
+        <p class="text-lg text-gray-600 text-center mb-16 max-w-3xl mx-auto">
+          ${CONTENT.about.description}
+        </p>
 
-            <a href="#contact" class="inline-block px-8 py-4 text-white text-sm font-semibold uppercase tracking-widest transition-all duration-300 hover:opacity-90" style="background-color: ${
-              COLORS.primary
-            }">
-              ENTRE EM CONTATO
-            </a>
-          </div>
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 gap-8"
+          id="about-stats"
+          role="region"
+          aria-label="Estatísticas"
+        >
+          <!-- Itens serão renderizados dinamicamente -->
         </div>
       </div>
     </section>
@@ -489,16 +468,20 @@ function renderFeatures() {
   const featuresHTML = CONTENT.features.items
     .map(
       (item) => `
-      <div class="text-center group">
-        <div class="mb-6 inline-flex items-center justify-center w-16 h-16 rounded-full transition-all duration-300" style="background-color: ${
-          COLORS.primary
-        }20; color: ${COLORS.primary}">
-          ${renderIcon(item.icon, "w-8 h-8")}
+      <div class="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border-none group h-full">
+        <div class="flex flex-col items-center pt-10 pb-4">
+          <div class="p-4 bg-gray-50 rounded-full mb-4 group-hover:bg-primary/10 transition-colors" style="color: ${
+            COLORS.primary
+          }">
+            ${renderIcon(item.icon, "w-10 h-10")}
+          </div>
+          <h3 class="text-xl font-display font-semibold text-secondary text-center px-8">${
+            item.title
+          }</h3>
         </div>
-        <h3 class="font-serif text-2xl font-semibold text-secondary mb-4">${
-          item.title
-        }</h3>
-        <p class="text-gray-600 leading-relaxed">${item.description}</p>
+        <div class="text-center pb-10 px-8">
+          <p class="text-gray-600 leading-relaxed">${item.description}</p>
+        </div>
       </div>
     `
     )
@@ -512,45 +495,28 @@ function renderFeatures() {
 // ============================================================================
 
 function renderProjects() {
-  const container = document.getElementById("projects-grid");
+  const container = document.getElementById("carousel-inner");
   if (!container) return;
 
   const projectsHTML = CONTENT.projects.items
     .map(
       (project) => `
-      <div class="group relative overflow-hidden bg-white shadow-lg transition-all duration-300 hover:shadow-2xl">
-        <div class="relative overflow-hidden">
-          <span class="absolute top-4 left-4 z-10 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white" style="background-color: ${
-            COLORS.primary
-          }">
-            ${project.status || "Disponível"}
-          </span>
+      <div class="flex-shrink-0 w-full" data-carousel-item>
+        <div class="rounded-lg overflow-hidden shadow-lg">
           <img 
             src="${project.image}" 
             alt="${project.title}"
             loading="lazy"
             decoding="async"
-            class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
+            class="w-full h-64 object-cover"
           />
-          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300"></div>
-        </div>
-        <div class="p-8">
-          <h3 class="font-serif text-2xl font-bold text-secondary mb-3">${
-            project.title
-          }</h3>
-          <p class="text-gray-600 mb-6 leading-relaxed">${
-            project.description
-          }</p>
-          <a href="${
-            project.link || "#contact"
-          }" class="inline-flex items-center text-sm font-semibold uppercase tracking-widest transition-colors" style="color: ${
-        COLORS.primary
-      }">
-            Ver Detalhes
-            <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
-          </a>
+          <div class="p-6 bg-white">
+            <h3 class="font-display text-2xl font-bold text-secondary mb-2">${project.title}</h3>
+            <p class="text-gray-600 mb-4">${project.description}</p>
+            <a href="${project.link}" class="inline-block px-4 py-2 text-white rounded transition" style="background-color: ${COLORS.primary}">
+              Saiba Mais
+            </a>
+          </div>
         </div>
       </div>
     `
@@ -571,9 +537,11 @@ function renderAboutStats() {
   const statsHTML = CONTENT.about.highlights
     .map(
       (stat) => `
-      <div class="border-l-4 pl-4" style="border-color: ${COLORS.primary}">
-        <div class="text-sm font-semibold text-gray-600 mb-2 uppercase tracking-wide">${stat.label}</div>
-        <div class="font-serif text-xl font-bold text-secondary">${stat.value}</div>
+      <div class="text-center">
+        <div class="font-display text-4xl font-bold text-secondary mb-2" style="color: ${COLORS.primary}">
+          ${stat.value}
+        </div>
+        <div class="text-gray-600">${stat.label}</div>
       </div>
     `
     )
