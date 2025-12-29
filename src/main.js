@@ -427,7 +427,7 @@ function renderHero() {
           <a href="${CONTENT.hero.cta.link}" class="px-8 py-6 text-white text-sm uppercase tracking-widest min-w-[200px] shadow-lg transition-all hover:opacity-90" style="background-color: ${COLORS.primary}">
             ${CONTENT.hero.cta.label}
           </a>
-          <a href="${CONTENT.hero.ctaSecondary.link}" class="px-8 py-6 border-2 border-white text-white hover:bg-white hover:text-black text-sm uppercase tracking-widest min-w-[200px] bg-white/10 backdrop-blur-sm transition-all">
+          <a href="${CONTENT.hero.ctaSecondary.link}" class="px-8 py-6 border-2 border-white text-white hover:bg-white hover:text-black text-sm uppercase tracking-widest min-w-[200px] bg-black/40 backdrop-blur-sm transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white/80">
             ${CONTENT.hero.ctaSecondary.label}
           </a>
         </div>
