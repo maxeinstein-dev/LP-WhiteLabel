@@ -1,81 +1,113 @@
-# Template de Landing Page Premium (React)
+# Template de Landing Page - White Label
 
-Este projeto foi arquitetado para ser uma **fábrica de Landing Pages**. Você pode gerar sites completamente diferentes (visual e conteúdo) para novos clientes apenas editando **um único arquivo de configuração**.
+Este projeto é uma **fábrica de Landing Pages** em Vanilla JavaScript com Tailwind CSS.
 
-## ⚡ Como criar um novo site 
+**Filosofia:** Código fixo, Configuração dinâmica
 
-A filosofia deste template é: **Código fixo, Configuração dinâmica.**
+## 🚀 Quick Start
 
-### 1. Preparação
-Copie a pasta deste projeto ou clone o repositório para uma nova pasta com o nome do cliente.
-
+### Instalação
 ```bash
-# Instale as dependências
 npm install
 ```
 
-### 2. Personalização (O Único Arquivo que Importa)
-Abra o arquivo:
-👉 **`src/components/landing/ContentConfig.tsx`**
+### Desenvolvimento Local
+```bash
+npm run dev
+```
+O navegador abrirá automaticamente em http://localhost:3000
 
-É aqui que tudo acontece. Você não precisa tocar em HTML ou CSS.
+### Deployment
+O build é **automático** via GitHub Actions:
+- Push para `main` → Build automático → Deploy no GitHub Pages
+- Visualize em: https://maxeinstein-dev.github.io/LP-WhiteLabel/
 
-#### A. Mude a Identidade Visual (Cores e Fontes)
-No início do arquivo, edite a constante `THEME`:
+## 📝 Customização
 
-```typescript
-export const THEME = {
-  colors: {
-    primary: "#0055FF",      // Mude a cor principal do cliente
-    primaryDark: "#003399",  // Cor ao passar o mouse
-    secondary: "#111111",    // Cor de fundo escura/rodapé
-    // ...
-  },
-  fonts: {
-    // Cole a URL do Google Fonts que o cliente usa
-    googleFontsUrl: "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap",
-    sans: "'Roboto', sans-serif",
-    // ...
-  }
+Toda customização acontece em um único arquivo:
+👉 **`src/config/config.js`**
+
+### A. Cores e Tipografia
+```javascript
+export const COLORS = {
+  primary: "#0055FF",
+  primaryDark: "#003399",
+  secondary: "#111111",
+  background: "#FFFFFF",
+};
+
+export const TYPOGRAPHY = {
+  serif: "'Playfair Display', serif",
+  sans: "'Inter', sans-serif",
+  googleFontsUrl: "https://fonts.googleapis.com/css2?family=...",
 };
 ```
 
-#### B. Configure o Formulário (RD Station)
-Role até `formConfig`. Apenas troque os tokens
+### B. Conteúdo
+```javascript
+export const CONTENT = {
+  companyName: "Sua Empresa",
+  hero: {
+    title: "Título Principal",
+    subtitle: "Subtítulo",
+    // ...
+  },
+  features: [...],
+  projects: [...],
+  // ...
+};
+```
 
-#### C. Atualize o Conteúdo
-Edite o objeto `CONTENT`. Altere textos, links e imagens para cada seção:
-- `companyName`: Nome da empresa no topo.
-- `hero`: A capa do site (título, subtítulo, imagem de fundo).
-- `features`: Os diferenciais (ícones e textos).
-- `projects`: Lista de projetos/produtos (o carrossel).
-- `contact`: Endereço, email, telefone.
+### C. Formulário
+```javascript
+export const FORMS = {
+  contact: {
+    action: "https://seu-endpoint.com/form",
+    successMessage: "Mensagem enviada com sucesso!",
+  },
+};
+```
 
-### 3. Publicação
-Quando terminar de editar o arquivo de configuração:
+## 📁 Estrutura
 
-1. Teste localmente:
-   ```bash
-   npm run dev
-   ```
-2. Gere os arquivos para produção:
-   ```bash
-   npm run build
-   ```
-3. A pasta `dist` conterá o site pronto para ser subido em qualquer hospedagem (Vercel, Netlify, Hostgator, etc).
+```
+src/
+├── config/
+│   └── config.js          ← Arquivo de configuração principal
+├── main.js                ← Renderizador da página
+├── utils/
+│   └── vanilla-utils.js   ← Funções auxiliares
+├── components/            ← Componentes UI
+└── styles/                ← Estilos globais
+```
 
----
+## 📦 Build & Deploy
 
-## 📂 Visão Geral da Estrutura
+**Local:**
+```bash
+npm run dev        # Desenvolvimento
+npm run build      # Build local (opcional)
+npm run preview    # Preview do build
+```
 
-Embora você só precise mexer no arquivo de configuração, aqui está onde as coisas ficam se você precisar de customizações avançadas:
+**Produção:**
+- Build automático via GitHub Actions (`.github/workflows/deploy.yml`)
+- Deploy automático no GitHub Pages
 
-- **`src/components/landing/ContentConfig.tsx`**: 📍 **Edite aqui.** O cérebro do site.
-- `src/components/ContactForm.tsx`: Lógica do formulário (já configurada para ler o config).
-- `src/components/landing/`: Componentes visuais (Hero, Footer, etc) que leem o config.
-- `src/styles/globals.css`: Estilos globais (as variáveis de cor são injetadas via JS no App.tsx).
+## 🎯 Stack
 
-## 🎨 Dicas para Personalização
+- Vite 6.3.5 - Build tool
+- Vanilla JavaScript - Sem frameworks
+- Tailwind CSS - Via CDN
+- GitHub Actions - CI/CD automático
 
-- **Imagens**: Use links externos (Unsplash, S3) ou coloque imagens na pasta `public` e use o caminho `/nome-da-imagem.jpg`.
-- **Ícones**: O projeto usa a biblioteca `lucide-react`. Se precisar de ícones diferentes nos Diferenciais (`features`), você precisará importar o ícone no arquivo `ContentConfig.tsx` (ex: `import { Wallet } from 'lucide-react'`).
+## ✅ Checklist
+
+1. Editar `src/config/config.js`
+2. Testar com `npm run dev`
+3. Commit e push para `main`
+4. GitHub Actions faz build e deploy automaticamente
+
+## 📖 Licença
+
+MIT
