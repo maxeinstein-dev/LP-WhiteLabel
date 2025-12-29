@@ -181,7 +181,9 @@ function renderHeader() {
       </div>
 
       <!-- Mobile Menu -->
-      <div class="hidden md:hidden mobile-menu fixed inset-0 bg-black/50 backdrop-blur-lg z-40 pt-20" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu de navegação" style="background-color:${COLORS.overlay};backdrop-filter:blur(${SETTINGS.ui?.overlayBlurPx ?? 12}px)">
+      <div class="hidden md:hidden mobile-menu fixed inset-0 bg-black/50 backdrop-blur-lg z-40 pt-20" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu de navegação" style="background-color:${
+        COLORS.overlay
+      };backdrop-filter:blur(${SETTINGS.ui?.overlayBlurPx ?? 12}px)">
         <div class="flex items-center justify-end px-6">
           <button id="mobile-menu-close" class="text-white/90 hover:opacity-100 focus:outline-none" aria-label="Fechar menu">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -489,11 +491,6 @@ function renderProjects() {
   const main = document.getElementById("main");
 
   const projectsHTML = `
-    <!-- Slick Carousel CSS (preload non-blocking pattern) -->
-    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" onload="this.rel='stylesheet'"/>
-    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" onload="this.rel='stylesheet'"/>
-    <noscript><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/></noscript>
-    <noscript><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/></noscript>
 
     <section id="projects" class="py-20 bg-gray-100 overflow-hidden">
       <div class="max-w-7xl mx-auto px-6">
@@ -612,9 +609,46 @@ function renderProjects() {
 
   main.innerHTML += projectsHTML;
 
-  // Initialize Slick Carousel
-  if (window.jQuery && window.jQuery.fn.slick) {
-    setTimeout(() => {
+  // Lazy-load jQuery + Slick when projects enters viewport
+  function loadScript(src) {
+    return new Promise((resolve, reject) => {
+      const s = document.createElement("script");
+      s.src = src;
+      s.async = true;
+      s.crossOrigin = "anonymous";
+      s.onload = resolve;
+      s.onerror = reject;
+      document.body.appendChild(s);
+    });
+  }
+
+  function loadStyle(href) {
+    return new Promise((resolve, reject) => {
+      const l = document.createElement("link");
+      l.rel = "stylesheet";
+      l.href = href;
+      l.onload = resolve;
+      l.onerror = reject;
+      document.head.appendChild(l);
+    });
+  }
+
+  let assetsLoaded = false;
+  async function ensureCarouselAssets() {
+    if (assetsLoaded) return;
+    try {
+      await loadStyle(SETTINGS.cdn.slickCss);
+      await loadStyle(SETTINGS.cdn.slickThemeCss);
+      await loadScript(SETTINGS.cdn.jquery);
+      await loadScript(SETTINGS.cdn.slickJs);
+      assetsLoaded = true;
+    } catch (e) {
+      console.warn("Falha ao carregar assets do carrossel:", e);
+    }
+  }
+
+  function initCarousel() {
+    if (window.jQuery && window.jQuery.fn.slick) {
       window.jQuery("#projects-slider").slick({
         dots: true,
         infinite: true,
@@ -627,22 +661,35 @@ function renderProjects() {
         responsive: [
           {
             breakpoint: 1024,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 1,
-            },
+            settings: { slidesToShow: 2, slidesToScroll: 1 },
           },
           {
             breakpoint: 640,
-            settings: {
-              slidesToShow: 1,
-              slidesToScroll: 1,
-              arrows: false,
-            },
+            settings: { slidesToShow: 1, slidesToScroll: 1, arrows: false },
           },
         ],
       });
-    }, 100);
+    }
+  }
+
+  const projectsSection = document.getElementById("projects");
+  if (projectsSection && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      async (entries, observer) => {
+        entries.forEach(async (entry) => {
+          if (entry.isIntersecting) {
+            observer.disconnect();
+            await ensureCarouselAssets();
+            initCarousel();
+          }
+        });
+      },
+      { rootMargin: "200px" }
+    );
+    io.observe(projectsSection);
+  } else {
+    // Fallback: carrega imediatamente
+    ensureCarouselAssets().then(initCarousel);
   }
 }
 
