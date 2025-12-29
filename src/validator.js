@@ -125,9 +125,14 @@ export function validateContent(content) {
     throw new Error("[Config Error] CONTENT.hero.title é obrigatório");
   }
 
-  if (!Array.isArray(content.features) || content.features.length === 0) {
+  // Features pode ser um array ou um objeto com items (como está no config atual)
+  const featuresArray = Array.isArray(content.features)
+    ? content.features
+    : content.features?.items;
+
+  if (!Array.isArray(featuresArray) || featuresArray.length === 0) {
     throw new Error(
-      "[Config Error] CONTENT.features deve ser um array não-vazio"
+      "[Config Error] CONTENT.features deve ser um array não-vazio (ou um objeto com 'items' não-vazio)"
     );
   }
 }
