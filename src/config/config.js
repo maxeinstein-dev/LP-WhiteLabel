@@ -351,7 +351,11 @@ export const SETTINGS = {
   injectCSSVariables: true,
 
   // Modo produção
-  production: process.env.NODE_ENV === "production",
+  // Sem bundler no browser: detecta produção via hostname (não localhost)
+  production:
+    typeof window !== "undefined" &&
+    typeof location !== "undefined" &&
+    !/^(localhost|127\.0\.0\.1)$/.test(location.hostname),
 
   // Configurações de performance
   performance: {
