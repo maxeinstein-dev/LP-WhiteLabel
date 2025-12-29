@@ -9,9 +9,9 @@
  */
 
 // Importar CSS - Vite processará os caminhos corretamente com o base path
-import "../styles/globals.css";
-import "../styles/components.css";
-import "../styles/responsive.css";
+import "./styles/globals.css";
+import "./styles/components.css";
+import "./styles/responsive.css";
 
 import {
   COLORS,
