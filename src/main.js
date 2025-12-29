@@ -152,7 +152,7 @@ function renderHeader() {
       </div>
 
       <!-- Mobile Menu -->
-      <div class="hidden md:hidden mobile-menu" id="mobile-menu">
+      <div class="hidden md:hidden mobile-menu fixed inset-0 bg-white z-40 pt-20" id="mobile-menu" aria-hidden="true">
         <nav class="flex flex-col gap-4 p-6">
           ${CONTENT.navigation
             .map(
@@ -245,12 +245,54 @@ function renderHeader() {
   window.addEventListener("scroll", handleScroll);
   handleScroll(); // Initial state
 
-  // Mobile menu toggle
-  document
-    .getElementById("mobile-menu-toggle")
-    ?.addEventListener("click", () => {
-      document.getElementById("mobile-menu")?.classList.toggle("hidden");
-    });
+  // Mobile Menu behavior
+  const mobileMenu = document.getElementById("mobile-menu");
+  const toggleBtn = document.getElementById("mobile-menu-toggle");
+
+  function openMobileMenu() {
+    if (!mobileMenu) return;
+    mobileMenu.classList.remove("hidden");
+    mobileMenu.classList.add("open");
+    mobileMenu.setAttribute("aria-hidden", "false");
+    document.body.classList.add("menu-open");
+    toggleBtn?.setAttribute("aria-expanded", "true");
+  }
+
+  function closeMobileMenu() {
+    if (!mobileMenu) return;
+    mobileMenu.classList.remove("open");
+    mobileMenu.classList.add("hidden");
+    mobileMenu.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("menu-open");
+    toggleBtn?.setAttribute("aria-expanded", "false");
+  }
+
+  // Toggle on button
+  toggleBtn?.addEventListener("click", () => {
+    const isOpen = mobileMenu?.classList.contains("open");
+    if (isOpen) closeMobileMenu();
+    else openMobileMenu();
+  });
+
+  // Close on ESC
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeMobileMenu();
+  });
+
+  // Close when clicking a link
+  mobileMenu?.querySelectorAll("a").forEach((a) =>
+    a.addEventListener("click", () => closeMobileMenu())
+  );
+
+  // Prevent flicker on scroll when menu open
+  const originalHandleScroll = handleScroll;
+  function guardedScroll() {
+    if (document.body.classList.contains("menu-open")) return;
+    originalHandleScroll();
+  }
+  window.removeEventListener("scroll", handleScroll);
+  window.addEventListener("scroll", guardedScroll);
+  guardedScroll();
 }
 
 // ============================================================================
