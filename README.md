@@ -138,32 +138,55 @@ export const CONTENT = {
 ```
 src/
 ├── config/
-│   └── config.js          ← Arquivo de configuração principal
-├── main.js                ← Renderizador da página
+│   └── config.js          ← Arquivo de configuração centralizado
+├── constants.js           ← Constantes nomeadas (magic numbers)
+├── validator.js           ← Validação de config na inicialização
+├── tests.js              ← Testes unitários
+├── main.js               ← Renderizador da página
 ├── utils/
-│   └── vanilla-utils.js   ← Funções auxiliares
+│   └── vanilla-utils.js  ← Utilitários (scroll suave)
 └── styles/
-    └── animations.css     ← Estilos customizados
+    └── animations.css    ← Estilos customizados
 ```
-
-**Produção:**
-
-- Build automático via GitHub Actions (`.github/workflows/deploy.yml`)
-- Deploy automático no GitHub Pages
 
 ## 🎯 Stack
 
-- Vite 6.3.5 - Build tool
-- Vanilla JavaScript - Sem frameworks
-- Tailwind CSS - Via CDN
-- GitHub Actions - CI/CD automático
+- **Vanilla JavaScript** - Zero frameworks, zero dependências
+- **Tailwind CSS** - Via CDN (sem build necessário)
+- **HTML/CSS/JS Puro** - Deploy direto no GitHub Pages
 
-## ✅ Checklist
+## 🧪 Testes
 
-1. Editar `src/config/config.js`
-2. Testar com `npm run dev`
-3. Commit e push para `main`
-4. GitHub Actions faz build e deploy automaticamente
+Execute testes unitários localmente:
+
+```bash
+node src/tests.js
+```
+
+Valida:
+- ✅ Cores hexadecimais
+- ✅ URLs de Google Fonts
+- ✅ Estrutura de config
+- ✅ Arrays obrigatórios
+
+## 🚀 Deployment
+
+Configure GitHub Pages nas settings do repositório:
+
+1. **Settings → Pages**
+2. **Branch:** `main`
+3. **Folder:** `/` (root)
+4. Clique em **Save**
+
+GitHub Pages servirá `index.html` automaticamente. Sem CI/CD necessário!
+
+## ✅ Checklist de Customização
+
+1. Editar `src/config/config.js` com suas cores, conteúdo e assets
+2. Testar localmente: `python -m http.server 8000`
+3. Executar testes: `node src/tests.js`
+4. Commit e push para `main`
+5. GitHub Pages faz deploy automaticamente
 
 ## 📖 Licença
 
