@@ -943,7 +943,7 @@ function renderFooter() {
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
           <!-- Brand -->
           <div class="col-span-1 md:col-span-1">
-            <a href="#" class="text-2xl font-serif font-bold tracking-tight text-white mb-6 block">
+            <a href="#hero" class="text-2xl font-serif font-bold tracking-tight text-white mb-6 block" title="Ir para o topo">
               ${CONTENT.company.name}<span style="color: ${COLORS.primary}">${
     CONTENT.company.nameHighlight
   }</span>
@@ -955,7 +955,7 @@ function renderFooter() {
               ${CONTENT.footer.social
                 .map(
                   (social, index) => `
-                <a key="${index}" href="${social.href}" class="w-8 h-8 rounded-full flex items-center justify-center transition-all" style="background-color: ${COLORS.footerIconBg}; color: ${COLORS.gray400}" onmouseover="this.style.backgroundColor='${COLORS.primary}'; this.style.color='${COLORS.white}'" onmouseout="this.style.backgroundColor='${COLORS.footerIconBg}'; this.style.color='${COLORS.gray400}'">
+                <a key="${index}" href="${social.href}" aria-label="${social.label}" class="w-8 h-8 rounded-full flex items-center justify-center transition-all" style="background-color: ${COLORS.footerIconBg}; color: ${COLORS.gray400}" onmouseover="this.style.backgroundColor='${COLORS.primary}'; this.style.color='${COLORS.white}'" onmouseout="this.style.backgroundColor='${COLORS.footerIconBg}'; this.style.color='${COLORS.gray400}'">
                   ${social.icon}
                 </a>
               `
@@ -1015,7 +1015,7 @@ function renderFooter() {
   }">
                 <img src="${CONTENT.footer.developer.logo}" alt="Logo da ${
     CONTENT.footer.developer.name
-  }" class="h-6 w-auto opacity-70 hover:opacity-100 transition-opacity" />
+  }" width="48" height="24" class="h-6 w-auto opacity-70 hover:opacity-100 transition-opacity" />
               </a>
             </div>
           </div>
