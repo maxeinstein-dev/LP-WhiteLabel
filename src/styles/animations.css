@@ -40,6 +40,11 @@
   color: var(--primary) !important;
 }
 
+/* Text Secondary Color - para logo ao scroll */
+.text-secondary {
+  color: var(--text) !important;
+}
+
 /* Smooth transitions */
 * {
   transition-property: color, background-color, border-color, opacity;

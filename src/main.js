@@ -2,17 +2,32 @@
  * ============================================================================
  * MAIN.JS - Conversão fiel do React para Vanilla JS
  * ============================================================================
- * Mantém 100% de fidelidade visual e funcional ao projeto React original
+ * Mantém 100% de fidelidade visual e funcional ao projeto React original.
+ *
+ * Boas Práticas Aplicadas:
+ * - Importações centralizadas (constants, validator)
+ * - Validação de config na inicialização
+ * - Constantes nomeadas em vez de magic numbers
+ * - Tratamento de erros com try-catch
+ * - JSDoc completo para todas as funções
  */
 
 import { COLORS, TYPOGRAPHY, CONTENT, SEO } from "./config/config.js";
-
 import { smoothScroll } from "./utils/vanilla-utils.js";
+import { TIMING, SELECTORS, LIMITS } from "./constants.js";
+import { validateConfig } from "./validator.js";
 
 // ============================================================================
 // FUNÇÃO AUXILIAR: ÍCONES SVG PARA FEATURES
 // ============================================================================
 
+/**
+ * Retorna SVG de ícone baseado no nome
+ * @param {string} iconName - Nome do ícone (leaf, map, sun)
+ * @returns {string} HTML do SVG
+ * @example
+ * const leaf = getFeatureIcon('leaf');
+ */
 function getFeatureIcon(iconName) {
   const icons = {
     leaf: `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -42,23 +57,31 @@ function getFeatureIcon(iconName) {
 // 1. INJETAR SEO E META TAGS
 // ============================================================================
 
+/**
+ * Injeta meta tags de SEO no <head>
+ * Referência: Open Graph Protocol para compartilhamento em redes sociais
+ */
 function injectSEO() {
-  document.title = SEO.title;
+  try {
+    document.title = SEO.title;
 
-  const metaTags = [
-    { name: "description", content: SEO.description },
-    { name: "keywords", content: SEO.keywords },
-    { property: "og:title", content: SEO.title },
-    { property: "og:description", content: SEO.description },
-    { property: "og:image", content: SEO.image },
-    { name: "theme-color", content: COLORS.primary },
-  ];
+    const metaTags = [
+      { name: "description", content: SEO.description },
+      { name: "keywords", content: SEO.keywords },
+      { property: "og:title", content: SEO.title },
+      { property: "og:description", content: SEO.description },
+      { property: "og:image", content: SEO.image },
+      { name: "theme-color", content: COLORS.primary },
+    ];
 
-  metaTags.forEach((tag) => {
-    const meta = document.createElement("meta");
-    Object.assign(meta, tag);
-    document.head.appendChild(meta);
-  });
+    metaTags.forEach((tag) => {
+      const meta = document.createElement("meta");
+      Object.assign(meta, tag);
+      document.head.appendChild(meta);
+    });
+  } catch (error) {
+    console.error("❌ [SEO] Erro ao injetar meta tags:", error);
+  }
 }
 
 // ============================================================================
@@ -161,9 +184,10 @@ function renderHeader() {
         headerEl.classList.remove("bg-transparent", "py-6");
 
         // Text colors
-        document
-          .querySelectorAll(".logo-text")
-          .forEach((el) => el.classList.add("text-secondary"));
+        document.querySelectorAll(".logo-text").forEach((el) => {
+          el.classList.remove("text-white");
+          el.classList.add("text-secondary");
+        });
         document.querySelectorAll(".nav-link").forEach((el) => {
           el.classList.remove("text-white/90");
           el.classList.add("text-gray-600");
@@ -193,9 +217,10 @@ function renderHeader() {
         headerEl.classList.add("bg-transparent", "py-6");
 
         // Text colors
-        document
-          .querySelectorAll(".logo-text")
-          .forEach((el) => el.classList.remove("text-secondary"));
+        document.querySelectorAll(".logo-text").forEach((el) => {
+          el.classList.remove("text-secondary");
+          el.classList.add("text-white");
+        });
         document.querySelectorAll(".nav-link").forEach((el) => {
           el.classList.add("text-white/90");
           el.classList.remove("text-gray-600");
@@ -774,24 +799,60 @@ function renderFooter() {
 // 10. INICIALIZAÇÃO
 // ============================================================================
 
+/**
+ * Inicializa a aplicação
+ * Executa todas as funções de rendering e configuração
+ *
+ * Boas Práticas:
+ * - Validação de config antes de tudo
+ * - Try-catch para detectar erros cedo
+ * - Logs estruturados para debugging
+ */
 function initializeApp() {
-  injectSEO();
-  injectGoogleFonts();
-  renderHeader();
-  renderHero();
-  renderFeatures();
-  renderProjects();
-  renderAbout();
-  renderContact();
-  renderFooter();
+  try {
+    // 1️⃣ VALIDAÇÃO - Verifica integridade da config
+    validateConfig({ COLORS, TYPOGRAPHY, CONTENT, SEO });
 
-  // Smooth scroll
-  smoothScroll();
+    // 2️⃣ INJEÇÃO - Adiciona recursos globais
+    injectSEO();
+    injectGoogleFonts();
 
-  console.log("✅ App inicializado com sucesso!");
+    // 3️⃣ RENDERIZAÇÃO - Renderiza seções na ordem
+    renderHeader();
+    renderHero();
+    renderFeatures();
+    renderProjects();
+    renderAbout();
+    renderContact();
+    renderFooter();
+
+    // 4️⃣ INTERATIVIDADE - Ativa scroll suave
+    smoothScroll();
+
+    console.log("✅ [App] Inicializado com sucesso!");
+  } catch (error) {
+    console.error("❌ [App] Erro crítico na inicialização:", error);
+
+    // Fallback: Mostra mensagem de erro ao usuário
+    const main = document.getElementById(SELECTORS.MAIN.replace("#", ""));
+    if (main) {
+      main.innerHTML = `
+        <div style="padding: 40px; text-align: center; color: #d32f2f;">
+          <h1>⚠️ Erro ao carregar página</h1>
+          <p>Verifique a configuração em src/config/config.js</p>
+          <p style="font-size: 12px; margin-top: 20px; color: #666;">
+            ${error.message}
+          </p>
+        </div>
+      `;
+    }
+  }
 }
 
-// Initialize when DOM is ready
+/**
+ * Inicia a app quando DOM estiver pronto
+ * Referência: DOMContentLoaded - garante que o DOM está totalmente carregado
+ */
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", initializeApp);
 } else {
