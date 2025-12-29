@@ -1,30 +1,30 @@
 # Template de Landing Page - White Label
 
-Este projeto é uma **fábrica de Landing Pages** em Vanilla JavaScript com Tailwind CSS.
+Este projeto é uma **fábrica de Landing Pages** em Vanilla JavaScript puro com Tailwind CSS.
 
-**Filosofia:** Código fixo, Configuração dinâmica
+**Filosofia:** Código fixo, Configuração dinâmica. Sem build tools, sem dependencies, apenas HTML + CSS + JS puro.
 
 ## 🚀 Quick Start
 
-### Instalação
-
-```bash
-npm install
-```
-
 ### Desenvolvimento Local
 
+**Opção 1: Python (builtin)**
+
 ```bash
-npm run dev
+python -m http.server 8000
 ```
 
-O navegador abrirá automaticamente em http://localhost:3000
+**Opção 2: Node.js**
+
+```bash
+npx http-server
+```
+
+Abra: http://localhost:8000
 
 ### Deployment
 
-O build é **automático** via GitHub Actions:
-
-- Push para `main` → Build automático → Deploy no GitHub Pages
+- Push para `main` → Deploy automático no GitHub Pages
 - Visualize em: https://maxeinstein-dev.github.io/LP-WhiteLabel/
 
 ## 📝 Customização
@@ -44,8 +44,7 @@ export const COLORS = {
 
 export const TYPOGRAPHY = {
   serif: "'Playfair Display', serif",
-  sans: "'Inter', sans-serif",
-  googleFontsUrl: "https://fonts.googleapis.com/css2?family=...",
+  sans: "'Lato', sans-serif",
 };
 ```
 
@@ -65,17 +64,6 @@ export const CONTENT = {
 };
 ```
 
-### C. Formulário
-
-```javascript
-export const FORMS = {
-  contact: {
-    action: "https://seu-endpoint.com/form",
-    successMessage: "Mensagem enviada com sucesso!",
-  },
-};
-```
-
 ## 📁 Estrutura
 
 ```
@@ -85,18 +73,8 @@ src/
 ├── main.js                ← Renderizador da página
 ├── utils/
 │   └── vanilla-utils.js   ← Funções auxiliares
-├── components/            ← Componentes UI
-└── styles/                ← Estilos globais
-```
-
-## 📦 Build & Deploy
-
-**Local:**
-
-```bash
-npm run dev        # Desenvolvimento
-npm run build      # Build local (opcional)
-npm run preview    # Preview do build
+└── styles/
+    └── animations.css     ← Estilos customizados
 ```
 
 **Produção:**
