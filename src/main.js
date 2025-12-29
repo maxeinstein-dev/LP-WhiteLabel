@@ -738,10 +738,13 @@ function renderProjects() {
   }
 
   // Fallback adicional: força inicialização se IO não disparar (produção e dev)
-  setTimeout(() => {
-    if (carouselInitialized) return;
-    ensureAndInitCarousel();
-  }, SETTINGS.production ? 2200 : 1500);
+  setTimeout(
+    () => {
+      if (carouselInitialized) return;
+      ensureAndInitCarousel();
+    },
+    SETTINGS.production ? 2200 : 1500
+  );
 }
 
 // ============================================================================
