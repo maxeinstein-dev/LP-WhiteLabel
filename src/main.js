@@ -1,10 +1,18 @@
 /**
  * ============================================================================
- * MAIN.JS - Inicialização e Renderização Dinâmica com Tailwind
+ * MAIN.JS - Renderização Dinâmica da Página
  * ============================================================================
  *
- * Este arquivo renderiza toda a página dinamicamente a partir do config.js
- * Filosofia: Código fixo, Configuração dinâmica
+ * Este arquivo renderiza toda a página dinamicamente a partir de config.js
+ * Filosofia: Código fixo, Configuração dinâmica (White Label)
+ *
+ * IMPORTANTE: O build é executado automaticamente pelo GitHub Actions
+ * Não é necessário rodar `npm run build` localmente
+ *
+ * Para desenvolvimento local:
+ * - npm run dev (inicia servidor de desenvolvimento)
+ * - Edite config.js para customizar a página
+ * - O navegador recarrega automaticamente
  *
  */
 

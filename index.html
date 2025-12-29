@@ -4,20 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- SEO será injetado dinamicamente -->
-    <meta name="twitter:card" content="summary_large_image" />
-
     <!-- Título será injetado dinamicamente -->
     <title>Loading...</title>
+
+    <!-- Meta tags de SEO serão injetadas dinamicamente -->
+    <meta name="description" content="" />
+    <meta name="twitter:card" content="summary_large_image" />
 
     <!-- Google Fonts será injetado dinamicamente -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Tailwind CSS via CDN (Development) - Será removido em produção -->
+    <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- CSS de Produção comentado para dev, será descomentado em build -->
 
     <style>
       .skip-to-main {
@@ -29,9 +28,6 @@
       }
       .skip-to-main:focus {
         top: 0;
-      }
-      .highlight {
-        /* Cor será injetada dinamicamente */
       }
       @keyframes fadeIn {
         from {
@@ -51,16 +47,10 @@
   <body class="bg-white">
     <a href="#main" class="skip-to-main">Ir para conteúdo principal</a>
 
-    <!-- Header e Navegação será renderizado aqui -->
     <header id="header" role="banner"></header>
-
-    <!-- Conteúdo Principal será renderizado aqui -->
     <main id="main" role="main"></main>
-
-    <!-- Footer será renderizado aqui -->
     <footer id="footer" role="contentinfo"></footer>
 
-    <!-- Scripts -->
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
