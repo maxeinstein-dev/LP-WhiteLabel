@@ -99,7 +99,7 @@ export const CONTENT = {
     cta: { label: "Ver Portfólio", link: "#projects" },
     ctaSecondary: { label: "Falar com Especialista", link: "#contact" },
     image:
-      "https://images.unsplash.com/photo-1482192505345-5655af888cc4?w=1024&h=512&fit=crop&auto=format&fm=webp&q=55",
+      "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1024&h=512&fit=crop&auto=format&fm=webp&q=55",
     imageAlt: "Skyline moderno ao entardecer",
   },
   features: {
@@ -133,7 +133,7 @@ export const CONTENT = {
         status: "Em Construção",
         badge: "Lançamento",
         image:
-          "https://images.unsplash.com/photo-1472220621758-3e2f9b2ed6c6?w=800&h=600&fit=crop&auto=format&fm=webp&q=55",
+          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop&auto=format&fm=webp&q=55",
         location: "Campinas, SP",
         size: "90m² a 140m²",
         year: "2025",
@@ -145,7 +145,7 @@ export const CONTENT = {
         status: "Concluído",
         badge: "Premiado",
         image:
-          "https://images.unsplash.com/photo-1440776594667-62417c53e6a1?w=800&h=600&fit=crop&auto=format&fm=webp&q=55",
+          "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop&auto=format&fm=webp&q=55",
         location: "São Paulo, SP",
         size: "28.000m²",
         year: "2024",
@@ -157,7 +157,7 @@ export const CONTENT = {
         status: "Pronto para Morar",
         badge: "Últimas Unidades",
         image:
-          "https://images.unsplash.com/photo-1505692794403-34d4982a9ad2?w=800&h=600&fit=crop&auto=format&fm=webp&q=55",
+          "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop&auto=format&fm=webp&q=55",
         location: "Florianópolis, SC",
         size: "120m² a 280m²",
         year: "2023",
@@ -169,7 +169,7 @@ export const CONTENT = {
         status: "Planejamento",
         badge: "Sustentável",
         image:
-          "https://images.unsplash.com/photo-1523419409543-8e9b3d8b7948?w=800&h=600&fit=crop&auto=format&fm=webp&q=55",
+          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop&auto=format&fm=webp&q=55",
         location: "Curitiba, PR",
         size: "160 unidades",
         year: "2026",
@@ -188,7 +188,7 @@ export const CONTENT = {
       "Compromisso ambiental",
     ],
     image:
-      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&h=1000&fit=crop&auto=format&fm=webp&q=55",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=1000&fit=crop&auto=format&fm=webp&q=55",
     imageAlt: "Interior com iluminação natural",
   },
   contact: {
