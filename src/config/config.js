@@ -255,7 +255,7 @@ export const CONTENT = {
       "Compromisso com sustentabilidade",
     ],
     image:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=1000&fit=crop&auto=format&fm=webp&q=60",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=1000&fit=crop&auto=format&fm=webp&q=55",
     imageAlt: "Projeto arquitetônico moderno",
   },
 

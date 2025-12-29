@@ -222,7 +222,7 @@ function renderHeader() {
         });
         document.querySelectorAll(".social-link").forEach((el) => {
           el.classList.remove("text-white");
-          el.classList.add("text-gray-300");
+          el.classList.add("text-gray-600");
         });
         document.querySelectorAll(".social-border").forEach((el) => {
           el.classList.remove("border-white/20");
@@ -1003,12 +1003,12 @@ function renderFooter() {
 
         <!-- Copyright -->
         <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p class="text-gray-500 text-xs text-center md:text-left">
+          <p class="text-gray-300 text-xs text-center md:text-left">
             © ${currentYear} ${CONTENT.footer.copyright}
           </p>
           <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
             <div class="flex items-center gap-2">
-              <span class="text-gray-600 text-xs">Desenvolvido por:</span>
+              <span class="text-gray-300 text-xs">Desenvolvido por:</span>
               <a href="${
                 CONTENT.footer.developer.url
               }" target="_blank" rel="noopener noreferrer" aria-label="Visitar site da ${
