@@ -13,8 +13,7 @@
  */
 
 import { COLORS, TYPOGRAPHY, CONTENT, SEO, SETTINGS } from "./config/config.js";
-import { smoothScroll } from "./utils/vanilla-utils.js";
-import { TIMING, SELECTORS, LIMITS } from "./constants.js";
+import { SELECTORS } from "./constants.js";
 import { validateConfig } from "./validator.js";
 
 // ============================================================================
@@ -1077,9 +1076,6 @@ function initializeApp() {
     renderAbout();
     renderContact();
     renderFooter();
-
-    // 4️⃣ INTERATIVIDADE - Ativa scroll suave
-    smoothScroll();
 
     // App inicializado
   } catch (error) {
