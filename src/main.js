@@ -1,4 +1,503 @@
 import { COLORS, TYPOGRAPHY, CONTENT, SEO, SETTINGS } from "./config/config.js";
 import { SELECTORS } from "./constants.js";
 import { validateConfig } from "./validator.js";
-function getFeatureIcon(n){const e={leaf:`<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>`,map:`<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,sun:`<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>`};return e[n]||e.leaf}function injectSEO(){try{document.title=SEO.title;[{name:"keywords",content:SEO.keywords},{property:"og:title",content:SEO.title},{property:"og:description",content:SEO.description},{property:"og:image",content:SEO.ogImage||SEO.image},{property:"og:url",content:typeof location!=="undefined"?location.href:SEO.ogUrl},{name:"theme-color",content:COLORS.primary}].forEach((e=>{const o=document.createElement("meta");Object.assign(o,e),document.head.appendChild(o)}));const e=document.createElement("link");e.rel="canonical",e.href=typeof location!=="undefined"?location.href:SEO.ogUrl,document.head.appendChild(e);const o=document.createElement("link");o.rel="preconnect",o.href="https://images.unsplash.com",o.setAttribute("crossorigin",""),document.head.appendChild(o)}catch(e){console.error(" [SEO]:",e)}}function injectGoogleFonts(){const e=document.createElement("link");e.rel="stylesheet",e.href=TYPOGRAPHY.googleFontsUrl,document.head.appendChild(e),document.body.style.fontFamily=TYPOGRAPHY.sans}function renderHeader(){const e=document.getElementById("header");e.innerHTML=`<nav id="main-header" class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: transparent; transition: all 500ms;"><div class="container-fluid"><a href="#hero" class="navbar-brand" style="color: #fff; font-weight: bold;">${CONTENT.company.name}<span style="color: ${COLORS.primary}">${CONTENT.company.nameHighlight}</span></a><button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"><span class="navbar-toggler-icon"></span></button><div class="offcanvas offcanvas-end" id="offcanvasNavbar"><div class="offcanvas-header"><h5 class="offcanvas-title">Menu</h5><button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button></div><div class="offcanvas-body"><div class="navbar-nav me-auto">${CONTENT.navigation.map((e=>`<a href="${e.href}" class="nav-link">${e.label}</a>`)).join("")}</div><div class="d-flex gap-2">${CONTENT.footer.social.map((e=>`<a href="${e.href}" target="_blank" title="${e.label}" class="text-white">${e.icon}</a>`)).join("")}</div></div></div></div></nav>`;let o=!1;function t(){const a=document.getElementById("main-header"),c=window.scrollY>10;c!==o&&(o=c,c?(a.style.background="rgba(255,255,255,0.3)",a.style.backdropFilter="blur(12px)",a.classList.add("shadow-sm")):(a.style.background="transparent",a.style.backdropFilter="none",a.classList.remove("shadow-sm")))}window.addEventListener("scroll",t),t()}function renderHero(){const e=document.getElementById("main");e.innerHTML=`<section id="hero" class="d-flex align-items-center justify-content-center" style="background: url('${CONTENT.hero.image}') center/cover; min-height: 100vh; position: relative;"><div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(0,0,0,0.5); z-index: 1;"></div><div class="container position-relative z-2 text-center text-white"><h1 class="display-4 fw-bold mb-4">${CONTENT.hero.title}<br/><span class="fst-italic fw-light" style="color: ${COLORS.primary}">${CONTENT.hero.highlight}</span></h1><p class="lead mb-5">${CONTENT.hero.subtitle}</p><div class="d-flex gap-3 justify-content-center flex-wrap"><a href="${CONTENT.hero.cta.link}" class="btn btn-lg" style="background-color: ${COLORS.primary}; border: none; color: white;">${CONTENT.hero.cta.label}</a><a href="${CONTENT.hero.ctaSecondary.link}" class="btn btn-lg btn-outline-light">${CONTENT.hero.ctaSecondary.label}</a></div></div></section>`}function renderFeatures(){const e=document.getElementById("main");e.innerHTML+=`<section id="features" class="py-5" style="background: #f9fafb;"><div class="container"><div class="text-center mb-5"><h2 class="display-5 fw-bold" style="color: ${COLORS.secondary};">${CONTENT.features.title}</h2><div class="mx-auto my-3" style="width: 96px; height: 4px; background-color: ${COLORS.primary};"></div></div><div class="row g-4">${CONTENT.features.items.map(((e,o)=>`<div class="col-md-4"><div class="card border-0 shadow-sm h-100"><div class="card-body text-center pt-4"><div class="mx-auto mb-3" style="width: 80px; height: 80px; border-radius: 50%; background-color: ${COLORS.primaryOpacity22}; display: flex; align-items: center; justify-content: center; color: ${COLORS.primary};">${getFeatureIcon(e.icon)}</div><h5 class="card-title" style="color: ${COLORS.secondary};">${e.title}</h5><p class="card-text text-muted">${e.description}</p></div></div></div>`)).join("")}</div></div></section>`}function renderProjects(){const e=document.getElementById("main"),o=document.getElementById("projects");e.innerHTML+=`<section id="projects" class="py-5" style="background: #f3f4f6;"><div class="container"><div class="text-center mb-5"><h2 class="display-5 fw-bold" style="color: ${COLORS.secondary};">${CONTENT.projects.title}</h2><div class="mx-auto my-3" style="width: 96px; height: 4px; background-color: ${COLORS.primary};"></div><p class="text-muted">${CONTENT.projects.subtitle}</p></div><div class="swiper projects-carousel"><div class="swiper-wrapper">${CONTENT.projects.items.map((e=>`<div class="swiper-slide"><div class="card border-0 shadow-sm h-100"><div class="position-relative overflow-hidden"><span class="badge position-absolute top-0 start-0 m-3" style="background-color: ${COLORS.primary};">${e.status}</span><img src="${e.image}" alt="${e.title}" class="card-img-top" style="height: 256px; object-fit: cover;"></div><div class="card-body d-flex flex-column"><h5 class="card-title" style="color: ${COLORS.secondary};">${e.title}</h5><p class="card-text text-muted flex-grow-1">${e.description}</p><button class="btn btn-sm" style="background-color: ${COLORS.primary}; color: white; width: fit-content;">Ver Detalhes</button></div></div></div>`)).join("")}</div><div class="swiper-pagination"></div><div class="swiper-button-prev"></div><div class="swiper-button-next"></div></div></div></section><style>.swiper-button-prev,.swiper-button-next{width:50px;height:50px;background-color:${COLORS.carouselArrowBg};border-radius:50%;box-shadow:0 2px 6px ${COLORS.carouselArrowShadow}}.swiper-button-prev::after,.swiper-button-next::after{color:${COLORS.primary};font-size:24px}.swiper-pagination-bullet{background-color:${COLORS.carouselDotDefault}}.swiper-pagination-bullet-active{background-color:${COLORS.primary}}</style>`;const t=()=>{if(window.Swiper)new window.Swiper(".projects-carousel",{slidesPerView:3,spaceBetween:20,pagination:{el:".swiper-pagination",clickable:!0},navigation:{nextEl:".swiper-button-next",prevEl:".swiper-button-prev"},autoplay:{delay:4e3,disableOnInteraction:!1},breakpoints:{640:{slidesPerView:1,spaceBetween:10},768:{slidesPerView:2,spaceBetween:15},1024:{slidesPerView:3,spaceBetween:20}}})};if("IntersectionObserver"in window){const e=new IntersectionObserver(((e,a)=>{e.forEach((e=>{e.isIntersecting&&(a.disconnect(),t())}))}),{rootMargin:"200px"});document.getElementById("projects")&&e.observe(document.getElementById("projects"))}else t();setTimeout(t,SETTINGS.production?2200:1500)}function renderAbout(){const e=document.getElementById("main");e.innerHTML+=`<section id="about" class="py-5 bg-white"><div class="container"><div class="row align-items-center g-4"><div class="col-lg-6"><img src="${CONTENT.about.image}" alt="${CONTENT.about.imageAlt}" class="img-fluid shadow-lg" style="border-radius: 8px;"></div><div class="col-lg-6"><span class="text-uppercase fw-bold small" style="color: ${COLORS.primary};">${CONTENT.about.tagline}</span><h2 class="display-5 fw-bold mt-2" style="color: ${COLORS.secondary};">${CONTENT.about.title}</h2><p class="lead text-muted mt-3">${CONTENT.about.description}</p><ul class="list-unstyled mt-4">${CONTENT.about.highlights.map((e=>`<li class="mb-2"><span style="color: ${COLORS.primary};"></span> ${e}</li>`)).join("")}</ul><a href="#contact" class="btn btn-lg mt-4" style="background-color: ${COLORS.primary}; color: white;">ENTRE EM CONTATO</a></div></div></div></section>`}function renderContact(){const e=document.getElementById("main");e.innerHTML+=`<section id="contact" class="py-5 bg-white"><div class="container"><div class="text-center mb-5"><span class="text-uppercase fw-bold small" style="color: ${COLORS.primary};">${CONTENT.contact.tagline}</span><h2 class="display-5 fw-bold mt-2" style="color: ${COLORS.secondary};">${CONTENT.contact.title}</h2><p class="text-muted">${CONTENT.contact.subtitle}</p></div><div class="row g-4"><div class="col-lg-4"><div class="bg-light p-4 rounded"><h5 class="fw-bold mb-3" style="color: ${COLORS.secondary};">Informa��es</h5>${CONTENT.contact.info.map((e=>`<div class="mb-3"><div style="color: ${COLORS.primary};">${e.icon}</div><p class="fw-bold small">${e.label}</p><p class="text-muted small">${e.value}</p></div>`)).join("")}</div></div><div class="col-lg-8"><form id="contact-form" class="row g-3"><div class="col-md-6"><label class="form-label fw-bold">Nome</label><input type="text" class="form-control" name="name" required></div><div class="col-md-6"><label class="form-label fw-bold">E-mail</label><input type="email" class="form-control" name="email" required></div><div class="col-md-6"><label class="form-label fw-bold">Telefone</label><input type="tel" class="form-control" name="phone"></div><div class="col-md-6"><label class="form-label fw-bold">Projeto</label><select class="form-select" name="project"><option>Selecione...</option>${CONTENT.projects.items.map((e=>`<option>${e.title}</option>`)).join("")}</select></div><div class="col-12"><label class="form-label fw-bold">Mensagem</label><textarea class="form-control" name="message" rows="5" required></textarea></div><div class="col-12"><button type="submit" class="btn btn-lg w-100" style="background-color: ${COLORS.primary}; color: white;">ENVIAR MENSAGEM</button></div></form></div></div></div></section>`;document.getElementById("contact-form")?.addEventListener("submit",(e=>{e.preventDefault(),alert("Mensagem enviada!")}))}function renderFooter(){const e=document.getElementById("footer"),o=new Date().getFullYear();e.innerHTML=`<footer class="text-white pt-5 pb-3" style="background-color: ${COLORS.footerBackground};"><div class="container"><div class="row mb-5"><div class="col-md-4 mb-4"><h5 class="fw-bold mb-3">${CONTENT.company.name}<span style="color: ${COLORS.primary}">${CONTENT.company.nameHighlight}</span></h5><p class="small text-muted">${CONTENT.footer.description}</p><div class="d-flex gap-2 mt-3">${CONTENT.footer.social.map((e=>`<a href="${e.href}" class="text-white-50" title="${e.label}">${e.icon}</a>`)).join("")}</div></div><div class="col-md-4 mb-4"><h6 class="fw-bold mb-3" style="border-left: 2px solid ${COLORS.primary}; padding-left: 12px;">Menu</h6><ul class="list-unstyled small">${CONTENT.navigation.map((e=>`<li class="mb-2"><a href="${e.href}" class="text-white-50" style="text-decoration: none;">${e.label}</a></li>`)).join("")}</ul></div><div class="col-md-4 mb-4"><h6 class="fw-bold mb-3" style="border-left: 2px solid ${COLORS.primary}; padding-left: 12px;">Contato</h6><ul class="list-unstyled small text-white-50">${CONTENT.contact.info.map((e=>`<li class="mb-2">${e.value}</li>`)).join("")}</ul></div></div><hr style="border-color: ${COLORS.borderGray800}"><div class="row align-items-center small"><div class="col-md-6"> ${o} ${CONTENT.footer.copyright}</div><div class="col-md-6 text-end"><a href="${CONTENT.footer.developer.url}" target="_blank"><img src="${CONTENT.footer.developer.logo}" alt="${CONTENT.footer.developer.name}" height="24" style="opacity: 0.7;"></a></div></div></div></footer>`}function initializeApp(){try{validateConfig({COLORS:COLORS,TYPOGRAPHY:TYPOGRAPHY,CONTENT:CONTENT,SEO:SEO}),injectSEO(),injectGoogleFonts(),renderHeader(),renderHero(),renderFeatures(),renderProjects(),renderAbout(),renderContact(),renderFooter()}catch(e){console.error(" [App]:",e);const o=document.getElementById(SELECTORS.MAIN.replace("#",""));o&&(o.innerHTML=`<div style="padding: 40px; text-align: center; color: #d32f2f;"><h1> Erro</h1><p>${e.message}</p></div>`)}}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",initializeApp):initializeApp();
+
+// Icon registry
+const iconRegistry = {
+  leaf: `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>`,
+  map: `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
+  sun: `<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>`
+};
+
+function getFeatureIcon(type) {
+  return iconRegistry[type] || iconRegistry.leaf;
+}
+
+// SEO injection
+function injectSEO() {
+  try {
+    document.title = SEO.title;
+
+    const metas = [
+      { name: "keywords", content: SEO.keywords },
+      { property: "og:title", content: SEO.title },
+      { property: "og:description", content: SEO.description },
+      { property: "og:image", content: SEO.ogImage || SEO.image },
+      { property: "og:url", content: typeof location !== "undefined" ? location.href : SEO.ogUrl },
+      { name: "theme-color", content: COLORS.primary }
+    ];
+
+    metas.forEach(attr => {
+      const meta = document.createElement("meta");
+      Object.assign(meta, attr);
+      document.head.appendChild(meta);
+    });
+
+    const link = document.createElement("link");
+    link.rel = "canonical";
+    link.href = typeof location !== "undefined" ? location.href : SEO.ogUrl;
+    document.head.appendChild(link);
+  } catch (err) {
+    console.error("❌ [SEO]:", err);
+  }
+}
+
+// Google Fonts injection
+function injectGoogleFonts() {
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = TYPOGRAPHY.googleFontsUrl;
+  document.head.appendChild(link);
+  document.body.style.fontFamily = TYPOGRAPHY.sans;
+}
+
+// Header/Navbar
+function renderHeader() {
+  const header = document.getElementById("header");
+  
+  header.innerHTML = `
+    <nav id="main-header" class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: transparent; transition: all 500ms; z-index: 1030;">
+      <div class="container-fluid px-3 px-md-5">
+        <a href="#hero" class="navbar-brand fw-bold" style="color: #fff;">
+          ${CONTENT.company.name}
+          <span style="color: ${COLORS.primary};">${CONTENT.company.nameHighlight}</span>
+        </a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" id="offcanvasNavbar">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title">Menu</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+          </div>
+          <div class="offcanvas-body">
+            <div class="navbar-nav ms-auto">
+              ${CONTENT.navigation.map(nav => `
+                <a href="${nav.href}" class="nav-link" style="color: #fff !important;">${nav.label}</a>
+              `).join("")}
+            </div>
+            <div class="d-flex gap-3 ms-3 mt-3">
+              ${CONTENT.footer.social.map(social => `
+                <a href="${social.href}" target="_blank" title="${social.label}" style="color: #fff; text-decoration: none;">
+                  ${social.icon}
+                </a>
+              `).join("")}
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  `;
+
+  // Navbar scroll effect
+  let wasScrolled = false;
+  function updateNavbar() {
+    const navbar = document.getElementById("main-header");
+    const isScrolled = window.scrollY > 10;
+    
+    if (isScrolled !== wasScrolled) {
+      wasScrolled = isScrolled;
+      if (isScrolled) {
+        navbar.style.background = "rgba(255, 255, 255, 0.95)";
+        navbar.style.backdropFilter = "blur(12px)";
+        navbar.classList.add("shadow-sm");
+        navbar.querySelectorAll(".nav-link").forEach(link => link.style.color = "#000 !important");
+        navbar.querySelector(".navbar-brand").style.color = "#000";
+      } else {
+        navbar.style.background = "transparent";
+        navbar.style.backdropFilter = "none";
+        navbar.classList.remove("shadow-sm");
+        navbar.querySelectorAll(".nav-link").forEach(link => link.style.color = "#fff !important");
+        navbar.querySelector(".navbar-brand").style.color = "#fff";
+      }
+    }
+  }
+
+  window.addEventListener("scroll", updateNavbar);
+  updateNavbar();
+}
+
+// Hero section
+function renderHero() {
+  const main = document.getElementById("main");
+  
+  main.innerHTML = `
+    <section id="hero" class="position-relative d-flex align-items-center justify-content-center" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${CONTENT.hero.image}') center/cover; min-height: 100vh; background-attachment: fixed;">
+      <div class="container-fluid px-3 px-md-5 text-center text-white position-relative" style="z-index: 2;">
+        <h1 class="display-3 fw-bold mb-4" style="line-height: 1.2;">
+          ${CONTENT.hero.title}
+          <br/>
+          <span class="fst-italic fw-light" style="color: ${COLORS.primary};">${CONTENT.hero.highlight}</span>
+        </h1>
+        <p class="lead mb-5 fs-5">${CONTENT.hero.subtitle}</p>
+        <div class="d-flex gap-3 justify-content-center flex-wrap">
+          <a href="${CONTENT.hero.cta.link}" class="btn btn-lg px-5" style="background-color: ${COLORS.primary}; border: none; color: white; font-weight: 600;">
+            ${CONTENT.hero.cta.label}
+          </a>
+          <a href="${CONTENT.hero.ctaSecondary.link}" class="btn btn-lg btn-outline-light px-5" style="font-weight: 600;">
+            ${CONTENT.hero.ctaSecondary.label}
+          </a>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+// Features section
+function renderFeatures() {
+  const main = document.getElementById("main");
+  
+  main.innerHTML += `
+    <section id="features" class="py-5 py-md-6" style="background: #f9fafb;">
+      <div class="container-fluid px-3 px-md-5">
+        <div class="text-center mb-5">
+          <h2 class="display-5 fw-bold" style="color: ${COLORS.secondary};">${CONTENT.features.title}</h2>
+          <div class="mx-auto my-4" style="width: 96px; height: 4px; background-color: ${COLORS.primary};"></div>
+        </div>
+        <div class="row g-4 g-md-5">
+          ${CONTENT.features.items.map(feature => `
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card border-0 shadow-sm h-100">
+                <div class="card-body text-center pt-5">
+                  <div class="mx-auto mb-4" style="width: 80px; height: 80px; border-radius: 50%; background-color: ${COLORS.primaryOpacity22}; display: flex; align-items: center; justify-content: center; color: ${COLORS.primary};">
+                    ${getFeatureIcon(feature.icon)}
+                  </div>
+                  <h5 class="card-title fw-bold" style="color: ${COLORS.secondary};">${feature.title}</h5>
+                  <p class="card-text text-muted">${feature.description}</p>
+                </div>
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+// Projects section with Swiper
+function renderProjects() {
+  const main = document.getElementById("main");
+  
+  main.innerHTML += `
+    <section id="projects" class="py-5 py-md-6" style="background: #f3f4f6;">
+      <div class="container-fluid px-3 px-md-5">
+        <div class="text-center mb-5">
+          <h2 class="display-5 fw-bold" style="color: ${COLORS.secondary};">${CONTENT.projects.title}</h2>
+          <div class="mx-auto my-4" style="width: 96px; height: 4px; background-color: ${COLORS.primary};"></div>
+          <p class="text-muted fs-6">${CONTENT.projects.subtitle}</p>
+        </div>
+        <div class="swiper projects-carousel">
+          <div class="swiper-wrapper">
+            ${CONTENT.projects.items.map(project => `
+              <div class="swiper-slide h-auto">
+                <div class="card border-0 shadow-sm h-100">
+                  <div class="position-relative overflow-hidden" style="height: 256px;">
+                    <span class="badge position-absolute top-0 start-0 m-3 fs-6" style="background-color: ${COLORS.primary};">
+                      ${project.status}
+                    </span>
+                    <img src="${project.image}" alt="${project.title}" class="w-100 h-100" style="object-fit: cover;">
+                  </div>
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title fw-bold" style="color: ${COLORS.secondary};">${project.title}</h5>
+                    <p class="card-text text-muted flex-grow-1">${project.description}</p>
+                    <button class="btn btn-sm px-3" style="background-color: ${COLORS.primary}; color: white; width: fit-content; font-weight: 600;">
+                      Ver Detalhes
+                    </button>
+                  </div>
+                </div>
+              </div>
+            `).join("")}
+          </div>
+          <div class="swiper-pagination mt-4"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+      </div>
+      <style>
+        .swiper-button-prev,
+        .swiper-button-next {
+          width: 50px;
+          height: 50px;
+          background-color: ${COLORS.carouselArrowBg};
+          border-radius: 50%;
+          box-shadow: 0 2px 8px ${COLORS.carouselArrowShadow};
+          top: auto;
+          bottom: -60px;
+        }
+        .swiper-button-prev::after,
+        .swiper-button-next::after {
+          color: ${COLORS.primary};
+          font-size: 20px;
+        }
+        .swiper-pagination-bullet {
+          background-color: ${COLORS.carouselDotDefault};
+        }
+        .swiper-pagination-bullet-active {
+          background-color: ${COLORS.primary};
+        }
+        .projects-carousel {
+          padding-bottom: 80px;
+        }
+      </style>
+    </section>
+  `;
+
+  // Initialize Swiper after a delay
+  const initSwiper = () => {
+    if (window.Swiper) {
+      new window.Swiper(".projects-carousel", {
+        slidesPerView: 3,
+        spaceBetween: 24,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev"
+        },
+        autoplay: {
+          delay: 4000,
+          disableOnInteraction: false
+        },
+        breakpoints: {
+          0: { slidesPerView: 1, spaceBetween: 16 },
+          768: { slidesPerView: 2, spaceBetween: 20 },
+          1024: { slidesPerView: 3, spaceBetween: 24 }
+        }
+      });
+    }
+  };
+
+  // Lazy load Swiper when section is visible
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          observer.disconnect();
+          initSwiper();
+        }
+      });
+    }, { rootMargin: "200px" });
+    
+    const section = document.getElementById("projects");
+    if (section) observer.observe(section);
+  } else {
+    initSwiper();
+  }
+
+  setTimeout(initSwiper, SETTINGS.production ? 2200 : 1500);
+}
+
+// About section
+function renderAbout() {
+  const main = document.getElementById("main");
+  
+  main.innerHTML += `
+    <section id="about" class="py-5 py-md-6 bg-white">
+      <div class="container-fluid px-3 px-md-5">
+        <div class="row align-items-center g-4 g-md-5">
+          <div class="col-12 col-lg-6">
+            <img src="${CONTENT.about.image}" alt="${CONTENT.about.imageAlt}" class="img-fluid shadow-lg rounded" style="max-height: 500px; object-fit: cover;">
+          </div>
+          <div class="col-12 col-lg-6">
+            <span class="text-uppercase fw-bold small" style="color: ${COLORS.primary}; letter-spacing: 2px;">
+              ${CONTENT.about.tagline}
+            </span>
+            <h2 class="display-5 fw-bold mt-3 mb-4" style="color: ${COLORS.secondary};">
+              ${CONTENT.about.title}
+            </h2>
+            <p class="lead text-muted mb-4">${CONTENT.about.description}</p>
+            <ul class="list-unstyled mb-4">
+              ${CONTENT.about.highlights.map(highlight => `
+                <li class="mb-3">
+                  <span style="color: ${COLORS.primary}; font-weight: bold;">✓</span>
+                  <span class="ms-2">${highlight}</span>
+                </li>
+              `).join("")}
+            </ul>
+            <a href="#contact" class="btn btn-lg px-5" style="background-color: ${COLORS.primary}; color: white; font-weight: 600;">
+              ENTRE EM CONTATO
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+// Contact section
+function renderContact() {
+  const main = document.getElementById("main");
+  
+  main.innerHTML += `
+    <section id="contact" class="py-5 py-md-6 bg-white">
+      <div class="container-fluid px-3 px-md-5">
+        <div class="text-center mb-5">
+          <span class="text-uppercase fw-bold small" style="color: ${COLORS.primary}; letter-spacing: 2px;">
+            ${CONTENT.contact.tagline}
+          </span>
+          <h2 class="display-5 fw-bold mt-3" style="color: ${COLORS.secondary};">
+            ${CONTENT.contact.title}
+          </h2>
+          <p class="text-muted mt-3">${CONTENT.contact.subtitle}</p>
+        </div>
+        <div class="row g-4 g-md-5">
+          <div class="col-12 col-lg-4">
+            <div class="bg-light p-4 rounded">
+              <h5 class="fw-bold mb-4" style="color: ${COLORS.secondary};">Informações</h5>
+              ${CONTENT.contact.info.map(info => `
+                <div class="mb-4">
+                  <div style="color: ${COLORS.primary}; font-size: 24px; margin-bottom: 8px;">
+                    ${info.icon}
+                  </div>
+                  <p class="fw-bold small mb-1">${info.label}</p>
+                  <p class="text-muted small m-0">${info.value}</p>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+          <div class="col-12 col-lg-8">
+            <form id="contact-form" class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label fw-bold">Nome</label>
+                <input type="text" class="form-control" name="name" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-bold">E-mail</label>
+                <input type="email" class="form-control" name="email" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-bold">Telefone</label>
+                <input type="tel" class="form-control" name="phone">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label fw-bold">Projeto</label>
+                <select class="form-select" name="project">
+                  <option>Selecione...</option>
+                  ${CONTENT.projects.items.map(project => `<option>${project.title}</option>`).join("")}
+                </select>
+              </div>
+              <div class="col-12">
+                <label class="form-label fw-bold">Mensagem</label>
+                <textarea class="form-control" name="message" rows="5" required></textarea>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-lg w-100 px-5" style="background-color: ${COLORS.primary}; color: white; font-weight: 600;">
+                  ENVIAR MENSAGEM
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+
+  // Form handler
+  const form = document.getElementById("contact-form");
+  if (form) {
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      alert("Mensagem enviada!");
+      form.reset();
+    });
+  }
+}
+
+// Footer
+function renderFooter() {
+  const footer = document.getElementById("footer");
+  const year = new Date().getFullYear();
+  
+  footer.innerHTML = `
+    <footer class="text-white pt-5 pb-4" style="background-color: ${COLORS.footerBackground};">
+      <div class="container-fluid px-3 px-md-5">
+        <div class="row mb-5 g-4 g-md-5">
+          <div class="col-12 col-md-4">
+            <h5 class="fw-bold mb-3">
+              ${CONTENT.company.name}
+              <span style="color: ${COLORS.primary};">${CONTENT.company.nameHighlight}</span>
+            </h5>
+            <p class="small text-muted mb-3">${CONTENT.footer.description}</p>
+            <div class="d-flex gap-3 mt-4">
+              ${CONTENT.footer.social.map(social => `
+                <a href="${social.href}" target="_blank" rel="noopener" title="${social.label}" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 300ms;">
+                  ${social.icon}
+                </a>
+              `).join("")}
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <h6 class="fw-bold mb-3" style="border-left: 3px solid ${COLORS.primary}; padding-left: 12px;">
+              Menu
+            </h6>
+            <ul class="list-unstyled small">
+              ${CONTENT.navigation.map(nav => `
+                <li class="mb-2">
+                  <a href="${nav.href}" style="color: rgba(255,255,255,0.7); text-decoration: none;">
+                    ${nav.label}
+                  </a>
+                </li>
+              `).join("")}
+            </ul>
+          </div>
+          <div class="col-12 col-md-4">
+            <h6 class="fw-bold mb-3" style="border-left: 3px solid ${COLORS.primary}; padding-left: 12px;">
+              Contato
+            </h6>
+            <ul class="list-unstyled small text-muted">
+              ${CONTENT.contact.info.map(info => `
+                <li class="mb-2">${info.value}</li>
+              `).join("")}
+            </ul>
+          </div>
+        </div>
+        <hr style="border-color: ${COLORS.borderGray800}; opacity: 0.3;">
+        <div class="row align-items-center small text-muted">
+          <div class="col-md-6">
+            © ${year} ${CONTENT.footer.copyright}
+          </div>
+          <div class="col-md-6 text-end mt-3 mt-md-0">
+            <a href="${CONTENT.footer.developer.url}" target="_blank" rel="noopener">
+              <img src="${CONTENT.footer.developer.logo}" alt="${CONTENT.footer.developer.name}" height="24" style="opacity: 0.7;">
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  `;
+}
+
+// Initialize app
+function initializeApp() {
+  try {
+    validateConfig({ COLORS, TYPOGRAPHY, CONTENT, SEO });
+    injectSEO();
+    injectGoogleFonts();
+    renderHeader();
+    renderHero();
+    renderFeatures();
+    renderProjects();
+    renderAbout();
+    renderContact();
+    renderFooter();
+  } catch (err) {
+    console.error("❌ [App]:", err);
+    const main = document.getElementById(SELECTORS.MAIN.replace("#", ""));
+    if (main) {
+      main.innerHTML = `
+        <div style="padding: 40px; text-align: center; color: #d32f2f;">
+          <h1>⚠️ Erro ao inicializar</h1>
+          <p>${err.message}</p>
+        </div>
+      `;
+    }
+  }
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initializeApp);
+} else {
+  initializeApp();
+}
