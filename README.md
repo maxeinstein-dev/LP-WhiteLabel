@@ -166,8 +166,6 @@ LP-WhiteLabel/
 └── .git/                          ← Repositório Git (GitHub Pages)
 ```
 
-**Nota:** O arquivo `styles.css` consolida todos os estilos do site (anteriormente `animations.css`). Contém apenas CSS essencial, evitando código não utilizado.
-
 ## 🏗️ Stack Técnico
 
 | Tecnologia   | Versão | Uso                                  | CDN          | Status     |
