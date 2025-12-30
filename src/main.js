@@ -485,18 +485,20 @@ function renderFooter() {
       <div class="container-fluid px-3 px-md-5">
         <div class="row mb-5 g-4 g-md-5">
           <div class="col-12 col-md-4">
-            <h5 class="fw-bold mb-3">
+            <h5 class="fw-bold mb-3" style="color: ${COLORS.textInverse};">
               ${CONTENT.company.name}
               <span style="color: ${COLORS.primary};">${
     CONTENT.company.nameHighlight
   }</span>
             </h5>
-            <p class="small text-muted mb-3">${CONTENT.footer.description}</p>
+            <p class="small mb-3" style="color: ${COLORS.whiteOpacity80};">${
+    CONTENT.footer.description
+  }</p>
             <div class="d-flex gap-3 mt-4">
               ${CONTENT.footer.social
                 .map(
                   (social) => `
-                <a href="${social.href}" target="_blank" rel="noopener" title="${social.label}" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 300ms;">
+                <a href="${social.href}" target="_blank" rel="noopener" title="${social.label}" style="color: ${COLORS.whiteOpacity80}; text-decoration: none; transition: color 300ms;">
                   ${social.icon}
                 </a>
               `
@@ -507,15 +509,17 @@ function renderFooter() {
           <div class="col-12 col-md-4">
             <h6 class="fw-bold mb-3" style="border-left: 3px solid ${
               COLORS.primary
-            }; padding-left: 12px;">
+            }; padding-left: 12px; color: ${COLORS.textInverse};">
               Menu
             </h6>
-            <ul class="list-unstyled small" style="color: rgba(255,255,255,0.9);">
+            <ul class="list-unstyled small" style="color: ${
+              COLORS.whiteOpacity90
+            };">
               ${CONTENT.navigation
                 .map(
                   (nav) => `
                 <li class="mb-2">
-                  <a href="${nav.href}" style="color: rgba(255,255,255,0.9); text-decoration: none;">
+                  <a href="${nav.href}" style="color: ${COLORS.whiteOpacity90}; text-decoration: none;">
                     ${nav.label}
                   </a>
                 </li>
@@ -527,10 +531,12 @@ function renderFooter() {
           <div class="col-12 col-md-4">
             <h6 class="fw-bold mb-3" style="border-left: 3px solid ${
               COLORS.primary
-            }; padding-left: 12px;">
+            }; padding-left: 12px; color: ${COLORS.textInverse};">
               Contato
             </h6>
-            <ul class="list-unstyled small" style="color: rgba(255,255,255,0.9);">
+            <ul class="list-unstyled small" style="color: ${
+              COLORS.whiteOpacity90
+            };">
               ${CONTENT.contact.info
                 .map(
                   (info) => `
@@ -542,7 +548,9 @@ function renderFooter() {
           </div>
         </div>
         <hr style="border-color: ${COLORS.borderGray800}; opacity: 0.3;">
-        <div class="row align-items-center small" style="color: rgba(255,255,255,0.8);">
+        <div class="row align-items-center small" style="color: ${
+          COLORS.whiteOpacity80
+        };">
           <div class="col-md-6">
             © ${year} ${CONTENT.footer.copyright}
           </div>
