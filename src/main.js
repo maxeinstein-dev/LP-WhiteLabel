@@ -67,7 +67,7 @@ function renderHeader() {
     CONTENT.company.nameHighlight
   }</span>
         </a>
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-label="Menu de navegação">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="offcanvas offcanvas-end" id="offcanvasNavbar">
@@ -148,10 +148,10 @@ function renderHero() {
         </h1>
         <p class="lead mb-5 fs-5">${CONTENT.hero.subtitle}</p>
         <div class="d-flex gap-3 justify-content-center flex-wrap">
-          <a href="${CONTENT.hero.cta.link}" class="btn btn-lg px-5" style="background-color: ${COLORS.primary}; border: none; color: white; font-weight: 600;">
+          <a href="${CONTENT.hero.cta.link}" class="btn btn-lg px-5" style="background-color: ${COLORS.primaryDark}; border: none; color: white; font-weight: 600; min-height: 48px;" aria-label="${CONTENT.hero.cta.label}">
             ${CONTENT.hero.cta.label}
           </a>
-          <a href="${CONTENT.hero.ctaSecondary.link}" class="btn btn-lg btn-outline-light px-5" style="font-weight: 600;">
+          <a href="${CONTENT.hero.ctaSecondary.link}" class="btn btn-lg btn-outline-light px-5" style="font-weight: 600; min-height: 48px;" aria-label="${CONTENT.hero.ctaSecondary.label}">
             ${CONTENT.hero.ctaSecondary.label}
           </a>
         </div>
@@ -168,9 +168,9 @@ function renderFeatures() {
     <section id="features" class="py-5 py-md-6" style="background: #f9fafb;">
       <div class="container-fluid px-3 px-md-5">
         <div class="text-center mb-5">
-          <h3 class="display-5 fw-bold" style="color: ${COLORS.secondary};">${
+          <h2 class="display-5 fw-bold" style="color: ${COLORS.secondary};">${
     CONTENT.features.title
-  }</h3>
+  }</h2>
           <div class="mx-auto my-4" style="width: 96px; height: 4px; background-color: ${
             COLORS.primary
           };"></div>
@@ -189,9 +189,9 @@ function renderFeatures() {
               };">
                     ${getFeatureIcon(feature.icon)}
                   </div>
-                  <h5 class="card-title fw-bold" style="color: ${
+                  <h4 class="card-title fw-bold" style="color: ${
                     COLORS.secondary
-                  };">${feature.title}</h5>
+                  };">${feature.title}</h4>
                   <p class="card-text text-muted">${feature.description}</p>
                 </div>
               </div>
@@ -213,9 +213,9 @@ function renderProjects() {
     <section id="projects" class="py-5 py-md-6" style="background: #f3f4f6;">
       <div class="container-fluid px-3 px-md-5">
         <div class="text-center mb-5">
-          <h3 class="display-5 fw-bold" style="color: ${COLORS.secondary};">${
+          <h2 class="display-5 fw-bold" style="color: ${COLORS.secondary};">${
     CONTENT.projects.title
-  }</h3>
+  }</h2>
           <div class="mx-auto my-4" style="width: 96px; height: 4px; background-color: ${
             COLORS.primary
           };"></div>
@@ -229,15 +229,15 @@ function renderProjects() {
               <div class="swiper-slide h-auto">
                 <div class="card border-0 shadow-sm h-100">
                   <div class="position-relative overflow-hidden" style="height: 256px;">
-                    <span class="badge position-absolute top-0 start-0 m-3 fs-6" style="background-color: ${COLORS.primary};">
+                    <span class="badge position-absolute top-0 start-0 m-3 fs-6" style="background-color: ${COLORS.primaryDark}; color: white;">
                       ${project.status}
                     </span>
                     <img src="${project.image}" alt="${project.title}" class="w-100 h-100" style="object-fit: cover;">
                   </div>
                   <div class="card-body d-flex flex-column">
-                    <h5 class="card-title fw-bold" style="color: ${COLORS.secondary};">${project.title}</h5>
+                    <h4 class="card-title fw-bold" style="color: ${COLORS.secondary};">${project.title}</h4>
                     <p class="card-text text-muted flex-grow-1">${project.description}</p>
-                    <button class="btn btn-sm px-3" style="background-color: ${COLORS.primary}; color: white; width: fit-content; font-weight: 600;">
+                    <button class="btn btn-sm px-3" style="background-color: ${COLORS.primaryDark}; color: white; width: fit-content; font-weight: 600;" aria-label="Ver detalhes de ${project.title}">
                       Ver Detalhes
                     </button>
                   </div>
@@ -255,8 +255,9 @@ function renderProjects() {
       <style>
         .swiper-button-prev,
         .swiper-button-next {
-          width: 50px;
-          height: 50px;
+          width: 48px;
+          height: 48px;
+          min-height: 48px;
           background-color: ${COLORS.carouselArrowBg};
           border-radius: 50%;
           box-shadow: 0 2px 8px ${COLORS.carouselArrowShadow};
@@ -270,6 +271,9 @@ function renderProjects() {
         }
         .swiper-pagination-bullet {
           background-color: ${COLORS.carouselDotDefault};
+          width: 12px;
+          height: 12px;
+          margin: 0 8px;
         }
         .swiper-pagination-bullet-active {
           background-color: ${COLORS.primary};
@@ -350,11 +354,11 @@ function renderAbout() {
             }; letter-spacing: 2px;">
               ${CONTENT.about.tagline}
             </span>
-            <h3 class="display-5 fw-bold mt-3 mb-4" style="color: ${
+            <h2 class="display-5 fw-bold mt-3 mb-4" style="color: ${
               COLORS.secondary
             };">
               ${CONTENT.about.title}
-            </h3>
+            </h2>
             <p class="lead text-muted mb-4">${CONTENT.about.description}</p>
             <ul class="list-unstyled mb-4">
               ${CONTENT.about.highlights
@@ -369,8 +373,8 @@ function renderAbout() {
                 .join("")}
             </ul>
             <a href="#contact" class="btn btn-lg px-5" style="background-color: ${
-              COLORS.primary
-            }; color: white; font-weight: 600;">
+              COLORS.primaryDark
+            }; color: white; font-weight: 600; min-height: 48px;" aria-label="Ir para seção de contato">
               ENTRE EM CONTATO
             </a>
           </div>
@@ -393,19 +397,19 @@ function renderContact() {
           }; letter-spacing: 2px;">
             ${CONTENT.contact.tagline}
           </span>
-          <h3 class="display-5 fw-bold mt-3" style="color: ${
+          <h2 class="display-5 fw-bold mt-3" style="color: ${
             COLORS.secondary
           };">
             ${CONTENT.contact.title}
-          </h3>
+          </h2>
           <p class="text-muted mt-3">${CONTENT.contact.subtitle}</p>
         </div>
         <div class="row g-4 g-md-5">
           <div class="col-12 col-lg-4">
             <div class="bg-light p-4 rounded">
-              <h5 class="fw-bold mb-4" style="color: ${
+              <h3 class="fw-bold mb-4" style="color: ${
                 COLORS.secondary
-              };">Informações</h5>
+              };">Informações</h3>
               ${CONTENT.contact.info
                 .map(
                   (info) => `
@@ -450,8 +454,8 @@ function renderContact() {
               </div>
               <div class="col-12">
                 <button type="submit" class="btn btn-lg w-100 px-5" style="background-color: ${
-                  COLORS.primary
-                }; color: white; font-weight: 600; min-height: 48px;">
+                  COLORS.primaryDark
+                }; color: white; font-weight: 600; min-height: 48px;" aria-label="Enviar formulário de contato">
                   ENVIAR MENSAGEM
                 </button>
               </div>
