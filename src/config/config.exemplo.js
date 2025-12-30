@@ -280,13 +280,8 @@ export const SETTINGS = {
   },
   ui: { overlayBlurPx: 12 },
   cdn: {
-    jquery: "https://code.jquery.com/jquery-3.7.1.min.js",
-    slickJs:
-      "https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js",
-    slickCss:
-      "https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css",
-    slickThemeCss:
-      "https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css",
+    swiperJs: "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js",
+    swiperCss: "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css",
   },
 };
 
