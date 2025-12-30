@@ -26,25 +26,6 @@ export const BREAKPOINTS = {
 };
 
 /**
- * Classe Tailwind CSS comuns
- */
-export const CSS_CLASSES = {
-  // Transições
-  TRANSITION_COLORS: "transition-colors",
-  TRANSITION_ALL: "transition-all",
-
-  // Display
-  HIDDEN_MOBILE: "hidden md:hidden",
-  VISIBLE_MOBILE: "md:hidden",
-  HIDDEN_DESKTOP: "md:hidden",
-  VISIBLE_DESKTOP: "hidden md:flex",
-
-  // Spacing
-  CONTAINER_PADDING: "px-6",
-  MAX_WIDTH: "max-w-7xl",
-};
-
-/**
  * Seletores DOM
  */
 export const SELECTORS = {
@@ -80,7 +61,6 @@ export const LIMITS = {
 export default {
   TIMING,
   BREAKPOINTS,
-  CSS_CLASSES,
   SELECTORS,
   ARIA,
   LIMITS,

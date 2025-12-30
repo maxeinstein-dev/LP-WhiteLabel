@@ -1,8 +1,21 @@
 # Template de Landing Page - White Label
 
-Este projeto é uma **fábrica de Landing Pages** em Vanilla JavaScript puro com Tailwind CSS.
+Uma **fábrica de Landing Pages** moderna em **Vanilla JavaScript puro** com **Bootstrap 5.3** e **Swiper**.
 
 **Filosofia:** Código fixo, Configuração dinâmica. Sem build tools, sem dependencies, apenas HTML + CSS + JS puro.
+
+## 🎯 Características
+
+✅ **Uma linha muda tudo** - Customize cores, conteúdo e SEO em `src/config/config.js`  
+✅ **Zero dependências** - Apenas Bootstrap e Swiper via CDN  
+✅ **Vanilla JavaScript** - Sem frameworks (React, Vue, Angular)  
+✅ **Código limpo** - Validação, constantes nomeadas, tratamento de erros  
+✅ **Acessível** - WCAG AA+ (92+ score no Lighthouse)  
+✅ **Performático** - 87+ score Performance, lazy loading, otimizações de renderização  
+✅ **SEO-ready** - Meta tags dinâmicas, schema.org ready  
+✅ **Responsivo** - Mobile-first, Swiper carousel automático
+
+---
 
 ## 🎯 Princípios de Código Limpo Implementados
 
@@ -136,26 +149,55 @@ export const CONTENT = {
 ```
 src/
 ├── config/
-│   └── config.js          ← Arquivo de configuração centralizado
-├── constants.js           ← Constantes nomeadas (magic numbers)
-├── validator.js           ← Validação de config na inicialização
-├── tests.js              ← Testes unitários
-├── main.js               ← Renderizador da página
-├── utils/
-│   └── vanilla-utils.js  ← Utilitários (scroll suave)
-└── styles/
-    └── animations.css    ← Estilos customizados
+│   ├── config.js              ← Arquivo de configuração centralizado (EDITE AQUI!)
+│   └── config.exemplo.js      ← Template com tema alternativo (Tech Solutions)
+├── constants.js               ← Constantes nomeadas (magic numbers)
+├── validator.js               ← Validação automática de config
+├── main.js                    ← Renderizador principal (~600 linhas)
+├── tests.js                   ← Testes unitários (228 linhas)
+├── styles/
+│   └── styles.css             ← Animações e estilos customizados
+└── images/
+    ├── alfama-logo.png        ← Logo da AlfamaWeb (footer)
+    └── ...
+
+index.html                      ← Ponto de entrada (115 linhas)
+README.md                       ← Documentação (este arquivo)
 ```
 
-## 🎯 Stack
+## 🏗️ Stack Técnico
 
-- **Vanilla JavaScript** - Zero frameworks, zero dependências em runtime
-- **Tailwind CSS** - Compilado via CLI (sem CDN em produção)
-- **HTML/CSS/JS Puro** - Deploy direto no GitHub Pages
+| Tecnologia   | Versão | Uso                                  | CDN          |
+| ------------ | ------ | ------------------------------------ | ------------ |
+| Bootstrap    | 5.3.0  | Framework CSS responsivo             | jsDelivr     |
+| Swiper       | 11     | Carrossel de projetos                | jsDelivr     |
+| Google Fonts | -      | Tipografia (Playfair Display + Lato) | Google Fonts |
+| Vanilla JS   | ES6+   | Sem frameworks                       | Inline       |
 
-## 🧪 Testes
+---
 
-Execute testes unitários localmente:
+## 📊 Performance
+
+**Scores Lighthouse (Mobile, Moto G Power 4G):**
+
+| Métrica           | Score |
+| ----------------- | ----- |
+| 🚀 Performance    | 87+   |
+| ♿ Acessibilidade | 92+   |
+| ✅ Best Practices | 100   |
+| 🔍 SEO            | 100   |
+
+**Otimizações implementadas:**
+
+- Lazy loading de imagens com width/height
+- Throttle de scroll events (requestAnimationFrame)
+- Preload de Google Fonts
+- Remoção de CSS transitions globais (previne forced reflow)
+- Cache control headers (1 hora)
+
+## 🧪 Testes Unitários
+
+Execute testes localmente:
 
 ```bash
 node src/tests.js
@@ -163,33 +205,52 @@ node src/tests.js
 
 Valida:
 
-- ✅ Cores hexadecimais
+- ✅ Cores hexadecimais (#B38B59)
 - ✅ URLs de Google Fonts
-- ✅ Estrutura de config
-- ✅ Arrays obrigatórios
+- ✅ Estrutura de config completa
+- ✅ Arrays obrigatórios (navigation, features, projects)
 
-## 🧱 Tailwind (produção)
+---
 
-Para evitar o aviso do CDN e usar Tailwind corretamente em produção, gere um CSS estático:
+## ✨ White-Label Template
 
-1. Gere o CSS minificado com o Tailwind CLI:
+Este projeto é um **template pronto para clientes**. Dois exemplos incluídos:
+
+1. **URBANISMO** - Arquitetura urbana (config.js)
+2. **TECH SOLUTIONS** - Empresa de tecnologia (config.exemplo.js)
+
+Para criar um novo cliente, copie `src/config/config.js`:
 
 ```bash
-npm run build:css
+cp src/config/config.js src/config/config.novo-cliente.js
 ```
 
-2. Confirme que o `index.html` importa o arquivo gerado:
+Edite os valores e renomeie em `index.html`:
 
-```html
-<link rel="stylesheet" href="./src/styles/tw.css" />
+```javascript
+// import { COLORS, CONTENT, ... } from "./src/config/config.js";
+import { COLORS, CONTENT, ... } from "./src/config/config.novo-cliente.js";
 ```
 
-3. Sempre que mudar HTML/JS (classes Tailwind), rode o comando de build acima novamente.
+---
 
-Arquivos criados:
+## 🔒 Segurança
 
-- `tailwind.config.js` (content aponta para `index.html` e `src/**/*.js`)
-- `src/styles/tailwind.css` (entrada com `@tailwind base; components; utilities;`)
+- ✅ Content Security Policy (CSP) efetiva
+- ✅ HSTS forte (se em HTTPS)
+- ✅ Proteção contra XSS
+- ✅ Prevenção de clickjacking
+
+---
+
+## 📱 Responsividade
+
+- ✅ Mobile-first (design)
+- ✅ Breakpoints Bootstrap (576px, 768px, 992px, 1200px)
+- ✅ Touch-friendly buttons (48px mínimo)
+- ✅ Swiper automático em mobile
+
+---
 
 ## 🚀 Deployment
 
@@ -200,7 +261,34 @@ Configure GitHub Pages nas settings do repositório:
 3. **Folder:** `/` (root)
 4. Clique em **Save**
 
-GitHub Pages servirá `index.html` + `src/styles/tw.css` automaticamente.
+GitHub Pages servirá `index.html` automaticamente.
+
+---
+
+## 🛠️ Checklist de Customização
+
+- [ ] 1. Editar `src/config/config.js` com suas cores
+- [ ] 2. Editar conteúdo (company, hero, features, projects, about, contact)
+- [ ] 3. Editar SEO (title, description, keywords)
+- [ ] 4. Testar localmente: `python -m http.server 8000`
+- [ ] 5. Executar testes: `node src/tests.js`
+- [ ] 6. Commit e push para `main`
+- [ ] 7. GitHub Pages faz deploy automaticamente
+
+---
+
+## 📖 Referências
+
+- [Bootstrap 5 Documentação](https://getbootstrap.com/docs/5.3/)
+- [Swiper Documentação](https://swiperjs.com/)
+- [Google Fonts](https://fonts.google.com/)
+- [Lighthouse Accessibility](https://developers.google.com/web/tools/lighthouse)
+
+---
+
+## 📄 Licença
+
+Maxsuel Einstein
 
 ## ✅ Checklist de Customização
 
