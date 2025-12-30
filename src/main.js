@@ -134,9 +134,10 @@ function renderHeader() {
     { passive: true }
   );
   updateNavbar();
+}
 
-  // Hero section
-  function renderHero() {
+// Hero section
+function renderHero() {
     const main = document.getElementById("main");
 
     main.innerHTML = `
@@ -159,10 +160,10 @@ function renderHeader() {
       </div>
     </section>
   `;
-  }
+}
 
-  // Features section
-  function renderFeatures() {
+// Features section
+function renderFeatures() {
     const main = document.getElementById("main");
 
     main.innerHTML += `
@@ -204,10 +205,10 @@ function renderHeader() {
       </div>
     </section>
   `;
-  }
+}
 
-  // Projects section with Swiper
-  function renderProjects() {
+// Projects section with Swiper
+function renderProjects() {
     const main = document.getElementById("main");
 
     main.innerHTML += `
@@ -334,10 +335,10 @@ function renderHeader() {
     }
 
     setTimeout(initSwiper, SETTINGS.production ? 2200 : 1500);
-  }
+}
 
-  // About section
-  function renderAbout() {
+// About section
+function renderAbout() {
     const main = document.getElementById("main");
 
     main.innerHTML += `
@@ -383,10 +384,10 @@ function renderHeader() {
       </div>
     </section>
   `;
-  }
+}
 
-  // Contact section
-  function renderContact() {
+// Contact section
+function renderContact() {
     const main = document.getElementById("main");
 
     main.innerHTML += `
@@ -477,9 +478,10 @@ function renderHeader() {
       });
     }
   }
+}
 
-  // Footer
-  function renderFooter() {
+// Footer
+function renderFooter() {
     const footer = document.getElementById("footer");
     const year = new Date().getFullYear();
 
@@ -572,10 +574,10 @@ function renderHeader() {
       </div>
     </footer>
   `;
-  }
+}
 
-  // Initialize app
-  function initializeApp() {
+// Initialize app
+function initializeApp() {
     try {
       validateConfig({ COLORS, TYPOGRAPHY, CONTENT, SEO });
       injectSEO();
@@ -599,10 +601,10 @@ function renderHeader() {
       }
     }
   }
+}
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initializeApp);
-  } else {
-    initializeApp();
-  }
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initializeApp);
+} else {
+  initializeApp();
 }
