@@ -45,15 +45,6 @@ function injectSEO() {
   }
 }
 
-// Google Fonts injection
-function injectGoogleFonts() {
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = TYPOGRAPHY.googleFontsUrl;
-  document.head.appendChild(link);
-  document.body.style.fontFamily = TYPOGRAPHY.sans;
-}
-
 // Header/Navbar
 function renderHeader() {
   const header = document.getElementById("header");
@@ -102,53 +93,47 @@ function renderHeader() {
     </nav>
   `;
 
-  // Navbar scroll effect
+  // Navbar scroll effect com throttling
   let wasScrolled = false;
+  let ticking = false;
   function updateNavbar() {
     const navbar = document.getElementById("main-header");
     const isScrolled = window.scrollY > 10;
-    // Navbar scroll effect com throttling
-    let wasScrolled = false;
-    let ticking = false;
-    function updateNavbar() {
-      const navbar = document.getElementById("main-header");
-      const isScrolled = window.scrollY > 10;
 
-      if (isScrolled !== wasScrolled) {
-        wasScrolled = isScrolled;
-        if (isScrolled) {
-          navbar.style.background = "rgba(255, 255, 255, 0.95)";
-          navbar.style.backdropFilter = "blur(12px)";
-          navbar.classList.add("shadow-sm");
-          navbar
-            .querySelectorAll(".nav-link")
-            .forEach((link) => (link.style.color = "#000 !important"));
-          navbar.querySelector(".navbar-brand").style.color = "#000";
-        } else {
-          navbar.style.background = "transparent";
-          navbar.style.backdropFilter = "none";
-          navbar.classList.remove("shadow-sm");
-          navbar
-            .querySelectorAll(".nav-link")
-            .forEach((link) => (link.style.color = "#fff !important"));
-          navbar.querySelector(".navbar-brand").style.color = "#fff";
-        }
+    if (isScrolled !== wasScrolled) {
+      wasScrolled = isScrolled;
+      if (isScrolled) {
+        navbar.style.background = "rgba(255, 255, 255, 0.95)";
+        navbar.style.backdropFilter = "blur(12px)";
+        navbar.classList.add("shadow-sm");
+        navbar
+          .querySelectorAll(".nav-link")
+          .forEach((link) => (link.style.color = "#000 !important"));
+        navbar.querySelector(".navbar-brand").style.color = "#000";
+      } else {
+        navbar.style.background = "transparent";
+        navbar.style.backdropFilter = "none";
+        navbar.classList.remove("shadow-sm");
+        navbar
+          .querySelectorAll(".nav-link")
+          .forEach((link) => (link.style.color = "#fff !important"));
+        navbar.querySelector(".navbar-brand").style.color = "#fff";
       }
-      ticking = false;
     }
-
-    window.addEventListener(
-      "scroll",
-      () => {
-        if (!ticking) {
-          requestAnimationFrame(updateNavbar);
-          ticking = true;
-        }
-      },
-      { passive: true }
-    );
-    updateNavbar();
+    ticking = false;
   }
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        requestAnimationFrame(updateNavbar);
+        ticking = true;
+      }
+    },
+    { passive: true }
+  );
+  updateNavbar();
 
   // Hero section
   function renderHero() {
@@ -594,7 +579,6 @@ function renderHeader() {
     try {
       validateConfig({ COLORS, TYPOGRAPHY, CONTENT, SEO });
       injectSEO();
-      injectGoogleFonts();
       renderHeader();
       renderHero();
       renderFeatures();
