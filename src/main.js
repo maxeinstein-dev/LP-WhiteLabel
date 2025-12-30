@@ -138,9 +138,9 @@ function renderHeader() {
 
 // Hero section
 function renderHero() {
-    const main = document.getElementById("main");
+  const main = document.getElementById("main");
 
-    main.innerHTML = `
+  main.innerHTML = `
     <section id="hero" class="position-relative d-flex align-items-center justify-content-center" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${CONTENT.hero.image}') center/cover; min-height: 100vh; background-attachment: fixed;">
       <div class="container-fluid px-3 px-md-5 text-center text-white position-relative" style="z-index: 2;">
         <h1 class="display-3 fw-bold mb-4" style="line-height: 1.2;">
@@ -164,15 +164,15 @@ function renderHero() {
 
 // Features section
 function renderFeatures() {
-    const main = document.getElementById("main");
+  const main = document.getElementById("main");
 
-    main.innerHTML += `
+  main.innerHTML += `
     <section id="features" class="py-5 py-md-6" style="background: #f9fafb;">
       <div class="container-fluid px-3 px-md-5">
         <div class="text-center mb-5">
           <h2 class="display-5 fw-bold" style="color: ${COLORS.secondary};">${
-      CONTENT.features.title
-    }</h2>
+    CONTENT.features.title
+  }</h2>
           <div class="mx-auto my-4" style="width: 96px; height: 4px; background-color: ${
             COLORS.primary
           };"></div>
@@ -209,15 +209,15 @@ function renderFeatures() {
 
 // Projects section with Swiper
 function renderProjects() {
-    const main = document.getElementById("main");
+  const main = document.getElementById("main");
 
-    main.innerHTML += `
+  main.innerHTML += `
     <section id="projects" class="py-5 py-md-6" style="background: #f3f4f6;">
       <div class="container-fluid px-3 px-md-5">
         <div class="text-center mb-5">
           <h2 class="display-5 fw-bold" style="color: ${COLORS.secondary};">${
-      CONTENT.projects.title
-    }</h2>
+    CONTENT.projects.title
+  }</h2>
           <div class="mx-auto my-4" style="width: 96px; height: 4px; background-color: ${
             COLORS.primary
           };"></div>
@@ -287,68 +287,68 @@ function renderProjects() {
     </section>
   `;
 
-    // Initialize Swiper after a delay
-    const initSwiper = () => {
-      if (window.Swiper) {
-        new window.Swiper(".projects-carousel", {
-          slidesPerView: 3,
-          spaceBetween: 24,
-          pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-          },
-          navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-          },
-          autoplay: {
-            delay: 4000,
-            disableOnInteraction: false,
-          },
-          breakpoints: {
-            0: { slidesPerView: 1, spaceBetween: 16 },
-            768: { slidesPerView: 2, spaceBetween: 20 },
-            1024: { slidesPerView: 3, spaceBetween: 24 },
-          },
-        });
-      }
-    };
-
-    // Lazy load Swiper when section is visible
-    if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              observer.disconnect();
-              initSwiper();
-            }
-          });
+  // Initialize Swiper after a delay
+  const initSwiper = () => {
+    if (window.Swiper) {
+      new window.Swiper(".projects-carousel", {
+        slidesPerView: 3,
+        spaceBetween: 24,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
         },
-        { rootMargin: "200px" }
-      );
-
-      const section = document.getElementById("projects");
-      if (section) observer.observe(section);
-    } else {
-      initSwiper();
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        autoplay: {
+          delay: 4000,
+          disableOnInteraction: false,
+        },
+        breakpoints: {
+          0: { slidesPerView: 1, spaceBetween: 16 },
+          768: { slidesPerView: 2, spaceBetween: 20 },
+          1024: { slidesPerView: 3, spaceBetween: 24 },
+        },
+      });
     }
+  };
 
-    setTimeout(initSwiper, SETTINGS.production ? 2200 : 1500);
+  // Lazy load Swiper when section is visible
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            observer.disconnect();
+            initSwiper();
+          }
+        });
+      },
+      { rootMargin: "200px" }
+    );
+
+    const section = document.getElementById("projects");
+    if (section) observer.observe(section);
+  } else {
+    initSwiper();
+  }
+
+  setTimeout(initSwiper, SETTINGS.production ? 2200 : 1500);
 }
 
 // About section
 function renderAbout() {
-    const main = document.getElementById("main");
+  const main = document.getElementById("main");
 
-    main.innerHTML += `
+  main.innerHTML += `
     <section id="about" class="py-5 py-md-6 bg-white">
       <div class="container-fluid px-3 px-md-5">
         <div class="row align-items-center g-4 g-md-5">
           <div class="col-12 col-lg-6">
             <img src="${CONTENT.about.image}" alt="${
-      CONTENT.about.imageAlt
-    }" class="img-fluid shadow-lg rounded" style="max-height: 500px; object-fit: cover;" width="800" height="1000" loading="lazy">
+    CONTENT.about.imageAlt
+  }" class="img-fluid shadow-lg rounded" style="max-height: 500px; object-fit: cover;" width="800" height="1000" loading="lazy">
           </div>
           <div class="col-12 col-lg-6">
             <span class="text-uppercase fw-bold small" style="color: ${
@@ -388,9 +388,9 @@ function renderAbout() {
 
 // Contact section
 function renderContact() {
-    const main = document.getElementById("main");
+  const main = document.getElementById("main");
 
-    main.innerHTML += `
+  main.innerHTML += `
     <section id="contact" class="py-5 py-md-6 bg-white">
       <div class="container-fluid px-3 px-md-5">
         <div class="text-center mb-5">
@@ -468,24 +468,23 @@ function renderContact() {
     </section>
   `;
 
-    // Form handler
-    const form = document.getElementById("contact-form");
-    if (form) {
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        alert("Mensagem enviada!");
-        form.reset();
-      });
-    }
+  // Form handler
+  const form = document.getElementById("contact-form");
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      alert("Mensagem enviada!");
+      form.reset();
+    });
   }
 }
 
 // Footer
 function renderFooter() {
-    const footer = document.getElementById("footer");
-    const year = new Date().getFullYear();
+  const footer = document.getElementById("footer");
+  const year = new Date().getFullYear();
 
-    footer.innerHTML = `
+  footer.innerHTML = `
     <footer class="text-white pt-5 pb-4" style="background-color: ${
       COLORS.footerBackground
     };">
@@ -495,12 +494,12 @@ function renderFooter() {
             <h5 class="fw-bold mb-3" style="color: ${COLORS.textInverse};">
               ${CONTENT.company.name}
               <span style="color: ${COLORS.primary};">${
-      CONTENT.company.nameHighlight
-    }</span>
+    CONTENT.company.nameHighlight
+  }</span>
             </h5>
             <p class="small mb-3" style="color: ${COLORS.whiteOpacity80};">${
-      CONTENT.footer.description
-    }</p>
+    CONTENT.footer.description
+  }</p>
             <div class="d-flex gap-3 mt-4">
               ${CONTENT.footer.social
                 .map(
@@ -566,8 +565,8 @@ function renderFooter() {
               CONTENT.footer.developer.url
             }" target="_blank" rel="noopener">
               <img src="${CONTENT.footer.developer.logo}" alt="${
-      CONTENT.footer.developer.name
-    }" height="24" width="80" style="opacity: 0.8;" loading="lazy">
+    CONTENT.footer.developer.name
+  }" height="24" width="80" style="opacity: 0.8;" loading="lazy">
             </a>
           </div>
         </div>
@@ -578,27 +577,26 @@ function renderFooter() {
 
 // Initialize app
 function initializeApp() {
-    try {
-      validateConfig({ COLORS, TYPOGRAPHY, CONTENT, SEO });
-      injectSEO();
-      renderHeader();
-      renderHero();
-      renderFeatures();
-      renderProjects();
-      renderAbout();
-      renderContact();
-      renderFooter();
-    } catch (err) {
-      console.error("❌ [App]:", err);
-      const main = document.getElementById(SELECTORS.MAIN.replace("#", ""));
-      if (main) {
-        main.innerHTML = `
+  try {
+    validateConfig({ COLORS, TYPOGRAPHY, CONTENT, SEO });
+    injectSEO();
+    renderHeader();
+    renderHero();
+    renderFeatures();
+    renderProjects();
+    renderAbout();
+    renderContact();
+    renderFooter();
+  } catch (err) {
+    console.error("❌ [App]:", err);
+    const main = document.getElementById(SELECTORS.MAIN.replace("#", ""));
+    if (main) {
+      main.innerHTML = `
         <div style="padding: 40px; text-align: center; color: #d32f2f;">
           <h1>⚠️ Erro ao inicializar</h1>
           <p>${err.message}</p>
         </div>
       `;
-      }
     }
   }
 }
