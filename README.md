@@ -147,25 +147,26 @@ export const CONTENT = {
 ## 📁 Estrutura
 
 ```
-src/
-├── config/
-│   ├── config.js              ← Arquivo de configuração centralizado (EDITE AQUI!)
-│   └── config.exemplo.js      ← Template com tema alternativo (Tech Solutions)
-├── constants.js               ← Constantes nomeadas (magic numbers)
-├── validator.js               ← Validação automática de config
-├── main.js                    ← Renderizador principal (ES6 modules, 600+ linhas)
-├── tests.js                   ← Testes unitários sem dependências (228 linhas)
-├── styles/
-│   └── styles.css             ← Estilos globais (animações, componentes customizados)
-└── images/
-    ├── alfama-logo.png        ← Logo da AlfamaWeb (footer)
-    └── ...
-
-index.html                      ← Ponto de entrada (preload otimizado)
-README.md                       ← Documentação (este arquivo)
+LP-WhiteLabel/
+├── src/
+│   ├── config/
+│   │   ├── config.js              ← Arquivo de configuração centralizado (EDITE AQUI!)
+│   │   └── config.exemplo.js      ← Template com tema alternativo (Tech Solutions)
+│   ├── styles/
+│   │   └── styles.css             ← Estilos globais (animações, componentes customizados)
+│   ├── images/
+│   │   └── alfama-logo.png        ← Logo da AlfamaWeb (footer)
+│   ├── constants.js               ← Constantes nomeadas (magic numbers)
+│   ├── validator.js               ← Validação automática de config
+│   ├── main.js                    ← Renderizador principal (ES6 modules, 610+ linhas)
+│   └── tests.js                   ← Testes unitários sem dependências
+├── index.html                     ← Ponto de entrada (preload otimizado)
+├── README.md                      ← Documentação (este arquivo)
+├── .gitignore                     ← Arquivos ignorados no Git
+└── .git/                          ← Repositório Git (GitHub Pages)
 ```
 
-**Nota:** O arquivo `styles.css` consolida todos os estilos do site (anteriormente `animations.css`). Contém apenas o necessário, evitando CSS não utilizado.
+**Nota:** O arquivo `styles.css` consolida todos os estilos do site (anteriormente `animations.css`). Contém apenas CSS essencial, evitando código não utilizado.
 
 ## 🏗️ Stack Técnico
 
