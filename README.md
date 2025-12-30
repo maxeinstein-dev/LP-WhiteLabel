@@ -10,9 +10,9 @@ Uma **fábrica de Landing Pages** moderna em **Vanilla JavaScript puro** com **B
 ✅ **Zero dependências** - Apenas Bootstrap e Swiper via CDN  
 ✅ **Vanilla JavaScript** - Sem frameworks (React, Vue, Angular)  
 ✅ **Código limpo** - Validação, constantes nomeadas, tratamento de erros  
-✅ **Acessível** - WCAG AA+ (92+ score no Lighthouse)  
-✅ **Performático** - 87+ score Performance, lazy loading, otimizações de renderização  
-✅ **SEO-ready** - Meta tags dinâmicas, schema.org ready  
+✅ **Acessível** - WCAG AA (92 score no Lighthouse)  
+✅ **Performático** - 94 score Performance, lazy loading, otimizações de renderização  
+✅ **SEO-ready** - Meta tags dinâmicas, schema.org ready (100 SEO score)  
 ✅ **Responsivo** - Mobile-first, Swiper carousel automático
 
 ---
@@ -153,26 +153,28 @@ src/
 │   └── config.exemplo.js      ← Template com tema alternativo (Tech Solutions)
 ├── constants.js               ← Constantes nomeadas (magic numbers)
 ├── validator.js               ← Validação automática de config
-├── main.js                    ← Renderizador principal (~600 linhas)
-├── tests.js                   ← Testes unitários (228 linhas)
+├── main.js                    ← Renderizador principal (ES6 modules, 600+ linhas)
+├── tests.js                   ← Testes unitários sem dependências (228 linhas)
 ├── styles/
-│   └── styles.css             ← Animações e estilos customizados
+│   └── styles.css             ← Estilos globais (animações, componentes customizados)
 └── images/
     ├── alfama-logo.png        ← Logo da AlfamaWeb (footer)
     └── ...
 
-index.html                      ← Ponto de entrada (115 linhas)
+index.html                      ← Ponto de entrada (preload otimizado)
 README.md                       ← Documentação (este arquivo)
 ```
 
+**Nota:** O arquivo `styles.css` consolida todos os estilos do site (anteriormente `animations.css`). Contém apenas o necessário, evitando CSS não utilizado.
+
 ## 🏗️ Stack Técnico
 
-| Tecnologia   | Versão | Uso                                  | CDN          |
-| ------------ | ------ | ------------------------------------ | ------------ |
-| Bootstrap    | 5.3.0  | Framework CSS responsivo             | jsDelivr     |
-| Swiper       | 11     | Carrossel de projetos                | jsDelivr     |
-| Google Fonts | -      | Tipografia (Playfair Display + Lato) | Google Fonts |
-| Vanilla JS   | ES6+   | Sem frameworks                       | Inline       |
+| Tecnologia   | Versão | Uso                                  | CDN          | Status     |
+| ------------ | ------ | ------------------------------------ | ------------ | ---------- |
+| Bootstrap    | 5.3.0  | Framework CSS responsivo             | jsDelivr     | ✅ CDN     |
+| Swiper       | 11     | Carrossel de projetos                | jsDelivr     | ✅ CDN     |
+| Google Fonts | -      | Tipografia (Playfair Display + Lato) | Google Fonts | ✅ Preload |
+| Vanilla JS   | ES6+   | Sem frameworks, modules nativas      | Inline       | ✅ Local   |
 
 ---
 
@@ -180,20 +182,30 @@ README.md                       ← Documentação (este arquivo)
 
 **Scores Lighthouse (Mobile, Moto G Power 4G):**
 
-| Métrica           | Score |
-| ----------------- | ----- |
-| 🚀 Performance    | 87+   |
-| ♿ Acessibilidade | 92+   |
-| ✅ Best Practices | 100   |
-| 🔍 SEO            | 100   |
+| Métrica           | Score   |
+| ----------------- | ------- |
+| 🚀 Performance    | **94**  |
+| ♿ Acessibilidade | **92**  |
+| ✅ Best Practices | **100** |
+| 🔍 SEO            | **100** |
 
 **Otimizações implementadas:**
 
-- Lazy loading de imagens com width/height
-- Throttle de scroll events (requestAnimationFrame)
-- Preload de Google Fonts
-- Remoção de CSS transitions globais (previne forced reflow)
-- Cache control headers (1 hora)
+- ✅ Lazy loading de imagens com width/height
+- ✅ Throttle de scroll events (requestAnimationFrame)
+- ✅ Preload de Google Fonts com display=swap
+- ✅ Remoção de CSS transitions globais (previne forced reflow)
+- ✅ Cache control headers (1 hora)
+- ✅ Estrutura HTML semântica e acessível
+- ✅ Zero console errors em navegadores modernos
+
+**Métricas Core Web Vitals:**
+
+- First Contentful Paint (FCP): 2,4s
+- Largest Contentful Paint (LCP): 2,5s
+- Total Blocking Time (TBT): 0ms ✅
+- Cumulative Layout Shift (CLS): 0 ✅
+- Speed Index: 2,4s
 
 ## 🧪 Testes Unitários
 
@@ -283,21 +295,12 @@ GitHub Pages servirá `index.html` automaticamente.
 - [Swiper Documentação](https://swiperjs.com/)
 - [Google Fonts](https://fonts.google.com/)
 - [Lighthouse Accessibility](https://developers.google.com/web/tools/lighthouse)
+- [PageSpeed Insights](https://pagespeed.web.dev/)
 
 ---
 
 ## 📄 Licença
 
 Maxsuel Einstein
-
-## ✅ Checklist de Customização
-
-1. Editar `src/config/config.js` com suas cores, conteúdo e assets
-2. Testar localmente: `python -m http.server 8000`
-3. Executar testes: `node src/tests.js`
-4. Commit e push para `main`
-5. GitHub Pages faz deploy automaticamente
-
-## 📖 Licença
 
 Maxsuel Einstein
