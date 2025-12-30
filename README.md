@@ -88,19 +88,28 @@ node src/tests.js
 
 ## 🚀 Quick Start
 
-### Desenvolvimento Local
+### Desenvolvimento Local com Live Server (Recomendado)
 
-**Opção 1: Python (builtin)**
+1. **Instale a extensão "Live Server"** no VS Code:
 
-```bash
-python -m http.server 8000
-```
+   - Abra Extensions (Ctrl+Shift+X)
+   - Procure por "Live Server"
+   - Instale a extensão de [Ritwick Dey](https://github.com/ritwickdey/vscode-live-server)
 
-Abra: http://localhost:8000
+2. **Inicie o servidor:**
 
-**Opção 2: VS Code Live Server (extensão)**
+   - Clique com botão direito em `index.html`
+   - Selecione "Open with Live Server"
+   - Ou use o atalho: `Alt+L Alt+O`
 
-- Instale a extensão "Live Server" no VS Code e clique em "Go Live" para servir o `index.html`.
+3. **Seu navegador abrirá automaticamente** em `http://127.0.0.1:5500`
+
+**Benefícios:**
+
+- ✅ Auto-reload ao salvar arquivos
+- ✅ Sem configuração extra
+- ✅ Sem dependências Python/Node
+- ✅ DevTools integrado do VS Code
 
 ### Deployment
 
@@ -281,7 +290,7 @@ GitHub Pages servirá `index.html` automaticamente.
 - [ ] 1. Editar `src/config/config.js` com suas cores
 - [ ] 2. Editar conteúdo (company, hero, features, projects, about, contact)
 - [ ] 3. Editar SEO (title, description, keywords)
-- [ ] 4. Testar localmente: `python -m http.server 8000`
+- [ ] 4. Testar localmente com Live Server (Right-click `index.html` → Open with Live Server)
 - [ ] 5. Executar testes: `node src/tests.js`
 - [ ] 6. Commit e push para `main`
 - [ ] 7. GitHub Pages faz deploy automaticamente
