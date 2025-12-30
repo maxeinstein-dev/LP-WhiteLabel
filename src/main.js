@@ -248,8 +248,8 @@ function renderProjects() {
               .join("")}
           </div>
           <div class="swiper-pagination mt-4"></div>
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev" aria-label="Projeto anterior"></div>
+          <div class="swiper-button-next" aria-label="Próximo projeto"></div>
         </div>
       </div>
       <style>
@@ -510,12 +510,12 @@ function renderFooter() {
             }; padding-left: 12px;">
               Menu
             </h6>
-            <ul class="list-unstyled small">
+            <ul class="list-unstyled small" style="color: rgba(255,255,255,0.9);">
               ${CONTENT.navigation
                 .map(
                   (nav) => `
                 <li class="mb-2">
-                  <a href="${nav.href}" style="color: rgba(255,255,255,0.7); text-decoration: none;">
+                  <a href="${nav.href}" style="color: rgba(255,255,255,0.9); text-decoration: none;">
                     ${nav.label}
                   </a>
                 </li>
@@ -530,7 +530,7 @@ function renderFooter() {
             }; padding-left: 12px;">
               Contato
             </h6>
-            <ul class="list-unstyled small text-muted">
+            <ul class="list-unstyled small" style="color: rgba(255,255,255,0.9);">
               ${CONTENT.contact.info
                 .map(
                   (info) => `
